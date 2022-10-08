@@ -4,6 +4,7 @@ defmodule StripeCart.Application do
   @moduledoc false
 
   use Application
+  import Cachex.Spec
 
   @impl true
   def start(_type, _args) do
@@ -14,6 +15,10 @@ defmodule StripeCart.Application do
       StripeCartWeb.Telemetry,
       # Start the PubSub system
       {Phoenix.PubSub, name: StripeCart.PubSub},
+      {Cachex,
+       name: :stripe_products,
+       warmers: [warmer(module: StripeCart.StripeCacheWarmer, state: %{})]},
+
       # Start the Endpoint (http/https)
       StripeCartWeb.Endpoint
       # Start a worker by calling: StripeCart.Worker.start_link(arg)

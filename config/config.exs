@@ -17,6 +17,8 @@ config :stripe_cart, StripeCartWeb.Endpoint,
   pubsub_server: StripeCart.PubSub,
   live_view: [signing_salt: "LYciOSHB"]
 
+config :stripity_stripe, api_key: System.get_env("STRIPE_API_KEY")
+
 # Configures the mailer
 #
 # By default it uses the "Local" adapter which stores the emails

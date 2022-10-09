@@ -1,6 +1,8 @@
 defmodule StripeCart.Cart do
   alias StripeCart.{Cart, CartItem}
 
+  @derive Jason.Encoder
+
   defstruct items: [], id: nil
 
   def add_item(price_id) do
@@ -17,7 +19,6 @@ defmodule StripeCart.Cart do
     end
   end
 
-  @tag timeout: :infinity
   def add_product(%Cart{items: items}, product) do
     case Enum.find_index(items, fn %CartItem{product: cart_product} -> cart_product.id == product.id end) do
       nil ->

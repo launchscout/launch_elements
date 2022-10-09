@@ -80,7 +80,7 @@ defmodule StripeCart.CartTest do
                Cart.add_item("price_123")
     end
 
-    test "second product to existing cart", %{product: product, product2: product2} do
+    test "second product to existing cart", %{product2: product2} do
       assert {:ok, cart} = Cart.add_item("price_123")
 
       assert {:ok, %Cart{items: [_item, %CartItem{quantity: 1, product: ^product2}]}} =

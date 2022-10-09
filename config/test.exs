@@ -23,6 +23,7 @@ config :stripe_cart, StripeCartWeb.Endpoint,
 # In test we don't send emails.
 config :stripe_cart, StripeCart.Mailer, adapter: Swoosh.Adapters.Test
 
+config :stripe_cart, :supervised_processes, [{Cachex, name: :stripe_products}]
 # Print only warnings and errors during test
 config :logger, level: :warn
 

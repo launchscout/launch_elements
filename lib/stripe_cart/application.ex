@@ -8,22 +8,24 @@ defmodule StripeCart.Application do
 
   @impl true
   def start(_type, _args) do
-    children = [
-      # Start the Ecto repository
-      StripeCart.Repo,
-      # Start the Telemetry supervisor
-      StripeCartWeb.Telemetry,
-      # Start the PubSub system
-      {Phoenix.PubSub, name: StripeCart.PubSub},
-      {Cachex,
-       name: :stripe_products,
-       warmers: [warmer(module: StripeCart.StripeCacheWarmer, state: %{})]},
-
-      # Start the Endpoint (http/https)
-      StripeCartWeb.Endpoint
-      # Start a worker by calling: StripeCart.Worker.start_link(arg)
-      # {StripeCart.Worker, arg}
-    ]
+    children =
+      [
+        # Start the Ecto repository
+        StripeCart.Repo,
+        # Start the Telemetry supervisor
+        StripeCartWeb.Telemetry,
+        # Start the PubSub system
+        {Phoenix.PubSub, name: StripeCart.PubSub},
+        # Start the Endpoint (http/https)
+        StripeCartWeb.Endpoint
+        # Start a worker by calling: StripeCart.Worker.start_link(arg)
+        # {StripeCart.Worker, arg}
+      ] ++
+        Application.get_env(:stripe_cart, :supervised_processes, [
+          {Cachex,
+           name: :stripe_products,
+           warmers: [warmer(module: StripeCart.StripeCacheWarmer, state: %{})]}
+        ])
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options

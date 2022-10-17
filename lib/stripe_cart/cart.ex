@@ -3,6 +3,12 @@ defmodule StripeCart.Cart do
 
   @derive Jason.Encoder
 
+  @create_checkout_session Application.get_env(
+                             :stripe_cart,
+                             :create_checkout_session,
+                             &Stripe.Session.create/1
+                           )
+
   defstruct items: [], id: nil
 
   def add_item(price_id) do
@@ -20,15 +26,34 @@ defmodule StripeCart.Cart do
   end
 
   def add_product(%Cart{items: items}, product) do
-    case Enum.find_index(items, fn %CartItem{product: cart_product} -> cart_product.id == product.id end) do
+    case Enum.find_index(items, fn %CartItem{product: cart_product} ->
+           cart_product.id == product.id
+         end) do
       nil ->
         %Cart{items: items ++ [%CartItem{quantity: 1, product: product}]}
 
       index ->
         %CartItem{quantity: quantity} = Enum.at(items, index)
+
         %Cart{
-          items: List.replace_at(items, index, %CartItem{product: product, quantity: quantity + 1})
+          items:
+            List.replace_at(items, index, %CartItem{product: product, quantity: quantity + 1})
         }
     end
   end
+
+  def checkout(return_url, %Cart{items: items}) do
+    @create_checkout_session.(%{
+      mode: "payment",
+      success_url: return_url,
+      cancel_url: return_url,
+      line_items: Enum.map(items, &build_line_item/1)
+    })
+  end
+
+  defp build_line_item(%CartItem{
+         quantity: quantity,
+         product: %{id: price}
+       }),
+       do: %{quantity: quantity, price: price}
 end

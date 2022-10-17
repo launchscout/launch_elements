@@ -89,8 +89,22 @@ defmodule StripeCart.CartTest do
 
     test "the same product increases quantity", %{product: product} do
       assert {:ok, cart} = Cart.add_item("price_123")
+
       assert {:ok, %Cart{items: [%CartItem{quantity: 2, product: ^product}]}} =
                Cart.add_item(cart, "price_123")
+    end
+  end
+
+  describe "checkout" do
+    test "checkout returns url" do
+      {:ok, cart} = Cart.add_item("price_123")
+      {:ok, cart} = Cart.add_item(cart, "price_456")
+      return_url = "http://foo.bar"
+
+      assert {:ok, %{url: checkout_url, success_url: ^return_url, cancel_url: ^return_url}} =
+               Cart.checkout(return_url, cart)
+
+      assert checkout_url
     end
   end
 end

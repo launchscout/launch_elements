@@ -23,7 +23,9 @@ config :stripe_cart, StripeCartWeb.Endpoint,
 # In test we don't send emails.
 config :stripe_cart, StripeCart.Mailer, adapter: Swoosh.Adapters.Test
 
-config :stripe_cart, :supervised_processes, [{Cachex, name: :stripe_products}]
+config :stripe_cart,
+  create_checkout_session: &StripeCart.Test.FakeStripe.create_checkout_session/1,
+  supervised_processes: [{Cachex, name: :stripe_products}]
 # Print only warnings and errors during test
 config :logger, level: :warn
 

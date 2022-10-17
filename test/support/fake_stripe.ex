@@ -1,0 +1,55 @@
+defmodule StripeCart.Test.FakeStripe do
+  def create_checkout_session(%{
+        mode: "payment",
+        cancel_url: cancel_url,
+        success_url: success_url,
+        line_items: _line_items
+      }) do
+    {:ok,
+     %Stripe.Session{
+       id: "cs_test_a1iJRREh0dhvx6feR1F3Z8zQ0bkAbmkrIP6kdY2WsV6Yoa5pcS14JeCwsv",
+       object: "checkout.session",
+       after_expiration: nil,
+       allow_promotion_codes: nil,
+       amount_subtotal: 1100,
+       amount_total: 1100,
+       automatic_tax: %{enabled: false, status: nil},
+       billing_address_collection: nil,
+       cancel_url: cancel_url,
+       client_reference_id: nil,
+       consent: nil,
+       consent_collection: nil,
+       currency: "usd",
+       customer: nil,
+       customer_creation: "always",
+       customer_details: nil,
+       customer_email: nil,
+       line_items: nil,
+       expires_at: 1_666_034_241,
+       livemode: false,
+       locale: nil,
+       metadata: %{},
+       mode: "payment",
+       payment_intent: "pi_3LtcKrKFGxMzGbgk1MJnEgQ8",
+       payment_link: nil,
+       payment_method_options: %{},
+       payment_method_types: ["card"],
+       payment_status: "unpaid",
+       phone_number_collection: %{enabled: false},
+       recovered_from: nil,
+       setup_intent: nil,
+       shipping: nil,
+       shipping_address_collection: nil,
+       shipping_options: [],
+       shipping_rate: nil,
+       status: "open",
+       submit_type: nil,
+       subscription: nil,
+       success_url: success_url,
+       tax_id_collection: nil,
+       total_details: %{amount_discount: 0, amount_shipping: 0, amount_tax: 0},
+       url:
+         "https://checkout.stripe.com/c/pay/cs_test_a1iJRREh0dhvx6feR1F3Z8zQ0bkAbmkrIP6kdY2WsV6Yoa5pcS14JeCwsv#fidkdWxOYHwnPyd1blpxYHZxWjA0TDEzbnROQ0J9SH9CZ2JuZ04zck0yPFFzfE5cdWxyNFJgXXdscjNoZndwa1M1TFV9bn9ocl9vNGdURDZKQER3Y2tMPWZAUUtxV0dhMWc2SlZ0bGBLQzR%2FNTVEf05NU1dpSicpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl"
+     }}
+  end
+end

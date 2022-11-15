@@ -18,7 +18,7 @@ config :stripe_cart, StripeCart.Repo,
 config :stripe_cart, StripeCartWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
   secret_key_base: "1/0iThVdx3Q0ZDwJxvxh67k2vvhh2BJr+N+JM6e6bfJbEqaO+2WQDBrJgqfvcvZo",
-  server: false
+  server: true
 
 # In test we don't send emails.
 config :stripe_cart, StripeCart.Mailer, adapter: Swoosh.Adapters.Test
@@ -27,7 +27,14 @@ config :stripe_cart,
   create_checkout_session: &StripeCart.Test.FakeStripe.create_checkout_session/1,
   supervised_processes: [{Cachex, name: :stripe_products}]
 # Print only warnings and errors during test
-config :logger, level: :warn
+config :logger, level: :debug
 
 # Initialize plugs at runtime for faster test compilation
 config :phoenix, :plug_init_mode, :runtime
+
+config :wallaby,
+  otp_app: :stripe_cart,
+  base_url: "http://localhost:4002"
+  # chromedriver: [
+  #   headless: false
+  # ]

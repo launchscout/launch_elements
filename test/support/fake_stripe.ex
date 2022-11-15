@@ -1,4 +1,71 @@
 defmodule StripeCart.Test.FakeStripe do
+
+  def populate_cache() do
+    product = %{
+      amount: 1100,
+      id: "price_123",
+      product: %Stripe.Product{
+        active: true,
+        attributes: [],
+        caption: nil,
+        created: 1_664_649_973,
+        deactivate_on: nil,
+        default_price: "price_1LoAhVKFGxMzGbgkUgrHPg0z",
+        deleted: nil,
+        description: "Awww cuuute wah wah wah babies",
+        id: "prod_MXFBKgirbzb0dw",
+        images: [
+          "https://files.stripe.com/links/MDB8YWNjdF8xSTQ2a3FLRkd4TXpHYmdrfGZsX3Rlc3Rfa2psMk5KcERPelRWeGp3OVpDT1oxcXhE004CuzJnnL"
+        ],
+        livemode: false,
+        metadata: %{},
+        name: "Nifty onesie",
+        object: "product",
+        package_dimensions: nil,
+        shippable: nil,
+        statement_descriptor: nil,
+        type: "service",
+        unit_label: nil,
+        updated: 1_664_649_974,
+        url: nil
+      }
+    }
+
+    product2 = %{
+      amount: 1000,
+      id: "price_456",
+      product: %Stripe.Product{
+        active: true,
+        attributes: [],
+        caption: nil,
+        created: 1_664_649_973,
+        deactivate_on: nil,
+        default_price: "price_1LoAhVKFGxMzGbgkUgrHPg0z",
+        deleted: nil,
+        description: "Put liquid in it. Or don't its up to you",
+        id: "prod_456",
+        images: [
+          "https://files.stripe.com/links/MDB8YWNjdF8xSTQ2a3FLRkd4TXpHYmdrfGZsX3Rlc3Rfa2psMk5KcERPelRWeGp3OVpDT1oxcXhE004CuzJnnL"
+        ],
+        livemode: false,
+        metadata: %{},
+        name: "Groovy cup",
+        object: "product",
+        package_dimensions: nil,
+        shippable: nil,
+        statement_descriptor: nil,
+        type: "service",
+        unit_label: nil,
+        updated: 1_664_649_974,
+        url: nil
+      }
+    }
+
+    Cachex.put!(:stripe_products, "price_123", product)
+    Cachex.put!(:stripe_products, "price_456", product2)
+    [product, product2]
+  end
+
   def create_checkout_session(%{
         mode: "payment",
         cancel_url: cancel_url,

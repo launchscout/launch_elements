@@ -52,7 +52,9 @@ defmodule StripeCart.MixProject do
       {:live_state, "~> 0.6.0"},
       {:cors_plug, "~> 3.0"},
       {:stripity_stripe, "~> 2.17.1"},
-      {:cachex, "~> 3.4.0"}
+      {:cachex, "~> 3.4.0"},
+      {:wallaby, "~> 0.29.1",
+       git: "https://github.com/launchscout/wallaby.git", runtime: false, only: :test}
     ]
   end
 

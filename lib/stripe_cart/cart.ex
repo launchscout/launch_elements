@@ -47,8 +47,15 @@ defmodule StripeCart.Cart do
       mode: "payment",
       success_url: return_url,
       cancel_url: return_url,
+      shipping_address_collection: %{
+        allowed_countries: ["US"]
+      },
       line_items: Enum.map(items, &build_line_item/1)
     })
+  end
+
+  def list_products() do
+    Cachex.keys!(:stripe_products) |> Enum.map(&Cachex.get!(:stripe_products, &1))
   end
 
   defp build_line_item(%CartItem{

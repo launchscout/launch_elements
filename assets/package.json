@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@shoelace-style/shoelace": "^2.0.0-beta.83",
+    "lit": "^2.4.0",
+    "phx-live-state": "0.7.1"
+  },
+  "devDependencies": {
+    "typescript": "^4.6.4"
+  }
+}

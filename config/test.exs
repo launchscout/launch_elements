@@ -32,6 +32,8 @@ config :logger, level: :debug
 # Initialize plugs at runtime for faster test compilation
 config :phoenix, :plug_init_mode, :runtime
 
+config :stripe_cart, :sandbox, Ecto.Adapters.SQL.Sandbox
+
 config :wallaby,
   otp_app: :stripe_cart,
   base_url: "http://localhost:4002"

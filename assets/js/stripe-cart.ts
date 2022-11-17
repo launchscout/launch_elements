@@ -5,15 +5,10 @@ import { liveState } from 'phx-live-state';
 type CartItem = {
   product: Product;
   quantity: number;
+  price: number
 }
 
 type Product = {
-  id: string;
-  amount: number;
-  product: StripeProduct
-}
-
-type StripeProduct = {
   description: string;
   id: string;
   images: string[];
@@ -80,9 +75,9 @@ export class StripeCartElement extends LitElement {
         <tbody>
           ${this.cart?.items.map(item => html`
           <tr>
-            <td>${item.product.product.description}</td>
+            <td>${item.product.description}</td>
             <td>${item.quantity}</td>
-            <td>${item.product.amount}</td>
+            <td>${item.price}</td>
           </tr>
           `)}
         </tbody>

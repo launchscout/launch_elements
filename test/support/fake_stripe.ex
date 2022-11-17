@@ -13,7 +13,7 @@ defmodule StripeCart.Test.FakeStripe do
         default_price: "price_1LoAhVKFGxMzGbgkUgrHPg0z",
         deleted: nil,
         description: "Awww cuuute wah wah wah babies",
-        id: "prod_MXFBKgirbzb0dw",
+        id: "price_123",
         images: [
           "https://files.stripe.com/links/MDB8YWNjdF8xSTQ2a3FLRkd4TXpHYmdrfGZsX3Rlc3Rfa2psMk5KcERPelRWeGp3OVpDT1oxcXhE004CuzJnnL"
         ],

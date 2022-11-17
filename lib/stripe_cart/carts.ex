@@ -9,9 +9,9 @@ defmodule StripeCart.Carts do
                              &Stripe.Session.create/1
                            )
 
-  defstruct items: [], id: nil
-
   alias StripeCart.Repo
+
+  def get_cart!(cart_id), do: Repo.get!(Cart, cart_id) |> Repo.preload(:items)
 
   def add_item(price_id) do
     case Cachex.get(:stripe_products, price_id) do

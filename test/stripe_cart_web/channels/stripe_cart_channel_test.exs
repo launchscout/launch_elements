@@ -1,6 +1,7 @@
 defmodule StripeCartWeb.StripeCartChannelTest do
   use StripeCartWeb.ChannelCase
 
+  alias StripeCart.Carts
   alias StripeCart.Test.FakeStripe
 
   import Phoenix.ChannelTest
@@ -35,12 +36,21 @@ defmodule StripeCartWeb.StripeCartChannelTest do
 
   describe "joining with existing cart" do
     setup do
+      {:ok, cart} = Carts.add_item("price_123")
+
       {:ok, _, socket} =
         StripeCartWeb.UserSocket
         |> socket("user_id", %{some: :assign})
-        |> subscribe_and_join(StripeCartWeb.StripeCartChannel, "stripe_cart:new")
+        |> subscribe_and_join(StripeCartWeb.StripeCartChannel, "stripe_cart:#{cart.id}")
 
-      %{socket: socket}
+      %{socket: socket, cart: cart}
+    end
+
+    test "loads existing cart into state", %{cart: %{id: cart_id}} do
+      assert_push("state:change", %{
+        state: %{cart: %{id: ^cart_id, items: [%{stripe_price_id: "price_123"}]}},
+        version: 0
+      })
     end
   end
 

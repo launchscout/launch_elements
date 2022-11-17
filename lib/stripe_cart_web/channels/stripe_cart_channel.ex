@@ -4,8 +4,12 @@ defmodule StripeCartWeb.StripeCartChannel do
   alias StripeCart.Carts
   alias LiveState.Event
 
-  def init(_channel, _payload, _socket) do
+  def init("stripe_cart:new", _payload, _socket) do
     {:ok, %{}}
+  end
+
+  def init("stripe_cart:" <> cart_id, _payload, _socket) do
+    {:ok, %{cart: Carts.get_cart!(cart_id)}}
   end
 
   def handle_event("add_cart_item", %{"stripe_price" => stripe_price}, %{cart: cart} = state) do

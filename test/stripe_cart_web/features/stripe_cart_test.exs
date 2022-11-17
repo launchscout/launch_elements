@@ -23,7 +23,6 @@ defmodule StripeCartWeb.Features.TodoListTest do
     end)
   end
 
-  @tag :skip
   feature "add item and reload", %{session: session} do
     session
     |> visit("/")
@@ -36,7 +35,7 @@ defmodule StripeCartWeb.Features.TodoListTest do
     |> visit("/")
     |> within_shadow_dom("stripe-cart", fn shadow_dom ->
       shadow_dom
-      |> assert_has(css("table", text: "babies"))
+      |> assert_has(css("sl-badge", text: "1"))
     end)
   end
 

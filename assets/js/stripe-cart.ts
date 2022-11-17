@@ -21,8 +21,6 @@ type Cart = {
 
 @customElement('stripe-cart')
 @liveState({
-  // channelName: 'stripe_cart:new',
-  channelName: 'stripe_cart:new',
   properties: ['cart'],
   provide: {
     scope: window,
@@ -30,7 +28,7 @@ type Cart = {
   },
   events: {
     send: ['checkout'],
-    receive: ['checkout_redirect']
+    receive: ['checkout_redirect', 'cart_created']
   }
 })
 export class StripeCartElement extends LitElement {
@@ -44,10 +42,19 @@ export class StripeCartElement extends LitElement {
   @query('sl-dialog')
   dialog: HTMLElement | undefined;
 
+  get channelName() { 
+    const cartId =  window.localStorage.getItem('cart_id');
+    return cartId ? `stripe_cart:${cartId}` : 'stripe_cart:new';
+  }
+
   constructor() {
     super();
     this.addEventListener('checkout_redirect', (e: CustomEvent<{ checkout_url: string }>) => {
       window.location.href = e.detail.checkout_url;
+    });
+    this.addEventListener('cart_created', (e: CustomEvent<{ cart_id: string }>) => {
+      console.log('cart created')
+      window.localStorage.setItem('cart_id', e.detail.cart_id);
     });
   }
 

@@ -1,0 +1,31 @@
+<h1>Show Store</h1>
+
+<%= if @live_action in [:edit] do %>
+  <.modal return_to={Routes.store_show_path(@socket, :show, @store)}>
+    <.live_component
+      module={StripeCartWeb.StoreLive.FormComponent}
+      id={@store.id}
+      title={@page_title}
+      action={@live_action}
+      store={@store}
+      return_to={Routes.store_show_path(@socket, :show, @store)}
+    />
+  </.modal>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @store.name %>
+  </li>
+
+  <li>
+    <strong>Stripe customer:</strong>
+    <%= @store.stripe_customer_id %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.store_show_path(@socket, :edit, @store), class: "button" %></span> |
+<span><%= live_redirect "Back", to: Routes.store_index_path(@socket, :index) %></span>

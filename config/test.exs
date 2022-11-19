@@ -1,5 +1,8 @@
 import Config
 
+# Only in tests, remove the complexity from the password hashing algorithm
+config :bcrypt_elixir, :log_rounds, 1
+
 # Configure your database
 #
 # The MIX_TEST_PARTITION environment variable can be used
@@ -27,7 +30,7 @@ config :stripe_cart,
   create_checkout_session: &StripeCart.Test.FakeStripe.create_checkout_session/1,
   supervised_processes: [{Cachex, name: :stripe_products}]
 # Print only warnings and errors during test
-config :logger, level: :debug
+config :logger, level: :info
 
 # Initialize plugs at runtime for faster test compilation
 config :phoenix, :plug_init_mode, :runtime

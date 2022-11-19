@@ -1,0 +1,41 @@
+<h1>Listing Stores</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <.modal return_to={Routes.store_index_path(@socket, :index)}>
+    <.live_component
+      module={StripeCartWeb.StoreLive.FormComponent}
+      id={@store.id || :new}
+      title={@page_title}
+      action={@live_action}
+      store={@store}
+      return_to={Routes.store_index_path(@socket, :index)}
+    />
+  </.modal>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Stripe customer</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="stores">
+    <%= for store <- @stores do %>
+      <tr id={"store-#{store.id}"}>
+        <td><%= store.name %></td>
+        <td><%= store.stripe_customer_id %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.store_show_path(@socket, :show, store) %></span>
+          <span><%= live_patch "Edit", to: Routes.store_index_path(@socket, :edit, store) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: store.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Store", to: Routes.store_index_path(@socket, :new) %></span>

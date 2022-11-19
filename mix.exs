@@ -33,6 +33,7 @@ defmodule StripeCart.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:bcrypt_elixir, "~> 3.0"},
       {:phoenix, "~> 1.6.12"},
       {:phoenix_ecto, "~> 4.4"},
       {:ecto_sql, "~> 3.6"},
@@ -53,6 +54,8 @@ defmodule StripeCart.MixProject do
       {:cors_plug, "~> 3.0"},
       {:stripity_stripe, "~> 2.17.1"},
       {:cachex, "~> 3.4.0"},
+      {:ex_machina, "~> 2.7.0"},
+      {:faker, ">= 0.0.0"},
       {:wallaby, "~> 0.29.1",
        git: "https://github.com/launchscout/wallaby.git", runtime: false, only: :test}
     ]

@@ -80,6 +80,18 @@ defmodule StripeCartWeb.Router do
     get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
   end
 
+  live_session :authenticated, on_mount: StripeCartWeb.AssignCurrentUser do
+    scope "/", StripeCartWeb do
+      pipe_through [:browser, :require_authenticated_user]
+      live "/stores", StoreLive.Index, :index
+      live "/stores/new", StoreLive.Index, :new
+      live "/stores/:id/edit", StoreLive.Index, :edit
+
+      live "/stores/:id", StoreLive.Show, :show
+      live "/stores/:id/show/edit", StoreLive.Show, :edit
+    end
+  end
+
   scope "/", StripeCartWeb do
     pipe_through [:browser]
 

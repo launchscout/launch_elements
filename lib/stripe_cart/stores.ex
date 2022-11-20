@@ -7,6 +7,7 @@ defmodule StripeCart.Stores do
   alias StripeCart.Repo
 
   alias StripeCart.Stores.Store
+  alias StripeCart.Accounts.User
 
   @doc """
   Returns the list of stores.
@@ -19,6 +20,10 @@ defmodule StripeCart.Stores do
   """
   def list_stores do
     Repo.all(Store)
+  end
+
+  def list_stores(%User{id: user_id}) do
+    Repo.all(from store in Store, where: store.user_id == ^user_id)
   end
 
   @doc """

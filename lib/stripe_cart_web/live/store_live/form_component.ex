@@ -4,7 +4,7 @@ defmodule StripeCartWeb.StoreLive.FormComponent do
   alias StripeCart.Stores
 
   @impl true
-  def update(%{store: store} = assigns, socket) do
+  def update(%{store: store, user_id: user_id} = assigns, socket) do
     changeset = Stores.change_store(store)
 
     {:ok,
@@ -40,8 +40,8 @@ defmodule StripeCartWeb.StoreLive.FormComponent do
     end
   end
 
-  defp save_store(socket, :new, store_params) do
-    case Stores.create_store(store_params) do
+  defp save_store(%{assigns: %{user_id: user_id}} = socket, :new, store_params) do
+  case Stores.create_store(store_params |> Map.put("user_id", user_id)) do
       {:ok, _store} ->
         {:noreply,
          socket

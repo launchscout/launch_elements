@@ -7,6 +7,7 @@
       id={@store.id || :new}
       title={@page_title}
       action={@live_action}
+      user_id={@current_user.id}
       store={@store}
       return_to={Routes.store_index_path(@socket, :index)}
     />

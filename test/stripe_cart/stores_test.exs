@@ -12,9 +12,12 @@ defmodule StripeCart.StoresTest do
 
     @invalid_attrs %{name: nil, stripe_customer_id: nil}
 
-    test "list_stores/0 returns all stores" do
-      store = insert(:store)
-      assert Stores.list_stores() |> Enum.map(& &1.id) == [store.id]
+    test "list_stores/0 returns all stores for a user" do
+      user = insert(:user)
+      other_user = insert(:user)
+      store = insert(:store, user: user)
+      store2 = insert(:store, user: other_user)
+      assert Stores.list_stores(user) |> Enum.map(& &1.id) == [store.id]
     end
 
     test "get_store!/1 returns the store with given id" do

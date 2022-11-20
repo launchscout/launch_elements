@@ -9,7 +9,7 @@ defmodule StripeCart.Factory do
 
   def store_factory() do
     %Store{
-      name: "Bob's Burgers",
+      name: "Bad Burgers",
       user: build(:user)
     }
   end

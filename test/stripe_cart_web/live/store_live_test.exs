@@ -8,15 +8,16 @@ defmodule StripeCartWeb.StoreLiveTest do
   @update_attrs %{name: "some updated name", stripe_customer_id: "some updated stripe_customer_id"}
   @invalid_attrs %{name: nil, stripe_customer_id: nil}
 
-  defp create_store(_) do
+  setup(%{conn: conn}) do
     store = insert(:store)
-    %{store: store}
+    user = insert(:user)
+    conn = log_in_user(conn, user)
+    %{store: store, user: user, conn: conn}
   end
 
   describe "Index" do
-    setup [:create_store]
-
     test "lists all stores", %{conn: conn, store: store} do
+
       {:ok, _index_live, html} = live(conn, Routes.store_index_path(conn, :index))
 
       assert html =~ "Listing Stores"
@@ -76,7 +77,6 @@ defmodule StripeCartWeb.StoreLiveTest do
   end
 
   describe "Show" do
-    setup [:create_store]
 
     test "displays store", %{conn: conn, store: store} do
       {:ok, _show_live, html} = live(conn, Routes.store_show_path(conn, :show, store))

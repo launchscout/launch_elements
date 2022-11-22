@@ -1,6 +1,6 @@
 import { html, LitElement } from 'lit'
 import { customElement, property, query, state } from 'lit/decorators.js'
-import { liveState } from 'phx-live-state';
+import { liveState, liveStateConfig } from 'phx-live-state';
 
 type CartItem = {
   product: Product;
@@ -34,14 +34,20 @@ type Cart = {
 export class StripeCartElement extends LitElement {
 
   @property()
+  @liveStateConfig('url')
   url: string | undefined;
   
+  @property()
+  @liveStateConfig('params.token')
+  token: string;
+
   @state()
   cart: Cart | undefined;
 
   @query('sl-dialog')
   dialog: HTMLElement | undefined;
 
+  @liveStateConfig('topic')
   get channelName() { 
     const cartId =  window.localStorage.getItem('cart_id');
     return cartId ? `stripe_cart:${cartId}` : 'stripe_cart:new';

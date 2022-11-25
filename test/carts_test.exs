@@ -5,25 +5,40 @@ defmodule StripeCart.CartTest do
   alias StripeCart.Carts
   alias StripeCart.Carts.{Cart, CartItem}
 
+  import StripeCart.Factory
+
   setup do
     [product, product2] = FakeStripe.populate_cache()
+    store = insert(:store)
     {:ok,
      %{
        product: product,
-       product2: product2
+       product2: product2,
+       store: store
      }}
   end
 
+  describe "create_cart" do
+    test "with a store", %{store: %{id: store_id}} do
+      assert {:ok, cart} = Carts.create_cart(store_id)
+    end
+  end
+
   describe "add_item" do
-    test "to empty cart", %{product: product} do
+    setup %{store: %{id: store_id}} do
+      {:ok, cart} = Carts.create_cart(store_id)
+      %{cart: cart}
+    end
+    test "to empty cart", %{product: product, cart: cart} do
+
       assert {:ok, %Cart{items: [%CartItem{quantity: 1, stripe_price_id: stripe_price_id, price: price, product: product_data}]}} =
-               Carts.add_item("price_123")
+               Carts.add_item(cart, "price_123")
       assert price == product.amount
-      assert product.product == product_data
+      assert product.product.id == product_data["id"]
     end
 
-    test "second product to existing cart", %{product2: product2} do
-      assert {:ok, cart} = Carts.add_item("price_123")
+    test "second product to existing cart", %{product2: product2, cart: cart} do
+      assert {:ok, cart} = Carts.add_item(cart, "price_123")
 
       assert {:ok, %Cart{items: items}} =
                Carts.add_item(cart, "price_456")
@@ -31,8 +46,8 @@ defmodule StripeCart.CartTest do
       assert "price_456" in (items |> Enum.map(& &1.stripe_price_id))
     end
 
-    test "the same product increases quantity", %{product: product} do
-      assert {:ok, cart} = Carts.add_item("price_123")
+    test "the same product increases quantity", %{product: product, cart: cart} do
+      assert {:ok, cart} = Carts.add_item(cart, "price_123")
 
       assert {:ok, %Cart{items: [%CartItem{quantity: 2, stripe_price_id: "price_123"}]}} =
                Carts.add_item(cart, "price_123")
@@ -40,8 +55,10 @@ defmodule StripeCart.CartTest do
   end
 
   describe "checkout" do
-    test "checkout returns url" do
-      {:ok, cart} = Carts.add_item("price_123")
+    test "checkout returns url", %{store: %{id: store_id}} do
+      {:ok, cart} = Carts.create_cart(store_id)
+
+      {:ok, cart} = Carts.add_item(cart, "price_123")
       {:ok, cart} = Carts.add_item(cart, "price_456")
       return_url = "http://foo.bar"
 

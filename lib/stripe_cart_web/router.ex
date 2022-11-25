@@ -20,6 +20,7 @@ defmodule StripeCartWeb.Router do
   scope "/", StripeCartWeb do
     pipe_through :browser
 
+    get "/fake_stores/:store_id", PageController, :fake_store
     get "/", PageController, :index
   end
 

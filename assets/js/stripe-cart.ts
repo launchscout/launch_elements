@@ -37,9 +37,9 @@ export class StripeCartElement extends LitElement {
   @liveStateConfig('url')
   url: string | undefined;
   
-  @property()
-  @liveStateConfig('params.token')
-  token: string;
+  @property({attribute: "store-id"})
+  @liveStateConfig('params.store_id')
+  storeId: string;
 
   @state()
   cart: Cart | undefined;

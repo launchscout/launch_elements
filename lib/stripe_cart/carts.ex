@@ -13,28 +13,32 @@ defmodule StripeCart.Carts do
 
   def get_cart!(cart_id), do: Repo.get!(Cart, cart_id) |> Repo.preload(:items)
 
-  def add_item(price_id) do
-    case Cachex.get(:stripe_products, price_id) do
-      {:ok, %{id: stripe_price_id, product: product, amount: price}} ->
-        Cart.create_changeset(items: [%{
-          stripe_price_id: stripe_price_id,
-          price: price,
-          product: product,
-          quantity: 1
-        }])
-        |> Repo.insert()
-
-      _ ->
-        {:error, "Product not found"}
-    end
+  def create_cart(store_id) do
+    %{store_id: store_id} |> Cart.create_changeset() |> Repo.insert()
   end
 
-  def add_item(cart, price_id) do
+  def add_item(%Cart{} = cart, price_id) do
     case Cachex.get(:stripe_products, price_id) do
       {:ok, product} -> {:ok, add_product(cart, product)}
       _ -> {:error, "Product not found"}
     end
   end
+
+  # def add_item(price_id) do
+  #   case Cachex.get(:stripe_products, price_id) do
+  #     {:ok, %{id: stripe_price_id, product: product, amount: price}} ->
+  #       Cart.create_changeset(items: [%{
+  #         stripe_price_id: stripe_price_id,
+  #         price: price,
+  #         product: product,
+  #         quantity: 1
+  #       }])
+  #       |> Repo.insert()
+
+  #     _ ->
+  #       {:error, "Product not found"}
+  #   end
+  # end
 
   def add_product(
         %Cart{id: cart_id},

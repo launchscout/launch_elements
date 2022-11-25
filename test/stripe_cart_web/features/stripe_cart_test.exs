@@ -4,15 +4,20 @@ defmodule StripeCartWeb.Features.TodoListTest do
   use Wallaby.Feature
 
   import Wallaby.Query
+  import StripeCart.Factory
+
+  alias StripeCart.Repo
+  alias StripeCart.Carts.Cart
 
   setup do
     products = FakeStripe.populate_cache()
-    {:ok, %{products: products}}
+    store = insert(:store)
+    {:ok, %{products: products, store: store}}
   end
 
-  feature "add item", %{session: session} do
+  feature "add item", %{session: session, store: store} do
     session
-    |> visit("/")
+    |> visit("/fake_stores/#{store.id}")
     |> assert_text("My Store")
     |> click(css("button#add-price_123"))
     |> within_shadow_dom("stripe-cart", fn shadow_dom ->
@@ -21,18 +26,19 @@ defmodule StripeCartWeb.Features.TodoListTest do
       |> click(css("sl-button"))
       |> assert_has(css("table", text: "babies"))
     end)
+    assert Repo.get_by(Cart, store_id: store.id)
   end
 
-  feature "add item and reload", %{session: session} do
+  feature "add item and reload", %{session: session, store: store} do
     session
-    |> visit("/")
+    |> visit("/fake_stores/#{store.id}")
     |> assert_text("My Store")
     |> click(css("button#add-price_123"))
     |> within_shadow_dom("stripe-cart", fn shadow_dom ->
       shadow_dom
       |> assert_has(css("sl-badge", text: "1"))
     end)
-    |> visit("/")
+    |> visit("/fake_stores/#{store.id}")
     |> within_shadow_dom("stripe-cart", fn shadow_dom ->
       shadow_dom
       |> assert_has(css("sl-badge", text: "1"))

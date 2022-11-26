@@ -19,6 +19,8 @@ config :stripe_cart, StripeCartWeb.Endpoint,
 
 config :stripity_stripe, api_key: System.get_env("STRIPE_API_KEY")
 
+config :stripe_cart, stripe_client_id: System.get_env("STRIPE_CLIENT_ID")
+
 # Configures the mailer
 #
 # By default it uses the "Local" adapter which stores the emails

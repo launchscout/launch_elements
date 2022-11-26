@@ -40,6 +40,14 @@ defmodule StripeCart.DataCase do
     on_exit(fn -> Ecto.Adapters.SQL.Sandbox.stop_owner(pid) end)
   end
 
+  def assert_equivalent(models, other_models) when is_list(models) and is_list(other_models) do
+    assert ids_for(models) == ids_for(other_models)
+  end
+
+  def assert_equivalent(model, other_model), do: model.id == other_model.id
+
+  def ids_for(models), do: models |> Enum.map(& &1.id)
+
   @doc """
   A helper that transforms changeset errors into a map of messages.
 

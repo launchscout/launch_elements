@@ -63,6 +63,7 @@ defmodule StripeCartWeb.Router do
   scope "/", StripeCartWeb do
     pipe_through [:browser, :redirect_if_user_is_authenticated]
 
+
     get "/users/register", UserRegistrationController, :new
     post "/users/register", UserRegistrationController, :create
     get "/users/log_in", UserSessionController, :new
@@ -75,6 +76,11 @@ defmodule StripeCartWeb.Router do
 
   scope "/", StripeCartWeb do
     pipe_through [:browser, :require_authenticated_user]
+
+    get "/stripe_accounts/authorize_stripe", StripeAccountController, :authorize_stripe
+    get "/stripe_accounts/connect_account", StripeAccountController, :connect_account
+    get "/stripe_accounts", StripeAccountController, :index
+    delete "/stripe_accounts/:id", StripeAccountController, :delete
 
     get "/users/settings", UserSettingsController, :edit
     put "/users/settings", UserSettingsController, :update

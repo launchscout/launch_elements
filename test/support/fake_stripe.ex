@@ -1,5 +1,4 @@
 defmodule StripeCart.Test.FakeStripe do
-
   def populate_cache() do
     product = %{
       amount: 1100,
@@ -117,6 +116,33 @@ defmodule StripeCart.Test.FakeStripe do
        total_details: %{amount_discount: 0, amount_shipping: 0, amount_tax: 0},
        url:
          "https://checkout.stripe.com/c/pay/cs_test_a1iJRREh0dhvx6feR1F3Z8zQ0bkAbmkrIP6kdY2WsV6Yoa5pcS14JeCwsv#fidkdWxOYHwnPyd1blpxYHZxWjA0TDEzbnROQ0J9SH9CZ2JuZ04zck0yPFFzfE5cdWxyNFJgXXdscjNoZndwa1M1TFV9bn9ocl9vNGdURDZKQER3Y2tMPWZAUUtxV0dhMWc2SlZ0bGBLQzR%2FNTVEf05NU1dpSicpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl"
+     }}
+  end
+
+  def token("ac_valid") do
+    {:ok,
+     %{
+       access_token:
+         "sk_test_51Lww00KVDRvT3Ge7HBTmoq8NbFSI8rPp0c1JMweDz4W7v4ii8zyBeODm9Njazv031Tz6voVH4w4GiTrbZtXJ14IR001rPg0ZIN",
+       livemode: false,
+       refresh_token: "rt_MsExTuO5ggd8MVXc4FJNi3ptHNOi9t1q5ADcJY8Ef1e0N124",
+       scope: "read_write",
+       stripe_publishable_key:
+         "pk_test_51Lww00KVDRvT3Ge7pdmZLtmucLUMXshPfw0Kc0cvRk7FFkRlgluulLzf1mdbSgFy7J0hPhY0MbbnxvQNI4AbMHN800WIvrCjWA",
+       stripe_user_id: "acct_1Lww00KVDRvT3Ge7",
+       token_type: "bearer"
+     }}
+  end
+
+  def token(_token) do
+    {:error,
+     %Stripe.Error{
+       source: :stripe,
+       code: :bad_request,
+       request_id: {"Request-Id", "req_2zKIiraZJgjDJi"},
+       extra: %{http_status: 400},
+       message: "The request was unacceptable, often due to missing a required parameter.",
+       user_message: nil
      }}
   end
 end

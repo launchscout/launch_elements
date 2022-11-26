@@ -24,22 +24,6 @@ defmodule StripeCart.Carts do
     end
   end
 
-  # def add_item(price_id) do
-  #   case Cachex.get(:stripe_products, price_id) do
-  #     {:ok, %{id: stripe_price_id, product: product, amount: price}} ->
-  #       Cart.create_changeset(items: [%{
-  #         stripe_price_id: stripe_price_id,
-  #         price: price,
-  #         product: product,
-  #         quantity: 1
-  #       }])
-  #       |> Repo.insert()
-
-  #     _ ->
-  #       {:error, "Product not found"}
-  #   end
-  # end
-
   def add_product(
         %Cart{id: cart_id},
         %{id: stripe_price_id, product: product, amount: price} = stripe_data

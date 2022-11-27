@@ -79,6 +79,7 @@ defmodule StripeCartWeb.Router do
 
     get "/stripe_accounts/authorize_stripe", StripeAccountController, :authorize_stripe
     get "/stripe_accounts/connect_account", StripeAccountController, :connect_account
+    get "/stripe_accounts/:id", StripeAccountController, :show
     get "/stripe_accounts", StripeAccountController, :index
     delete "/stripe_accounts/:id", StripeAccountController, :delete
 

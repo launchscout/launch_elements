@@ -23,15 +23,17 @@ defmodule StripeCart.StripeAccountsTest do
 
     test "create_stripe_account/1 with valid data creates a stripe_account" do
       user = insert(:user)
-      valid_attrs = %{name: "some name", stripe_id: "some stripe_id", user_id: user.id}
+      valid_attrs = %{stripe_user_id: "acc_stripe"}
 
-      assert {:ok, %StripeAccount{} = stripe_account} = StripeAccounts.create_stripe_account(valid_attrs)
-      assert stripe_account.name == "some name"
-      assert stripe_account.stripe_id == "some stripe_id"
+      assert {:ok, %StripeAccount{} = stripe_account} = StripeAccounts.create_stripe_account(user, valid_attrs)
+      assert stripe_account.stripe_id == "acc_stripe"
+      # from FakeStripe
+      assert stripe_account.name == "Lunch Scout"
     end
 
     test "create_stripe_account/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = StripeAccounts.create_stripe_account(@invalid_attrs)
+      user = insert(:user)
+      assert {:error, %Ecto.Changeset{}} = StripeAccounts.create_stripe_account(user, @invalid_attrs)
     end
 
     test "update_stripe_account/2 with valid data updates the stripe_account" do

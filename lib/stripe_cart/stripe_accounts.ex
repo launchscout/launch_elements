@@ -6,7 +6,13 @@ defmodule StripeCart.StripeAccounts do
   import Ecto.Query, warn: false
   alias StripeCart.Repo
 
+  alias StripeCart.Accounts.User
   alias StripeCart.StripeAccounts.StripeAccount
+
+  def fetch_stripe_account(id) do
+    func = Application.get_env(:stripe_cart, :get_stripe_account, &Stripe.Account.retrieve/1)
+    func.(id)
+  end
 
   @doc """
   Returns the list of stripe_accounts.
@@ -49,10 +55,14 @@ defmodule StripeCart.StripeAccounts do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_stripe_account(attrs \\ %{}) do
-    %StripeAccount{}
-    |> StripeAccount.changeset(attrs)
-    |> Repo.insert()
+  def create_stripe_account(%User{id: user_id}, %{stripe_user_id: stripe_user_id}) do
+    case fetch_stripe_account(stripe_user_id) do
+      {:ok, %Stripe.Account{business_profile: %{name: name}}} ->
+        %StripeAccount{}
+        |> StripeAccount.changeset(%{user_id: user_id, stripe_id: stripe_user_id, name: name})
+        |> Repo.insert()
+      {:error, error} -> {:error, error}
+    end
   end
 
   @doc """

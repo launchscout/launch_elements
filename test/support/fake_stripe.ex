@@ -145,4 +145,129 @@ defmodule StripeCart.Test.FakeStripe do
        user_message: nil
      }}
   end
+
+  def get_stripe_account(_id) do
+    {:ok,
+     %Stripe.Account{
+       id: "acct_1Lww2pKjsAoFfhR4",
+       object: "account",
+       business_profile: %{
+         mcc: "5734",
+         name: "Lunch Scout",
+         support_address: %{
+           city: "Cincinnati",
+           country: "US",
+           line1: "641 Evangeline Road",
+           line2: nil,
+           postal_code: "45240",
+           state: "OH"
+         },
+         support_email: nil,
+         support_phone: "+15134705318",
+         support_url: nil,
+         url: "https://launchscout.com"
+       },
+       business_type: nil,
+       capabilities: %{
+         acss_debit_payments: "inactive",
+         affirm_payments: "inactive",
+         afterpay_clearpay_payments: "inactive",
+         bancontact_payments: "inactive",
+         card_payments: "inactive",
+         eps_payments: "inactive",
+         giropay_payments: "inactive",
+         ideal_payments: "inactive",
+         link_payments: "inactive",
+         p24_payments: "inactive",
+         sepa_debit_payments: "inactive",
+         sofort_payments: "inactive",
+         transfers: "inactive",
+         us_bank_account_ach_payments: "inactive"
+       },
+       charges_enabled: false,
+       company: nil,
+       controller: %{is_controller: true, type: "application"},
+       country: "US",
+       created: 1_666_739_353,
+       default_currency: "usd",
+       deleted: nil,
+       details_submitted: true,
+       email: "superchrisnelson@gmail.com",
+       external_accounts: %Stripe.List{
+         object: "list",
+         data: [
+           %Stripe.BankAccount{
+             id: "ba_1Lww7LKjsAoFfhR4eHVgaXE2",
+             object: "bank_account",
+             account: "acct_1Lww2pKjsAoFfhR4",
+             account_holder_name: nil,
+             account_holder_type: nil,
+             available_payout_methods: ["standard"],
+             bank_name: "STRIPE TEST BANK",
+             country: "US",
+             currency: "usd",
+             customer: nil,
+             default_for_currency: true,
+             deleted: nil,
+             fingerprint: "chCBVOWckAXnsDWr",
+             last4: "6789",
+             metadata: %{},
+             routing_number: "110000000",
+             status: "new"
+           }
+         ],
+         has_more: false,
+         total_count: 1,
+         url: "/v1/accounts/acct_1Lww2pKjsAoFfhR4/external_accounts"
+       },
+       future_requirements: %{
+         alternatives: [],
+         current_deadline: nil,
+         currently_due: [],
+         disabled_reason: nil,
+         errors: [],
+         eventually_due: [],
+         past_due: [],
+         pending_verification: []
+       },
+       individual: nil,
+       metadata: %{},
+       payouts_enabled: false,
+       requirements: %{
+         alternatives: [],
+         current_deadline: nil,
+         currently_due: ["individual.id_number"],
+         disabled_reason: "requirements.past_due",
+         errors: [],
+         eventually_due: ["individual.id_number"],
+         past_due: ["individual.id_number"],
+         pending_verification: []
+       },
+       settings: %{
+         bacs_debit_payments: %{},
+         branding: %{icon: nil, logo: nil, primary_color: nil, secondary_color: nil},
+         card_issuing: %{tos_acceptance: %{date: nil, ip: nil}},
+         card_payments: %{
+           decline_on: %{avs_failure: true, cvc_failure: true},
+           statement_descriptor_prefix: "LC CART",
+           statement_descriptor_prefix_kana: nil,
+           statement_descriptor_prefix_kanji: nil
+         },
+         dashboard: %{display_name: "Launchscout", timezone: "Etc/UTC"},
+         payments: %{
+           statement_descriptor: "LAUNCH SCOUT CART",
+           statement_descriptor_kana: nil,
+           statement_descriptor_kanji: nil
+         },
+         payouts: %{
+           debit_negative_balances: true,
+           schedule: %{delay_days: 2, interval: "daily"},
+           statement_descriptor: nil
+         },
+         sepa_debit_payments: %{}
+       },
+       tos_acceptance: %{date: 1_666_738_980},
+       type: "standard"
+     }}
+  end
 end

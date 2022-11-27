@@ -2,6 +2,8 @@ defmodule StripeCartWeb.StripeAccountControllerTest do
   use StripeCartWeb.ConnCase
 
   import StripeCart.Factory
+  alias StripeCart.Repo
+  alias StripeCart.StripeAccounts.StripeAccount
 
   setup :register_and_log_in_user
 
@@ -23,12 +25,17 @@ defmodule StripeCartWeb.StripeAccountControllerTest do
     test "deletes chosen stripe_account", %{conn: conn, stripe_account: stripe_account} do
       conn = delete(conn, Routes.stripe_account_path(conn, :delete, stripe_account))
       assert redirected_to(conn) == Routes.stripe_account_path(conn, :index)
-
     end
   end
 
   describe "connect_account" do
-    test "stripe callback" do
+    test "stripe callback with valid code", %{conn: conn, user: user} do
+      conn = get(conn, Routes.stripe_account_path(conn, :connect_account), %{"code" => "ac_valid"})
+      assert redirected_to(conn) == Routes.stripe_account_path(conn, :index)
+      assert Repo.get_by(StripeAccount, user_id: user.id)
+    end
+
+    test "with invalid code", %{conn: conn} do
 
     end
   end

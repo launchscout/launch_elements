@@ -1,8 +1,6 @@
 defmodule StripeCartWeb.StripeAccountController do
   use StripeCartWeb, :controller
 
-  alias StripeCartWeb.Router.Helpers
-
   alias StripeCart.StripeAccounts
   alias StripeCart.StripeAccounts.StripeAccount
 
@@ -27,15 +25,15 @@ defmodule StripeCartWeb.StripeAccountController do
   end
 
   def authorize_stripe(conn, _params) do
-    return_url = Helpers.stripe_account_url(conn, :connect_account)
+    return_url = Routes.stripe_account_url(conn, :connect_account)
     url = Stripe.Connect.OAuth.authorize_url(%{redirect_uri: return_url, client_id: @stripe_client_id})
     redirect(conn, external: url)
   end
 
-  def connect_account(conn, %{"code" => code}) do
-    IO.inspect(code)
-    # {:ok, account} = Stripe.Connect.OAuth.token(code)
-    render(conn, "account_connected.html", account: nil)
+  def connect_account(%{assigns: %{current_user: user}} = conn, %{"code" => code}) do
+    {:ok, account} = stripe_oauth().token(code)
+    {:ok, _} = StripeAccounts.create_stripe_account(user, account)
+    redirect(conn, to: Routes.stripe_account_path(conn, :index))
   end
 
   def create(conn, %{"stripe_account" => stripe_account_params}) do

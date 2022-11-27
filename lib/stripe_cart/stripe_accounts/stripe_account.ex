@@ -18,6 +18,6 @@ defmodule StripeCart.StripeAccounts.StripeAccount do
   def changeset(stripe_account, attrs) do
     stripe_account
     |> cast(attrs, [:name, :stripe_id, :user_id])
-    |> validate_required([:name, :stripe_id, :user_id])
+    |> validate_required([:stripe_id, :user_id])
   end
 end

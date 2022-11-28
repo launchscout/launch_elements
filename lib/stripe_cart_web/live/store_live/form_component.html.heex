@@ -8,15 +8,19 @@
     phx-target={@myself}
     phx-change="validate"
     phx-submit="save">
-  
+
     <%= label f, :name %>
     <%= text_input f, :name %>
     <%= error_tag f, :name %>
-  
+
+    <%= label f, :stripe_account_id %>
+    <%= select f, :stripe_account_id, @stripe_accounts %>
+    <%= error_tag f, :stripe_account_id %>
+
     <%= label f, :stripe_customer_id %>
     <%= text_input f, :stripe_customer_id %>
     <%= error_tag f, :stripe_customer_id %>
-  
+
     <div>
       <%= submit "Save", phx_disable_with: "Saving..." %>
     </div>

@@ -1,16 +1,19 @@
 defmodule StripeCartWeb.StoreLive.FormComponent do
   use StripeCartWeb, :live_component
 
+  alias StripeCart.StripeAccounts
   alias StripeCart.Stores
 
   @impl true
   def update(%{store: store, user_id: user_id} = assigns, socket) do
     changeset = Stores.change_store(store)
+    stripe_accounts = StripeAccounts.list_stripe_accounts(user_id) |> Enum.map(& {&1.name, &1.id})
 
     {:ok,
      socket
      |> assign(assigns)
-     |> assign(:changeset, changeset)}
+     |> assign(:changeset, changeset)
+     |> assign(:stripe_accounts, stripe_accounts)}
   end
 
   @impl true
@@ -41,7 +44,7 @@ defmodule StripeCartWeb.StoreLive.FormComponent do
   end
 
   defp save_store(%{assigns: %{user_id: user_id}} = socket, :new, store_params) do
-  case Stores.create_store(store_params |> Map.put("user_id", user_id)) do
+    case Stores.create_store(store_params |> Map.put("user_id", user_id)) do
       {:ok, _store} ->
         {:noreply,
          socket

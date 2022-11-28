@@ -23,8 +23,10 @@ defmodule StripeCart.StripeAccounts do
       [%StripeAccount{}, ...]
 
   """
-  def list_stripe_accounts do
-    Repo.all(StripeAccount)
+  def list_stripe_accounts(%User{id: user_id}), do: list_stripe_accounts(user_id)
+
+  def list_stripe_accounts(user_id) do
+    Repo.all(from stripe_account in StripeAccount, where: stripe_account.user_id == ^user_id)
   end
 
   @doc """

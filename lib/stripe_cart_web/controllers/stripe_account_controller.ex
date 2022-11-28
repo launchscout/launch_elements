@@ -14,8 +14,8 @@ defmodule StripeCartWeb.StripeAccountController do
     Application.get_env(:stripe_cart, :stripe_client_id)
   end
 
-  def index(conn, _params) do
-    stripe_accounts = StripeAccounts.list_stripe_accounts()
+  def index(%{assigns: %{current_user: current_user}} = conn, _params) do
+    stripe_accounts = StripeAccounts.list_stripe_accounts(current_user)
     render(conn, "index.html", stripe_accounts: stripe_accounts)
   end
 

@@ -11,8 +11,9 @@ defmodule StripeCartWeb.StoreLiveTest do
   setup(%{conn: conn}) do
     store = insert(:store)
     user = insert(:user)
+    stripe_account = insert(:stripe_account)
     conn = log_in_user(conn, user)
-    %{store: store, user: user, conn: conn}
+    %{store: store, user: user, conn: conn, stripe_account: stripe_account}
   end
 
   describe "Index" do
@@ -24,7 +25,7 @@ defmodule StripeCartWeb.StoreLiveTest do
       assert html =~ store.name
     end
 
-    test "saves new store", %{conn: conn} do
+    test "saves new store", %{conn: conn, stripe_account: stripe_account} do
       {:ok, index_live, _html} = live(conn, Routes.store_index_path(conn, :index))
 
       assert index_live |> element("a", "New Store") |> render_click() =~
@@ -39,14 +40,14 @@ defmodule StripeCartWeb.StoreLiveTest do
       {:ok, _, html} =
         index_live
         |> form("#store-form", store: @create_attrs)
-        |> render_submit()
+        |> render_submit(%{stripe_account_id: stripe_account.id})
         |> follow_redirect(conn, Routes.store_index_path(conn, :index))
 
       assert html =~ "Store created successfully"
       assert html =~ "some name"
     end
 
-    test "updates store in listing", %{conn: conn, store: store} do
+    test "updates store in listing", %{conn: conn, store: store, stripe_account: stripe_account} do
       {:ok, index_live, _html} = live(conn, Routes.store_index_path(conn, :index))
 
       assert index_live |> element("#store-#{store.id} a", "Edit") |> render_click() =~
@@ -61,7 +62,7 @@ defmodule StripeCartWeb.StoreLiveTest do
       {:ok, _, html} =
         index_live
         |> form("#store-form", store: @update_attrs)
-        |> render_submit()
+        |> render_submit(%{stripe_account_id: stripe_account.id})
         |> follow_redirect(conn, Routes.store_index_path(conn, :index))
 
       assert html =~ "Store updated successfully"

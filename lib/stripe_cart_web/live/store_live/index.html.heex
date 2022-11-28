@@ -5,9 +5,9 @@
     <.live_component
       module={StripeCartWeb.StoreLive.FormComponent}
       id={@store.id || :new}
+      user_id={@current_user.id}
       title={@page_title}
       action={@live_action}
-      user_id={@current_user.id}
       store={@store}
       return_to={Routes.store_index_path(@socket, :index)}
     />

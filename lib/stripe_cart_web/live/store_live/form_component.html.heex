@@ -17,10 +17,6 @@
     <%= select f, :stripe_account_id, @stripe_accounts %>
     <%= error_tag f, :stripe_account_id %>
 
-    <%= label f, :stripe_customer_id %>
-    <%= text_input f, :stripe_customer_id %>
-    <%= error_tag f, :stripe_customer_id %>
-
     <div>
       <%= submit "Save", phx_disable_with: "Saving..." %>
     </div>

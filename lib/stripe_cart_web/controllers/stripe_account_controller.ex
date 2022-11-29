@@ -36,18 +36,6 @@ defmodule StripeCartWeb.StripeAccountController do
     redirect(conn, to: Routes.stripe_account_path(conn, :index))
   end
 
-  def create(conn, %{"stripe_account" => stripe_account_params}) do
-    case StripeAccounts.create_stripe_account(stripe_account_params) do
-      {:ok, stripe_account} ->
-        conn
-        |> put_flash(:info, "Stripe account created successfully.")
-        |> redirect(to: Routes.stripe_account_path(conn, :show, stripe_account))
-
-      {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
-    end
-  end
-
   def show(conn, %{"id" => id}) do
     stripe_account = StripeAccounts.get_stripe_account!(id)
     render(conn, "show.html", stripe_account: stripe_account)

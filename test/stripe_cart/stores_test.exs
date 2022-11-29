@@ -2,15 +2,13 @@ defmodule StripeCart.StoresTest do
   use StripeCart.DataCase
 
   alias StripeCart.Stores
+  alias StripeCart.Stores.Store
 
   import StripeCart.Factory
 
   describe "stores" do
-    alias StripeCart.Stores.Store
 
-    import StripeCart.StoresFixtures
-
-    @invalid_attrs %{name: nil, stripe_customer_id: nil}
+    @invalid_attrs %{name: nil}
 
     test "list_stores/0 returns all stores for a user" do
       user = insert(:user)
@@ -27,11 +25,10 @@ defmodule StripeCart.StoresTest do
 
     test "create_store/1 with valid data creates a store" do
       user = insert(:user)
-      valid_attrs = %{name: "some name", user_id: user.id, stripe_customer_id: "some stripe_customer_id"}
+      valid_attrs = %{name: "some name", user_id: user.id}
 
       assert {:ok, %Store{} = store} = Stores.create_store(valid_attrs)
       assert store.name == "some name"
-      assert store.stripe_customer_id == "some stripe_customer_id"
     end
 
     test "create_store/1 with invalid data returns error changeset" do
@@ -40,11 +37,10 @@ defmodule StripeCart.StoresTest do
 
     test "update_store/2 with valid data updates the store" do
       store = insert(:store)
-      update_attrs = %{name: "some updated name", stripe_customer_id: "some updated stripe_customer_id"}
+      update_attrs = %{name: "some updated name"}
 
-      assert {:ok, %Store{} = store} = Stores.update_store(store, update_attrs)
-      assert store.name == "some updated name"
-      assert store.stripe_customer_id == "some updated stripe_customer_id"
+      assert {:ok, %Store{} = updated_store} = Stores.update_store(store, update_attrs)
+      assert updated_store.name == "some updated name"
     end
 
     test "update_store/2 with invalid data returns error changeset" do
@@ -61,6 +57,20 @@ defmodule StripeCart.StoresTest do
     test "change_store/1 returns a store changeset" do
       store = insert(:store)
       assert %Ecto.Changeset{} = Stores.change_store(store)
+    end
+  end
+
+  describe "load_products" do
+    test "fetches products and loads them into cache" do
+      stripe_account = insert(:stripe_account, stripe_id: "acc_valid_account")
+      store = insert(:store, stripe_account: stripe_account)
+      Stores.load_products(store)
+      assert {:ok, %{product: %{name: "Happy mug"}, amount: 1100}} = Cachex.get(:stripe_products, "price_345")
+    end
+
+    test "ignores accounts with no stripe id" do
+      store = insert(:store, stripe_account: nil)
+      refute Stores.load_products(store)
     end
   end
 end

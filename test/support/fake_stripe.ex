@@ -270,4 +270,191 @@ defmodule StripeCart.Test.FakeStripe do
        type: "standard"
      }}
   end
+
+  def list_products(_params, connect_account: "acc_valid_account") do
+    {:ok,
+     %Stripe.List{
+       object: "list",
+       data: [
+         %Stripe.Product{
+           id: "prod_123",
+           object: "product",
+           active: true,
+           attributes: [],
+           caption: nil,
+           created: 1_664_649_973,
+           deactivate_on: nil,
+           default_price: "price_123",
+           deleted: nil,
+           description: "Awww cuuute wah wah wah babies",
+           images: [
+             "https://files.stripe.com/links/MDB8YWNjdF8xSTQ2a3FLRkd4TXpHYmdrfGZsX3Rlc3Rfa2psMk5KcERPelRWeGp3OVpDT1oxcXhE004CuzJnnL"
+           ],
+           livemode: false,
+           metadata: %{"size" => "blue"},
+           name: "Nifty onesie",
+           package_dimensions: nil,
+           shippable: nil,
+           statement_descriptor: nil,
+           type: "service",
+           unit_label: nil,
+           updated: 1_666_718_255,
+           url: nil
+         },
+         %Stripe.Product{
+           id: "prod_345",
+           object: "product",
+           active: true,
+           attributes: [],
+           caption: nil,
+           created: 1_664_648_447,
+           deactivate_on: nil,
+           default_price: "price_1LoAItKFGxMzGbgkER0DuC94",
+           deleted: nil,
+           description: "There's a lid and stuff.",
+           images: [
+             "https://files.stripe.com/links/MDB8YWNjdF8xSTQ2a3FLRkd4TXpHYmdrfGZsX3Rlc3RfUVdWbGlCdlJxMGdFclFWWEVySUcwWHlB00iYAtmJMM"
+           ],
+           livemode: false,
+           metadata: %{},
+           name: "Happy mug",
+           package_dimensions: nil,
+           shippable: nil,
+           statement_descriptor: nil,
+           type: "service",
+           unit_label: nil,
+           updated: 1_667_923_666,
+           url: nil
+         },
+         %Stripe.Product{
+           id: "pins",
+           object: "product",
+           active: true,
+           attributes: ["set"],
+           caption: nil,
+           created: 1_609_344_091,
+           deactivate_on: [],
+           default_price: nil,
+           deleted: nil,
+           description: nil,
+           images: [],
+           livemode: false,
+           metadata: %{},
+           name: "Stripe Pins",
+           package_dimensions: nil,
+           shippable: true,
+           statement_descriptor: nil,
+           type: "good",
+           unit_label: nil,
+           updated: 1_609_344_091,
+           url: nil
+         },
+         %Stripe.Product{
+           id: "increment",
+           object: "product",
+           active: true,
+           attributes: ["issue"],
+           caption: nil,
+           created: 1_609_344_091,
+           deactivate_on: [],
+           default_price: nil,
+           deleted: nil,
+           description: nil,
+           images: [],
+           livemode: false,
+           metadata: %{},
+           name: "Increment Magazine",
+           package_dimensions: nil,
+           shippable: true,
+           statement_descriptor: nil,
+           type: "good",
+           unit_label: nil,
+           updated: 1_609_344_091,
+           url: nil
+         },
+         %Stripe.Product{
+           id: "shirt",
+           object: "product",
+           active: true,
+           attributes: ["size", "gender"],
+           caption: nil,
+           created: 1_609_344_091,
+           deactivate_on: [],
+           default_price: nil,
+           deleted: nil,
+           description: nil,
+           images: [],
+           livemode: false,
+           metadata: %{},
+           name: "Stripe Shirt",
+           package_dimensions: nil,
+           shippable: true,
+           statement_descriptor: nil,
+           type: "good",
+           unit_label: nil,
+           updated: 1_609_344_091,
+           url: nil
+         }
+       ],
+       has_more: false,
+       total_count: nil,
+       url: "/v1/products"
+     }}
+  end
+
+  def list_prices(_params, connect_account: "acc_valid_account") do
+    {:ok,
+     %Stripe.List{
+       object: "list",
+       data: [
+         %Stripe.Price{
+           id: "price_123",
+           object: "price",
+           active: true,
+           billing_scheme: "per_unit",
+           created: 1_664_649_973,
+           currency: "usd",
+           livemode: false,
+           lookup_key: nil,
+           metadata: %{},
+           nickname: nil,
+           product: "prod_123",
+           recurring: nil,
+           tax_behavior: "exclusive",
+           tiers: nil,
+           tiers_mode: nil,
+           transform_lookup_key: nil,
+           transform_quantity: nil,
+           type: "one_time",
+           unit_amount: 1100,
+           unit_amount_decimal: "1100"
+         },
+         %Stripe.Price{
+           id: "price_345",
+           object: "price",
+           active: true,
+           billing_scheme: "per_unit",
+           created: 1_664_648_447,
+           currency: "usd",
+           livemode: false,
+           lookup_key: nil,
+           metadata: %{},
+           nickname: nil,
+           product: "prod_345",
+           recurring: nil,
+           tax_behavior: "exclusive",
+           tiers: nil,
+           tiers_mode: nil,
+           transform_lookup_key: nil,
+           transform_quantity: nil,
+           type: "one_time",
+           unit_amount: 1100,
+           unit_amount_decimal: "1100"
+         }
+       ],
+       has_more: false,
+       total_count: nil,
+       url: "/v1/prices"
+     }}
+  end
 end

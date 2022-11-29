@@ -8,7 +8,6 @@ defmodule StripeCart.Stores.Store do
   @foreign_key_type :binary_id
   schema "stores" do
     field :name, :string
-    field :stripe_customer_id, :string
     belongs_to :user, User
     belongs_to :stripe_account, StripeAccount
 
@@ -18,7 +17,7 @@ defmodule StripeCart.Stores.Store do
   @doc false
   def changeset(store, attrs) do
     store
-    |> cast(attrs, [:name, :stripe_customer_id, :user_id, :stripe_account_id])
-    |> validate_required([:name, :stripe_customer_id, :user_id])
+    |> cast(attrs, [:name, :user_id, :stripe_account_id])
+    |> validate_required([:name, :user_id])
   end
 end

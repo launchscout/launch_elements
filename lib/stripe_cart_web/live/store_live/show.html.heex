@@ -21,11 +21,6 @@
     <%= @store.name %>
   </li>
 
-  <li>
-    <strong>Stripe customer:</strong>
-    <%= @store.stripe_customer_id %>
-  </li>
-
 </ul>
 
 <span><%= live_patch "Edit", to: Routes.store_show_path(@socket, :edit, @store), class: "button" %></span> |

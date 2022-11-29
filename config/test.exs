@@ -30,7 +30,10 @@ config :stripe_cart,
   create_checkout_session: &StripeCart.Test.FakeStripe.create_checkout_session/1,
   stripe_oauth: StripeCart.Test.FakeStripe,
   get_stripe_account: &StripeCart.Test.FakeStripe.get_stripe_account/1,
+  list_stripe_products: &StripeCart.Test.FakeStripe.list_products/2,
+  list_stripe_prices: &StripeCart.Test.FakeStripe.list_prices/2,
   supervised_processes: [{Cachex, name: :stripe_products}]
+
 # Print only warnings and errors during test
 config :logger, level: :info
 

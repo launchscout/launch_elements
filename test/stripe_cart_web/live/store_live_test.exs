@@ -4,25 +4,27 @@ defmodule StripeCartWeb.StoreLiveTest do
   import Phoenix.LiveViewTest
   import StripeCart.Factory
 
-  @create_attrs %{name: "some name", stripe_customer_id: "some stripe_customer_id"}
-  @update_attrs %{name: "some updated name", stripe_customer_id: "some updated stripe_customer_id"}
-  @invalid_attrs %{name: nil, stripe_customer_id: nil}
+  @create_attrs %{name: "some name"}
+  @update_attrs %{name: "some updated name"}
+  @invalid_attrs %{name: nil}
 
   setup(%{conn: conn}) do
-    store = insert(:store)
     user = insert(:user)
+    store = insert(:store, user: user)
     stripe_account = insert(:stripe_account)
     conn = log_in_user(conn, user)
     %{store: store, user: user, conn: conn, stripe_account: stripe_account}
   end
 
   describe "Index" do
-    test "lists all stores", %{conn: conn, store: store} do
+    test "lists stores for current user", %{conn: conn, store: store} do
+      other_store = insert(:store, name: "Not this one")
 
       {:ok, _index_live, html} = live(conn, Routes.store_index_path(conn, :index))
 
       assert html =~ "Listing Stores"
       assert html =~ store.name
+      refute html =~ other_store.name
     end
 
     test "saves new store", %{conn: conn, stripe_account: stripe_account} do

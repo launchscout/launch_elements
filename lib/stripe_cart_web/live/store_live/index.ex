@@ -5,8 +5,8 @@ defmodule StripeCartWeb.StoreLive.Index do
   alias StripeCart.Stores.Store
 
   @impl true
-  def mount(_params, _session, socket) do
-    {:ok, assign(socket, :stores, list_stores())}
+  def mount(_params, _session, %{assigns: %{current_user: user}} = socket) do
+    {:ok, assign(socket, :stores, list_stores(user))}
   end
 
   @impl true
@@ -33,14 +33,14 @@ defmodule StripeCartWeb.StoreLive.Index do
   end
 
   @impl true
-  def handle_event("delete", %{"id" => id}, socket) do
+  def handle_event("delete", %{"id" => id},  %{assigns: %{current_user: user}} = socket) do
     store = Stores.get_store!(id)
     {:ok, _} = Stores.delete_store(store)
 
-    {:noreply, assign(socket, :stores, list_stores())}
+    {:noreply, assign(socket, :stores, list_stores(user))}
   end
 
-  defp list_stores do
-    Stores.list_stores()
+  defp list_stores(user) do
+    Stores.list_stores(user)
   end
 end

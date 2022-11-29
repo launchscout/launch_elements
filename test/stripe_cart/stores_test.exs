@@ -31,6 +31,15 @@ defmodule StripeCart.StoresTest do
       assert store.name == "some name"
     end
 
+    test "create_store with stripe account loads products" do
+      stripe_account = insert(:stripe_account, stripe_id: "acc_valid_account")
+      user = insert(:user)
+      valid_attrs = %{name: "some name", user_id: user.id, stripe_account_id: stripe_account.id}
+      assert {:ok, %Store{}} = Stores.create_store(valid_attrs)
+      assert {:ok, %{product: %{name: "Happy mug"}, amount: 1100}} = Cachex.get(:stripe_products, "price_345")
+      Cachex.clear!(:stripe_products)
+    end
+
     test "create_store/1 with invalid data returns error changeset" do
       assert {:error, %Ecto.Changeset{}} = Stores.create_store(@invalid_attrs)
     end
@@ -41,6 +50,14 @@ defmodule StripeCart.StoresTest do
 
       assert {:ok, %Store{} = updated_store} = Stores.update_store(store, update_attrs)
       assert updated_store.name == "some updated name"
+    end
+
+    test "update_store with a stripe account loads products" do
+      store = insert(:store)
+      stripe_account = insert(:stripe_account, stripe_id: "acc_valid_account")
+      assert {:ok, _store} = Stores.update_store(store, %{stripe_account_id: stripe_account.id})
+      assert {:ok, %{product: %{name: "Happy mug"}, amount: 1100}} = Cachex.get(:stripe_products, "price_345")
+      Cachex.clear!(:stripe_products)
     end
 
     test "update_store/2 with invalid data returns error changeset" do
@@ -66,6 +83,7 @@ defmodule StripeCart.StoresTest do
       store = insert(:store, stripe_account: stripe_account)
       Stores.load_products(store)
       assert {:ok, %{product: %{name: "Happy mug"}, amount: 1100}} = Cachex.get(:stripe_products, "price_345")
+      Cachex.clear!(:stripe_products)
     end
 
     test "ignores accounts with no stripe id" do

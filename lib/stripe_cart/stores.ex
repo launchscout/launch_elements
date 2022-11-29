@@ -56,9 +56,16 @@ defmodule StripeCart.Stores do
 
   """
   def create_store(attrs \\ %{}) do
-    %Store{}
-    |> Store.changeset(attrs)
-    |> Repo.insert()
+    case %Store{}
+         |> Store.changeset(attrs)
+         |> Repo.insert() do
+      {:ok, store} ->
+        load_products(store)
+        {:ok, store}
+
+      {:error, changeset} ->
+        {:error, changeset}
+    end
   end
 
   @doc """
@@ -74,9 +81,16 @@ defmodule StripeCart.Stores do
 
   """
   def update_store(%Store{} = store, attrs) do
-    store
-    |> Store.changeset(attrs)
-    |> Repo.update()
+    case store
+         |> Store.changeset(attrs)
+         |> Repo.update() do
+      {:ok, store} ->
+        load_products(store)
+        {:ok, store}
+
+      {:error, changeset} ->
+        {:error, changeset}
+    end
   end
 
   @doc """

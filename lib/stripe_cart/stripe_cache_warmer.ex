@@ -3,26 +3,22 @@ defmodule StripeCart.StripeCacheWarmer do
 
   alias Stripe.Price
   alias Stripe.Product
+  alias StripeCart.StripeAccounts
+  alias StripeCart.StripeAccounts.StripeAccount
 
   def interval() do
     :timer.seconds(300)
   end
 
   def execute(_state) do
-    {:ok, %Stripe.List{data: stripe_products}} = Product.list(%{active: true})
-    {:ok, %Stripe.List{data: stripe_prices}} = Price.list()
-
-    products =
-      stripe_products
-      |> Enum.map(fn %Product{id: product_id} = product -> {product_id, product} end)
-      |> Enum.into(%{})
-
-    results =
-      stripe_prices
-      |> Enum.map(fn %Price{unit_amount: cents, id: price_id, product: product_id} ->
-        {price_id, %{id: price_id, amount: cents, product: Map.get(products, product_id)}}
-      end)
-
+    results = StripeAccounts.list_stripe_accounts() |> Enum.reduce([], &get_products/2)
     {:ok, results}
+  end
+
+  defp get_products(%StripeAccount{stripe_id: stripe_id}, products) do
+    case StripeAccounts.get_products(stripe_id) do
+      {:ok, new_products} -> new_products ++ products
+      _ -> products
+    end
   end
 end

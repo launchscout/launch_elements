@@ -77,18 +77,4 @@ defmodule StripeCart.StoresTest do
     end
   end
 
-  describe "load_products" do
-    test "fetches products and loads them into cache" do
-      stripe_account = insert(:stripe_account, stripe_id: "acc_valid_account")
-      store = insert(:store, stripe_account: stripe_account)
-      Stores.load_products(store)
-      assert {:ok, %{product: %{name: "Happy mug"}, amount: 1100}} = Cachex.get(:stripe_products, "price_345")
-      Cachex.clear!(:stripe_products)
-    end
-
-    test "ignores accounts with no stripe id" do
-      store = insert(:store, stripe_account: nil)
-      refute Stores.load_products(store)
-    end
-  end
 end

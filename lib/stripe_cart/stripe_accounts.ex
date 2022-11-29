@@ -63,7 +63,9 @@ defmodule StripeCart.StripeAccounts do
         %StripeAccount{}
         |> StripeAccount.changeset(%{user_id: user_id, stripe_id: stripe_user_id, name: name})
         |> Repo.insert()
-      {:error, error} -> {:error, error}
+
+      {:error, error} ->
+        {:error, error}
     end
   end
 
@@ -112,5 +114,35 @@ defmodule StripeCart.StripeAccounts do
   """
   def change_stripe_account(%StripeAccount{} = stripe_account, attrs \\ %{}) do
     StripeAccount.changeset(stripe_account, attrs)
+  end
+
+  def get_products(stripe_id) do
+    with {:ok, %Stripe.List{data: stripe_products}} <-
+           fetch_stripe_products(%{active: true}, connect_account: stripe_id),
+         {:ok, %Stripe.List{data: stripe_prices}} <-
+           fetch_stripe_prices(%{}, connect_account: stripe_id) do
+      products =
+        stripe_products
+        |> Enum.map(fn %Stripe.Product{id: product_id} = product -> {product_id, product} end)
+        |> Enum.into(%{})
+
+      results =
+        stripe_prices
+        |> Enum.map(fn %Stripe.Price{unit_amount: cents, id: price_id, product: product_id} ->
+          {price_id, %{id: price_id, amount: cents, product: Map.get(products, product_id)}}
+        end)
+
+      {:ok, results}
+    end
+  end
+
+  defp fetch_stripe_products(params, options) do
+    func = Application.get_env(:stripe_cart, :list_stripe_products, &Stripe.Product.list/2)
+    func.(params, options)
+  end
+
+  defp fetch_stripe_prices(params, options) do
+    func = Application.get_env(:stripe_cart, :list_stripe_prices, &Stripe.Price.list/2)
+    func.(params, options)
   end
 end

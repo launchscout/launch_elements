@@ -57,4 +57,15 @@ defmodule StripeCart.StripeAccountsTest do
       assert %Ecto.Changeset{} = StripeAccounts.change_stripe_account(stripe_account)
     end
   end
+
+  describe "get_products" do
+    test "fetches products and prices from stripe" do
+      assert {:ok, [{"price_123", %{amount: 1100, product: %{name: "Nifty onesie"}}} | _] } = StripeAccounts.get_products("acc_valid_account")
+    end
+
+    test "ignores accounts with invalid stripe id" do
+      assert {:error, _} = StripeAccounts.get_products("gargage")
+    end
+  end
+
 end

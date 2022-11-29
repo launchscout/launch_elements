@@ -402,6 +402,29 @@ defmodule StripeCart.Test.FakeStripe do
      }}
   end
 
+  def list_products(_, _) do
+    {:error,
+     %Stripe.Error{
+       source: :stripe,
+       code: :invalid_request_error,
+       request_id: nil,
+       extra: %{
+         card_code: :account_invalid,
+         http_status: 403,
+         raw_error: %{
+           "code" => "account_invalid",
+           "doc_url" => "https://stripe.com/docs/error-codes/account-invalid",
+           "message" =>
+             "The provided key 'sk_test_*********************************************************************************************CGdW2x' does not have access to account 'garbage' (or that account does not exist). Application access may have been revoked.",
+           "type" => "invalid_request_error"
+         }
+       },
+       message:
+         "The provided key 'sk_test_*********************************************************************************************CGdW2x' does not have access to account 'garbage' (or that account does not exist). Application access may have been revoked.",
+       user_message: nil
+     }}
+  end
+
   def list_prices(_params, connect_account: "acc_valid_account") do
     {:ok,
      %Stripe.List{
@@ -455,6 +478,29 @@ defmodule StripeCart.Test.FakeStripe do
        has_more: false,
        total_count: nil,
        url: "/v1/prices"
+     }}
+  end
+
+  def list_prices(_, _) do
+    {:error,
+     %Stripe.Error{
+       source: :stripe,
+       code: :invalid_request_error,
+       request_id: nil,
+       extra: %{
+         card_code: :account_invalid,
+         http_status: 403,
+         raw_error: %{
+           "code" => "account_invalid",
+           "doc_url" => "https://stripe.com/docs/error-codes/account-invalid",
+           "message" =>
+             "The provided key 'sk_test_*********************************************************************************************CGdW2x' does not have access to account 'garbage' (or that account does not exist). Application access may have been revoked.",
+           "type" => "invalid_request_error"
+         }
+       },
+       message:
+         "The provided key 'sk_test_*********************************************************************************************CGdW2x' does not have access to account 'garbage' (or that account does not exist). Application access may have been revoked.",
+       user_message: nil
      }}
   end
 end

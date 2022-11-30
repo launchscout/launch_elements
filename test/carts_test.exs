@@ -9,7 +9,8 @@ defmodule StripeCart.CartTest do
 
   setup do
     [product, product2] = FakeStripe.populate_cache()
-    store = insert(:store)
+    stripe_account = insert(:stripe_account, stripe_id: "acc_valid_account")
+    store = insert(:store, stripe_account: stripe_account)
     {:ok,
      %{
        product: product,
@@ -55,7 +56,7 @@ defmodule StripeCart.CartTest do
   end
 
   describe "checkout" do
-    test "checkout returns url", %{store: %{id: store_id}} do
+    test "checkout creates sesssion for connected account and returns url", %{store: %{id: store_id}} do
       {:ok, cart} = Carts.create_cart(store_id)
 
       {:ok, cart} = Carts.add_item(cart, "price_123")

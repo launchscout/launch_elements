@@ -1,12 +1,13 @@
 defmodule StripeCart.Carts do
   alias StripeCart.Carts.{Cart, CartItem}
-
-  @derive Jason.Encoder
+  alias StripeCart.Stores.Store
+  alias StripeCart.Stores
+  alias StripeCart.StripeAccounts.StripeAccount
 
   @create_checkout_session Application.get_env(
                              :stripe_cart,
                              :create_checkout_session,
-                             &Stripe.Session.create/1
+                             &Stripe.Session.create/2
                            )
 
   alias StripeCart.Repo
@@ -26,7 +27,7 @@ defmodule StripeCart.Carts do
 
   def add_product(
         %Cart{id: cart_id},
-        %{id: stripe_price_id, product: product, amount: price} = stripe_data
+        %{id: stripe_price_id, product: product, amount: price}
       ) do
     {:ok, _cart_item} =
       case Repo.get_by(CartItem, stripe_price_id: stripe_price_id, cart_id: cart_id) do
@@ -47,7 +48,8 @@ defmodule StripeCart.Carts do
     Repo.get(Cart, cart_id) |> Repo.preload(:items)
   end
 
-  def checkout(return_url, %Cart{items: items}) do
+  def checkout(return_url, %Cart{items: items, store_id: store_id}) do
+    %Store{stripe_account: %StripeAccount{stripe_id: stripe_id}} = Stores.get_store!(store_id)
     @create_checkout_session.(%{
       mode: "payment",
       success_url: return_url,
@@ -56,7 +58,7 @@ defmodule StripeCart.Carts do
         allowed_countries: ["US"]
       },
       line_items: Enum.map(items, &build_line_item/1)
-    })
+    }, connect_account: stripe_id)
   end
 
   def list_products() do

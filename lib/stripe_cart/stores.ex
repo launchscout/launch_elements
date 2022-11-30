@@ -42,7 +42,7 @@ defmodule StripeCart.Stores do
       ** (Ecto.NoResultsError)
 
   """
-  def get_store!(id), do: Repo.get!(Store, id)
+  def get_store!(id), do: Repo.get!(Store, id) |> Repo.preload(:stripe_account)
 
   @doc """
   Creates a store.

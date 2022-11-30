@@ -70,7 +70,7 @@ defmodule StripeCart.Test.FakeStripe do
         cancel_url: cancel_url,
         success_url: success_url,
         line_items: _line_items
-      }) do
+      }, connect_account: "acc_valid_account") do
     {:ok,
      %Stripe.Session{
        id: "cs_test_a1iJRREh0dhvx6feR1F3Z8zQ0bkAbmkrIP6kdY2WsV6Yoa5pcS14JeCwsv",

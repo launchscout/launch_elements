@@ -27,7 +27,7 @@ config :stripe_cart, StripeCartWeb.Endpoint,
 config :stripe_cart, StripeCart.Mailer, adapter: Swoosh.Adapters.Test
 
 config :stripe_cart,
-  create_checkout_session: &StripeCart.Test.FakeStripe.create_checkout_session/1,
+  create_checkout_session: &StripeCart.Test.FakeStripe.create_checkout_session/2,
   stripe_oauth: StripeCart.Test.FakeStripe,
   get_stripe_account: &StripeCart.Test.FakeStripe.get_stripe_account/1,
   list_stripe_products: &StripeCart.Test.FakeStripe.list_products/2,

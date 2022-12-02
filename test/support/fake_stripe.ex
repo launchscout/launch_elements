@@ -65,12 +65,15 @@ defmodule StripeCart.Test.FakeStripe do
     [product, product2]
   end
 
-  def create_checkout_session(%{
-        mode: "payment",
-        cancel_url: cancel_url,
-        success_url: success_url,
-        line_items: _line_items
-      }, connect_account: "acc_valid_account") do
+  def create_checkout_session(
+        %{
+          mode: "payment",
+          cancel_url: cancel_url,
+          success_url: success_url,
+          line_items: _line_items
+        },
+        connect_account: "acc_valid_account"
+      ) do
     {:ok,
      %Stripe.Session{
        id: "cs_test_a1iJRREh0dhvx6feR1F3Z8zQ0bkAbmkrIP6kdY2WsV6Yoa5pcS14JeCwsv",
@@ -501,6 +504,78 @@ defmodule StripeCart.Test.FakeStripe do
        message:
          "The provided key 'sk_test_*********************************************************************************************CGdW2x' does not have access to account 'garbage' (or that account does not exist). Application access may have been revoked.",
        user_message: nil
+     }}
+  end
+
+  def get_session("sess_complete", connect_account: _account) do
+    {:ok,
+     %Stripe.Session{
+       id: "cs_test_b1ktEfe4UAFQzlx7WK5z1sALwSy8rC50J0TXUS4uZUhhogzTRmEUSQ3i6S",
+       object: "checkout.session",
+       after_expiration: nil,
+       allow_promotion_codes: nil,
+       amount_subtotal: 5700,
+       amount_total: 5700,
+       automatic_tax: %{enabled: false, status: nil},
+       billing_address_collection: nil,
+       cancel_url: "http://localhost:8080/shop/",
+       client_reference_id: nil,
+       consent: nil,
+       consent_collection: nil,
+       currency: "usd",
+       customer: "cus_Mu8e7lJaDyNtXa",
+       customer_creation: "always",
+       customer_details: %{
+         address: %{
+           city: "Cincinnati",
+           country: "US",
+           line1: "641 Evangeline Rd",
+           line2: nil,
+           postal_code: "45240",
+           state: "OH"
+         },
+         email: "superchrisnelson@gmail.com",
+         name: "Chris Nelson",
+         phone: nil,
+         tax_exempt: "none",
+         tax_ids: []
+       },
+       customer_email: nil,
+       line_items: nil,
+       expires_at: 1_670_016_750,
+       livemode: false,
+       locale: nil,
+       metadata: %{},
+       mode: "payment",
+       payment_intent: "pi_3MAKMsGpfulOf84Y1NW9Id6O",
+       payment_link: nil,
+       payment_method_options: %{},
+       payment_method_types: ["card"],
+       payment_status: "paid",
+       phone_number_collection: %{enabled: false},
+       recovered_from: nil,
+       setup_intent: nil,
+       shipping: %{
+         address: %{
+           city: "Cincinnati",
+           country: "US",
+           line1: "641 Evangeline Rd",
+           line2: nil,
+           postal_code: "45240",
+           state: "OH"
+         },
+         name: "Christopher C Nelson"
+       },
+       shipping_address_collection: %{allowed_countries: ["US"]},
+       shipping_options: [],
+       shipping_rate: nil,
+       status: "complete",
+       submit_type: nil,
+       subscription: nil,
+       success_url: "http://localhost:8080/shop/",
+       tax_id_collection: nil,
+       total_details: %{amount_discount: 0, amount_shipping: 0, amount_tax: 0},
+       url: nil
      }}
   end
 end

@@ -10,9 +10,39 @@ defmodule StripeCart.Carts do
                              &Stripe.Session.create/2
                            )
 
+  @get_checkout_session Application.get_env(
+                          :stripe_cart,
+                          :get_checkout_session,
+                          &Stripe.Session.retrieve/2
+                        )
+
   alias StripeCart.Repo
 
   def get_cart!(cart_id), do: Repo.get!(Cart, cart_id) |> Repo.preload(:items)
+
+  def load_cart(cart_id) do
+    case Repo.get(Cart, cart_id) |> Repo.preload(items: [], store: [:stripe_account]) do
+      nil ->
+        {:error, :cart_not_found}
+
+      %Cart{status: :checkout_started} = cart ->
+        update_checkout_session(cart)
+
+      %Cart{} = cart ->
+        {:ok, cart}
+    end
+  end
+
+  defp update_checkout_session(%Cart{
+         checkout_session: %{"id" => session_id},
+         store: %Store{stripe_account: %StripeAccount{stripe_id: stripe_id}}
+       } = cart) do
+    case @get_checkout_session.(session_id, connect_account: stripe_id) do
+      {:ok, %Stripe.Session{} = session} ->
+        Cart.checkout_changeset(cart, session) |> Repo.update()
+      {:error, error} -> {:error, error}
+    end
+  end
 
   def create_cart(store_id) do
     %{store_id: store_id} |> Cart.create_changeset() |> Repo.insert()
@@ -48,17 +78,27 @@ defmodule StripeCart.Carts do
     Repo.get(Cart, cart_id) |> Repo.preload(:items)
   end
 
-  def checkout(return_url, %Cart{items: items, store_id: store_id}) do
+  def checkout(return_url, %Cart{items: items, store_id: store_id} = cart) do
     %Store{stripe_account: %StripeAccount{stripe_id: stripe_id}} = Stores.get_store!(store_id)
-    @create_checkout_session.(%{
-      mode: "payment",
-      success_url: return_url,
-      cancel_url: return_url,
-      shipping_address_collection: %{
-        allowed_countries: ["US"]
-      },
-      line_items: Enum.map(items, &build_line_item/1)
-    }, connect_account: stripe_id)
+
+    case @create_checkout_session.(
+           %{
+             mode: "payment",
+             success_url: return_url,
+             cancel_url: return_url,
+             shipping_address_collection: %{
+               allowed_countries: ["US"]
+             },
+             line_items: Enum.map(items, &build_line_item/1)
+           },
+           connect_account: stripe_id
+         ) do
+      {:ok, checkout_session} ->
+        Cart.checkout_changeset(cart, checkout_session) |> Repo.update()
+
+      {:error, error} ->
+        {:error, error}
+    end
   end
 
   def list_products() do

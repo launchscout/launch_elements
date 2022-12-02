@@ -28,7 +28,7 @@ type Cart = {
   },
   events: {
     send: ['checkout'],
-    receive: ['checkout_redirect', 'cart_created']
+    receive: ['checkout_redirect', 'cart_created', 'checkout_complete']
   }
 })
 export class StripeCartElement extends LitElement {
@@ -44,8 +44,11 @@ export class StripeCartElement extends LitElement {
   @state()
   cart: Cart | undefined;
 
-  @query('sl-dialog')
-  dialog: HTMLElement | undefined;
+  @query('sl-dialog#cart-details')
+  cartDetails: HTMLElement | undefined;
+
+  @query('sl-dialog#thank-you')
+  thanks: HTMLElement | undefined;
 
   @liveStateConfig('topic')
   get channelName() { 
@@ -57,6 +60,10 @@ export class StripeCartElement extends LitElement {
     super();
     this.addEventListener('checkout_redirect', (e: CustomEvent<{ checkout_url: string }>) => {
       window.location.href = e.detail.checkout_url;
+    });
+    this.addEventListener('checkout_complete', (e: CustomEvent) => {
+      this.showThanks();
+      window.localStorage.removeItem('cart_id');
     });
     this.addEventListener('cart_created', (e: CustomEvent<{ cart_id: string }>) => {
       console.log('cart created')
@@ -71,12 +78,19 @@ export class StripeCartElement extends LitElement {
   }
 
   expandCart() {
-    this.dialog && (this.dialog as any).show();
+    this.cartDetails && (this.cartDetails as any).show();
+  }
+
+  showThanks() {
+    this.thanks && (this.thanks as any).show();
   }
 
   render() {
     return html`
-    <sl-dialog>
+    <sl-dialog id="thank-you">
+      Thanks for purchasing!
+    </sl-dialog>
+    <sl-dialog id="cart-details">
       <table>
         <thead>
           <tr>

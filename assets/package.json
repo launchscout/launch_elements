@@ -1,4 +1,14 @@
 {
+  "name": "stripe-cart",
+  "author": {
+    "email": "chris@launchscout.com",
+    "name": "Chris Nelson",
+    "url": "http://launchscout.com"
+  },
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/launchscout/stripe_cart"
+  },
   "scripts": {
     "build": "tsc"
   },

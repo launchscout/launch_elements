@@ -8,7 +8,8 @@ defmodule StripeCartWeb.StripeCartChannelTest do
   import StripeCart.Factory
 
   setup do
-    {:ok, %{products: FakeStripe.populate_cache, store: insert(:store)}}
+    stripe_account = insert(:stripe_account, stripe_id: "acc_valid_account")
+    {:ok, %{products: FakeStripe.populate_cache, store: insert(:store, stripe_account: stripe_account)}}
   end
 
   describe "joining with new cart" do
@@ -58,6 +59,24 @@ defmodule StripeCartWeb.StripeCartChannelTest do
         version: 0
       })
     end
+
+    test "checking out", %{cart: %{id: cart_id}, socket: socket} do
+      push(socket, "lvs_evt:checkout", %{"return_url" => "http://foo.bar"})
+
+      assert_push("state:change", %{state: %{cart: %{id: ^cart_id, status: :checkout_started}}})
+      assert_push("checkout_redirect", %{checkout_url: checkout_url})
+      assert checkout_url
+    end
+  end
+
+  test "joining with completed cart" do
+    cart = insert(:cart, status: :checkout_complete)
+    {:ok, _, socket} =
+      StripeCartWeb.UserSocket
+      |> socket("user_id", %{some: :assign})
+      |> subscribe_and_join(StripeCartWeb.StripeCartChannel, "stripe_cart:#{cart.id}")
+    assert_push("state:change", %{state: %{}})
+    assert_push("checkout_complete", %{})
   end
 
 end

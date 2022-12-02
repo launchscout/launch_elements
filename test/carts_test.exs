@@ -63,10 +63,17 @@ defmodule StripeCart.CartTest do
       {:ok, cart} = Carts.add_item(cart, "price_456")
       return_url = "http://foo.bar"
 
-      assert {:ok, %{url: checkout_url, success_url: ^return_url, cancel_url: ^return_url}} =
+      assert {:ok, %Cart{status: :checkout_started, checkout_session: %{url: checkout_url, success_url: ^return_url, cancel_url: ^return_url}}} =
                Carts.checkout(return_url, cart)
 
       assert checkout_url
+    end
+  end
+
+  describe "load_cart" do
+    test "fetches checkout session from stripe" do
+      cart = insert(:cart, status: :checkout_started, checkout_session: %{id: "sess_complete", url: "http://foo.bar"})
+      assert {:ok, %Cart{status: :checkout_complete}} = Carts.load_cart(cart.id)
     end
   end
 end

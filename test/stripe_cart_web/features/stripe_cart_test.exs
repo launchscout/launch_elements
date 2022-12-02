@@ -45,4 +45,21 @@ defmodule StripeCartWeb.Features.TodoListTest do
     end)
   end
 
+  feature "after checkout", %{session: session, store: store} do
+    cart = insert(:cart, store: store, status: :checkout_complete)
+    session
+    |> visit("/fake_stores/#{store.id}")
+    |> execute_script("""
+      console.log('cart id: #{cart.id}');
+      window.localStorage.setItem('cart_id', '#{cart.id}');
+    """)
+    |> assert_text("My Store")
+    |> visit("/fake_stores/#{store.id}")
+    |> assert_text("My Store")
+    |> within_shadow_dom("stripe-cart", fn shadow_dom ->
+      shadow_dom
+      |> assert_has(css("sl-dialog", text: "Thanks"))
+    end)
+  end
+
 end

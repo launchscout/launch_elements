@@ -6,12 +6,15 @@ defmodule StripeCart.Factory do
 
   alias StripeCart.Stores.Store
   alias StripeCart.Accounts.User
+  alias StripeCart.Carts.Cart
+  alias StripeCart.Carts.CartItem
   alias StripeCart.StripeAccounts.StripeAccount
 
   def store_factory() do
     %Store{
       name: "Bad Burgers",
-      user: build(:user)
+      user: build(:user),
+      stripe_account: build(:stripe_account)
     }
   end
 
@@ -29,4 +32,21 @@ defmodule StripeCart.Factory do
       user: build(:user)
     }
   end
+
+  def cart_factory() do
+    %Cart{
+      store: build(:store),
+      items: [build(:cart_item)]
+    }
+  end
+
+  def cart_item_factory() do
+    %CartItem{
+      price: 1100,
+      quantity: 1,
+      stripe_price_id: "price_123",
+      product: %{name: "Thing", description: "blah"}
+    }
+  end
+
 end

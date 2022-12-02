@@ -44,7 +44,7 @@ config :esbuild,
   ],
   package: [
     args:
-      ~w(js/index.js --bundle --target=es2017 --outdir=../build --external:/fonts/* --external:/images/*),
+      ~w(js/index.js --bundle --target=es2017 --outdir=../assets/dist --external:/fonts/* --external:/images/*),
     cd: Path.expand("../assets", __DIR__),
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
   ]

@@ -86,7 +86,8 @@ defmodule StripeCart.Stores do
          |> Store.changeset(attrs)
          |> Repo.update() do
       {:ok, store} ->
-        load_products(store)
+        # reload to fix odd situation where the stripe account id doesn't match the stripe account
+        load_products(Repo.reload!(store))
         {:ok, store}
 
       {:error, changeset} ->

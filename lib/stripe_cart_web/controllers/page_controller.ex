@@ -11,8 +11,7 @@ defmodule StripeCartWeb.PageController do
 
   def fake_store(conn, %{"store_id" => store_id}) do
     store = Stores.get_store!(store_id)
-    url =
-      "#{String.replace(Endpoint.url(), "http:", "ws:")}/socket" |> IO.inspect()
+    url = "#{String.replace(Endpoint.url(), "http:", "ws:")}/socket"
     render(conn, "fake_store.html", products: Carts.list_products(), url: url, store: store)
   end
 end

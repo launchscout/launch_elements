@@ -44,7 +44,7 @@ defmodule StripeCartWeb.StripeCartChannel do
   end
 
   def handle_event("checkout", %{"return_url" => return_url}, %{cart: cart} = state, _socket) do
-    case Carts.checkout(return_url, cart) |> IO.inspect() do
+    case Carts.checkout(return_url, cart) do
       {:ok, %Cart{checkout_session: %{url: checkout_url}} = cart} ->
         {:reply, %Event{name: "checkout_redirect", detail: %{checkout_url: checkout_url}},
          Map.put(state, :cart, cart)}

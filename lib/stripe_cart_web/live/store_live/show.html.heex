@@ -20,8 +20,20 @@
     <strong>Name:</strong>
     <%= @store.name %>
   </li>
+  <li>
+    <strong>ID:</strong>
+    <%= @store.id %>
+  </li>
+  <li>
+    <strong>URL:</strong>
+    <%= @url %>
+  </li>
 
 </ul>
+
+Usage:
+
+
 
 <span><%= live_patch "Edit", to: Routes.store_show_path(@socket, :edit, @store), class: "button" %></span> |
 <span><%= live_redirect "Back", to: Routes.store_index_path(@socket, :index) %></span>

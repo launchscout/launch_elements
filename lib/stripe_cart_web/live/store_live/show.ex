@@ -1,6 +1,7 @@
 defmodule StripeCartWeb.StoreLive.Show do
   use StripeCartWeb, :live_view
 
+  alias StripeCartWeb.Endpoint
   alias StripeCart.Stores
 
   @impl true
@@ -10,9 +11,11 @@ defmodule StripeCartWeb.StoreLive.Show do
 
   @impl true
   def handle_params(%{"id" => id}, _, socket) do
+    wsurl = Endpoint.url() |> String.replace("http:", "ws:") |> String.replace("https:", "wss:")
     {:noreply,
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))
+     |> assign(:url, "#{wsurl}/socket")
      |> assign(:store, Stores.get_store!(id))}
   end
 

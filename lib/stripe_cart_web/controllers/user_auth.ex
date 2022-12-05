@@ -145,5 +145,5 @@ defmodule StripeCartWeb.UserAuth do
 
   defp maybe_store_return_to(conn), do: conn
 
-  defp signed_in_path(_conn), do: "/"
+  defp signed_in_path(conn), do: Routes.stripe_account_path(conn, :index)
 end

@@ -28,6 +28,9 @@ if config_env() == :prod do
 
   maybe_ipv6 = if System.get_env("ECTO_IPV6"), do: [:inet6], else: []
 
+  host = System.get_env("RENDER_EXTERNAL_HOSTNAME") || "example.com"
+  port = String.to_integer(System.get_env("PORT") || "4000")
+
   config :stripe_cart, StripeCart.Repo,
     # ssl: true,
     url: database_url,
@@ -47,14 +50,14 @@ if config_env() == :prod do
       """
 
   config :stripe_cart, StripeCartWeb.Endpoint,
-    url: [host: System.get_env("RENDER_EXTERNAL_HOSTNAME") || "localhost", port: 80],
+    url: [host: host, port: port],
     http: [
       # Enable IPv6 and bind on all interfaces.
       # Set it to  {0, 0, 0, 0, 0, 0, 0, 1} for local network only access.
       # See the documentation on https://hexdocs.pm/plug_cowboy/Plug.Cowboy.html
       # for details about using IPv6 vs IPv4 and loopback vs public addresses.
       ip: {0, 0, 0, 0, 0, 0, 0, 0},
-      port: 80
+      port: port
     ],
     secret_key_base: secret_key_base
 

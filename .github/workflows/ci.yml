@@ -45,5 +45,7 @@ jobs:
       - name: Install npms
         run: npm install
         working-directory: assets
+      - name: build assets
+        run: mix esbuild default
       - name: Run  elixir tests
         run: mix test

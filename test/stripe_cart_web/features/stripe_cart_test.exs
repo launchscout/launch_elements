@@ -1,4 +1,4 @@
-defmodule StripeCartWeb.Features.TodoListTest do
+defmodule StripeCartWeb.Features.StripeCartTest do
   alias StripeCart.Test.FakeStripe
   use ExUnit.Case, async: false
   use Wallaby.Feature

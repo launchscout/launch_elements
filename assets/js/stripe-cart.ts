@@ -12,11 +12,16 @@ type Product = {
   description: string;
   id: string;
   images: string[];
+  name: string;
 }
 
 type Cart = {
   items: Array<CartItem>;
   total: number;
+}
+
+const formatPrice = (price) => {
+  return price > 0 ? new Intl.NumberFormat('en-us', {style: 'currency', currency: 'USD'}).format(price / 100) : '';
 }
 
 @customElement('stripe-cart')
@@ -102,9 +107,9 @@ export class StripeCartElement extends LitElement {
         <tbody>
           ${this.cart?.items.map(item => html`
           <tr>
-            <td>${item.product.description}</td>
+            <td>${item.product.name}</td>
             <td>${item.quantity}</td>
-            <td>${item.price}</td>
+            <td>${formatPrice(item.price)}</td>
           </tr>
           `)}
         </tbody>

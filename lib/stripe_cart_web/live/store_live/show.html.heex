@@ -31,9 +31,27 @@
 
 </ul>
 
+<p>
 Usage:
+</p>
 
+Add the stripe-cart custom elements in the header:
 
+<textarea>
+  <script type="module" src="/javascript/index.js"></script>
+</textarea>
+Add a stripe cart to your website:
 
+<textarea>
+  <stripe-cart url={@url} store-id={@store.id}></stripe-cart>
+</textarea>
+
+Wrap existing add to cart buttons. Use the price id from Stripe:
+
+<textarea>
+  <stripe-cart-additem price-id="price_12345">
+    <button>Add to cart!</button>
+  </stripe-cart-additem>
+</textarea>
 <span><%= live_patch "Edit", to: Routes.store_show_path(@socket, :edit, @store), class: "button" %></span> |
 <span><%= live_redirect "Back", to: Routes.store_index_path(@socket, :index) %></span>

@@ -24,7 +24,7 @@ defmodule StripeCartWeb.Features.TodoListTest do
       shadow_dom
       |> assert_has(css("sl-badge", text: "1"))
       |> click(css("sl-button"))
-      |> assert_has(css("table", text: "babies"))
+      |> assert_has(css("table", text: "Nifty onesie"))
     end)
     assert Repo.get_by(Cart, store_id: store.id)
   end

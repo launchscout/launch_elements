@@ -14,7 +14,7 @@ defmodule StripeCartWeb.UserRegistrationControllerTest do
 
     test "redirects if already logged in", %{conn: conn} do
       conn = conn |> log_in_user(user_fixture()) |> get(Routes.user_registration_path(conn, :new))
-      assert redirected_to(conn) == "/"
+      assert redirected_to(conn) == "/stripe_accounts"
     end
   end
 
@@ -29,7 +29,7 @@ defmodule StripeCartWeb.UserRegistrationControllerTest do
         })
 
       assert get_session(conn, :user_token)
-      assert redirected_to(conn) == "/"
+      assert redirected_to(conn) == "/stripe_accounts"
 
       # Now do a logged in request and assert on the menu
       conn = get(conn, "/")

@@ -1,0 +1,35 @@
+name: CI
+
+on: push
+
+jobs:
+  test:
+    name: Build and run tests
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v3
+      - name: Set up Elixir
+        uses: erlef/setup-beam@v1
+        with:
+          otp-version: '25.1' # Define the OTP version [required]
+          elixir-version: '1.14.0' # Define the elixir version [required]
+      - name: Restore dependencies cache
+        uses: actions/cache@v2
+        with:
+          path: deps
+          key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+          restore-keys: ${{ runner.os }}-mix-
+      - uses: actions/cache@v1
+        name: Cache build
+        with:
+          path: _build
+          key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+      - name: Install dependencies
+        run: mix deps.get
+      - name: Install npms
+        run: npm install
+        working-directory: assets
+      - name: Run  elixir tests
+        run: mix test

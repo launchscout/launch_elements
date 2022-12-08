@@ -43,7 +43,6 @@ export class StripeCartElement extends LitElement {
   url: string | undefined;
   
   @property({attribute: "store-id"})
-  @liveStateConfig('params.store_id')
   storeId: string;
 
   @state()
@@ -56,9 +55,14 @@ export class StripeCartElement extends LitElement {
   thanks: HTMLElement | undefined;
 
   @liveStateConfig('topic')
+  get topic() {
+    return `stripe_cart:${this.storeId}`;
+  }
+
+  @liveStateConfig('params.cart_id')
   get channelName() { 
     const cartId =  window.localStorage.getItem('cart_id');
-    return cartId ? `stripe_cart:${cartId}` : 'stripe_cart:new';
+    return cartId ? cartId : ''
   }
 
   constructor() {

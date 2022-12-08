@@ -17,7 +17,7 @@ defmodule StripeCartWeb.StripeCartChannelTest do
       {:ok, _, socket} =
         StripeCartWeb.UserSocket
         |> socket("user_id", %{some: :assign})
-        |> subscribe_and_join(StripeCartWeb.StripeCartChannel, "stripe_cart:new", %{"store_id" => store.id})
+        |> subscribe_and_join(StripeCartWeb.StripeCartChannel, "stripe_cart:#{store.id}", %{"cart_id" => ""})
 
       %{socket: socket}
     end
@@ -48,7 +48,7 @@ defmodule StripeCartWeb.StripeCartChannelTest do
       {:ok, _, socket} =
         StripeCartWeb.UserSocket
         |> socket("user_id", %{some: :assign})
-        |> subscribe_and_join(StripeCartWeb.StripeCartChannel, "stripe_cart:#{cart.id}")
+        |> subscribe_and_join(StripeCartWeb.StripeCartChannel, "stripe_cart:#{store_id}", %{"cart_id" => cart.id})
 
       %{socket: socket, cart: cart}
     end
@@ -74,7 +74,7 @@ defmodule StripeCartWeb.StripeCartChannelTest do
     {:ok, _, socket} =
       StripeCartWeb.UserSocket
       |> socket("user_id", %{some: :assign})
-      |> subscribe_and_join(StripeCartWeb.StripeCartChannel, "stripe_cart:#{cart.id}")
+      |> subscribe_and_join(StripeCartWeb.StripeCartChannel, "stripe_cart:#{cart.store_id}", %{"cart_id" => cart.id})
     assert_push("state:change", %{state: %{}})
     assert_push("checkout_complete", %{})
   end

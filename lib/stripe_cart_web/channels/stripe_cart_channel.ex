@@ -7,24 +7,38 @@ defmodule StripeCartWeb.StripeCartChannel do
   alias StripeCart.Stores
   alias LiveState.Event
 
-  def init("stripe_cart:new", %{"store_id" => store_id}, socket) do
+  def init("stripe_cart:" <> store_id, %{"cart_id" => ""}, socket) do
     case Stores.get_store!(store_id) do
       %Store{id: store_id} -> {:ok, %{}, socket |> assign(:store_id, store_id)}
       nil -> {:error, "Store not found"}
     end
   end
 
-  def init("stripe_cart:" <> cart_id, _payload, socket) do
+  def init("stripe_cart:" <> store_id, %{"cart_id" => cart_id}, socket) do
+    socket = socket |> assign(:store_id, store_id)
+
     case Carts.load_cart(cart_id) do
       {:ok, %Cart{status: :checkout_complete}} ->
         push(socket, "checkout_complete", %{})
         {:ok, %{}}
-      {:ok, cart} -> {:ok, %{cart: cart}}
-      {:error, error} -> {:error, error}
+
+      {:ok, cart} ->
+        {:ok, %{cart: cart}}
+
+      {:error, error} ->
+        {:error, error}
     end
   end
 
-  def handle_event("add_cart_item", %{"stripe_price" => stripe_price}, %{cart: cart} = state, _socket) do
+  def init("stripe_cart:" <> store_id, _params, socket),
+    do: init("stripe_cart:#{store_id}", %{"cart_id" => ""}, socket)
+
+  def handle_event(
+        "add_cart_item",
+        %{"stripe_price" => stripe_price},
+        %{cart: cart} = state,
+        _socket
+      ) do
     case Carts.add_item(cart, stripe_price) do
       {:ok, cart} -> {:noreply, Map.put(state, :cart, cart)}
     end

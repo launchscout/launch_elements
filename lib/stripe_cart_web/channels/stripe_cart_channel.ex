@@ -25,8 +25,8 @@ defmodule StripeCartWeb.StripeCartChannel do
       {:ok, cart} ->
         {:ok, %{cart: cart}}
 
-      {:error, error} ->
-        {:error, error}
+      {:error, :cart_not_found} ->
+        {:ok, %{}}
     end
   end
 
@@ -48,7 +48,7 @@ defmodule StripeCartWeb.StripeCartChannel do
         "add_cart_item",
         %{"stripe_price" => stripe_price},
         state,
-        %{assigns: %{store_id: store_id}} = socket
+        %{assigns: %{store_id: store_id}}
       ) do
     with {:ok, cart} <- Carts.create_cart(store_id),
          {:ok, cart} <- Carts.add_item(cart, stripe_price) do

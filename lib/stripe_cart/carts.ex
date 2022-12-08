@@ -20,8 +20,15 @@ defmodule StripeCart.Carts do
 
   def get_cart!(cart_id), do: Repo.get!(Cart, cart_id) |> Repo.preload(:items)
 
+  def get_cart(cart_id) do
+    case Ecto.UUID.cast(cart_id) do
+      {:ok, id} -> Repo.get(Cart, id) |> Repo.preload(items: [], store: [:stripe_account])
+      :error -> nil
+    end
+  end
+
   def load_cart(cart_id) do
-    case Repo.get(Cart, cart_id) |> Repo.preload(items: [], store: [:stripe_account]) do
+    case get_cart(cart_id) do
       nil ->
         {:error, :cart_not_found}
 

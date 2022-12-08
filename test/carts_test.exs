@@ -75,5 +75,13 @@ defmodule StripeCart.CartTest do
       cart = insert(:cart, status: :checkout_started, checkout_session: %{id: "sess_complete", url: "http://foo.bar"})
       assert {:ok, %Cart{status: :checkout_complete}} = Carts.load_cart(cart.id)
     end
+
+    test "with an invalid id" do
+      assert {:error, :cart_not_found} = Carts.load_cart("garbage")
+    end
+
+    test "with an unknown id" do
+      assert {:error, :cart_not_found} = Carts.load_cart(Ecto.UUID.generate())
+    end
   end
 end

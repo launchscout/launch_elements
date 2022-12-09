@@ -1,6 +1,7 @@
 import { html, LitElement } from 'lit'
 import { customElement, property, query, state } from 'lit/decorators.js'
 import { liveState, liveStateConfig } from 'phx-live-state';
+import shoelace_light from '@shoelace-style/shoelace/dist/themes/light.styles.js';
 
 type CartItem = {
   id: string;
@@ -39,6 +40,8 @@ const formatPrice = (price) => {
 })
 export class StripeCartElement extends LitElement {
 
+  static styles = [shoelace_light];
+  
   @property()
   @liveStateConfig('url')
   url: string | undefined;

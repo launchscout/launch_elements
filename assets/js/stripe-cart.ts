@@ -1,7 +1,10 @@
 import { html, LitElement } from 'lit'
 import { customElement, property, query, state } from 'lit/decorators.js'
 import { liveState, liveStateConfig } from 'phx-live-state';
+import '@shoelace-style/shoelace';
 import shoelace_light from '@shoelace-style/shoelace/dist/themes/light.styles.js';
+import { setBasePath } from '@shoelace-style/shoelace';
+setBasePath('https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.86/dist/')
 
 type CartItem = {
   id: string;
@@ -41,7 +44,7 @@ const formatPrice = (price) => {
 export class StripeCartElement extends LitElement {
 
   static styles = [shoelace_light];
-  
+
   @property()
   @liveStateConfig('url')
   url: string | undefined;
@@ -129,7 +132,7 @@ export class StripeCartElement extends LitElement {
           `)}
         </tbody>
       </table>
-      <button @click=${this.checkout}>Check out</button>
+      <sl-button @click=${this.checkout}>Check out</sl-button>
     </sl-dialog>
     <sl-button @click=${this.expandCart}>
       <sl-icon name="cart" style="font-size: 2em;"></sl-icon>

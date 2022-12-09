@@ -84,4 +84,9 @@ defmodule StripeCart.CartTest do
       assert {:error, :cart_not_found} = Carts.load_cart(Ecto.UUID.generate())
     end
   end
+
+  test "remove_item" do
+    %Cart{id: cart_id, items: [item]} = cart = insert(:cart)
+    assert {:ok, %Cart{id: ^cart_id, items: []}} = Carts.remove_item(cart, item.id)
+  end
 end

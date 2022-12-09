@@ -40,14 +40,18 @@ defmodule StripeCart.Carts do
     end
   end
 
-  defp update_checkout_session(%Cart{
-         checkout_session: %{"id" => session_id},
-         store: %Store{stripe_account: %StripeAccount{stripe_id: stripe_id}}
-       } = cart) do
+  defp update_checkout_session(
+         %Cart{
+           checkout_session: %{"id" => session_id},
+           store: %Store{stripe_account: %StripeAccount{stripe_id: stripe_id}}
+         } = cart
+       ) do
     case @get_checkout_session.(session_id, connect_account: stripe_id) do
       {:ok, %Stripe.Session{} = session} ->
         Cart.checkout_changeset(cart, session) |> Repo.update()
-      {:error, error} -> {:error, error}
+
+      {:error, error} ->
+        {:error, error}
     end
   end
 
@@ -105,6 +109,12 @@ defmodule StripeCart.Carts do
 
       {:error, error} ->
         {:error, error}
+    end
+  end
+
+  def remove_item(cart, item_id) do
+    with item <- Repo.get(CartItem, item_id), {:ok, _} <- Repo.delete(item) do
+      {:ok, Repo.reload!(cart) |> Repo.preload(items: [], store: [:stripe_account])}
     end
   end
 

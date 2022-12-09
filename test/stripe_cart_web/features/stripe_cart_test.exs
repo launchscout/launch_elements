@@ -62,4 +62,22 @@ defmodule StripeCartWeb.Features.StripeCartTest do
     end)
   end
 
+  feature "remove item from cart", %{session: session, store: store} do
+    session
+    |> visit("/fake_stores/#{store.id}")
+    |> assert_text("My Store")
+    |> click(css("button#add-price_123"))
+    |> within_shadow_dom("stripe-cart", fn shadow_dom ->
+      shadow_dom
+      |> assert_has(css("sl-badge", text: "1"))
+      |> click(css("sl-button"))
+      |> assert_has(css("td", text: "Nifty onesie"))
+      |> click(css("sl-button#remove-item"))
+      |> assert_has(css("td", text: "Nifty onesie", count: 0))
+    end)
+
+    cart = Repo.get_by(Cart, store_id: store.id) |> Repo.preload(:items)
+    assert Enum.count(cart.items) == 0
+  end
+
 end

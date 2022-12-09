@@ -3,6 +3,7 @@ import { customElement, property, query, state } from 'lit/decorators.js'
 import { liveState, liveStateConfig } from 'phx-live-state';
 
 type CartItem = {
+  id: string;
   product: Product;
   quantity: number;
   price: number
@@ -32,7 +33,7 @@ const formatPrice = (price) => {
     name: 'cartState'
   },
   events: {
-    send: ['checkout'],
+    send: ['checkout', 'remove_cart_item'],
     receive: ['checkout_redirect', 'cart_created', 'checkout_complete']
   }
 })
@@ -94,6 +95,11 @@ export class StripeCartElement extends LitElement {
     this.thanks && (this.thanks as any).show();
   }
 
+  removeItem(e: MouseEvent) {
+    const itemId = (e.target as HTMLElement).dataset.itemId;
+    this.dispatchEvent(new CustomEvent('remove_cart_item', {detail: {item_id: itemId}}))
+  }
+
   render() {
     return html`
     <sl-dialog id="thank-you">
@@ -106,6 +112,7 @@ export class StripeCartElement extends LitElement {
             <th>Item</th>
             <th>Quantity</th>
             <th>Price</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -114,6 +121,7 @@ export class StripeCartElement extends LitElement {
             <td>${item.product.name}</td>
             <td>${item.quantity}</td>
             <td>${formatPrice(item.price)}</td>
+            <td><sl-button data-item-id=${item.id} id="remove-item" @click=${this.removeItem}>Remove</sl-button></td>
           </tr>
           `)}
         </tbody>

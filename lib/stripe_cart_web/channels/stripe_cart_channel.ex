@@ -57,6 +57,12 @@ defmodule StripeCartWeb.StripeCartChannel do
     end
   end
 
+  def handle_event("remove_cart_item", %{"item_id" => item_id}, %{cart: cart} = state, _socket) do
+    case Carts.remove_item(cart, item_id) do
+      {:ok, cart} -> {:noreply, Map.put(state, :cart, cart)}
+    end
+  end
+
   def handle_event("checkout", %{"return_url" => return_url}, %{cart: cart} = state, _socket) do
     case Carts.checkout(return_url, cart) do
       {:ok, %Cart{checkout_session: %{url: checkout_url}} = cart} ->

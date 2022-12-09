@@ -20,13 +20,13 @@ defmodule StripeCartWeb.StripeCartChannel do
     case Carts.load_cart(cart_id) do
       {:ok, %Cart{status: :checkout_complete}} ->
         push(socket, "checkout_complete", %{})
-        {:ok, %{}}
+        {:ok, %{}, socket}
 
       {:ok, cart} ->
-        {:ok, %{cart: cart}}
+        {:ok, %{cart: cart}, socket}
 
       {:error, :cart_not_found} ->
-        {:ok, %{}}
+        {:ok, %{}, socket}
     end
   end
 

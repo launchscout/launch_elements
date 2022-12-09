@@ -1,7 +1,7 @@
 {
   "name": "stripe-cart",
   "description": "A set of custom elements to add a Stripe based shopping cart to your website",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "dist/index.js",
   "author": {
     "email": "chris@launchscout.com",

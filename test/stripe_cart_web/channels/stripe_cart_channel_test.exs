@@ -81,7 +81,7 @@ defmodule StripeCartWeb.StripeCartChannelTest do
     end
   end
 
-  test "joining with non-existent cart", %{store: %{id: store_id}} do
+  test "joining with non-existent cart and adding an item", %{store: %{id: store_id}} do
     {:ok, _, socket} =
       StripeCartWeb.UserSocket
       |> socket("my_socket", %{})
@@ -90,6 +90,13 @@ defmodule StripeCartWeb.StripeCartChannelTest do
       })
 
     assert_push("state:change", %{state: %{}})
+    push(socket, "lvs_evt:add_cart_item", %{"stripe_price" => "price_123"})
+
+    assert_push("state:change", %{
+      state: %{cart: %{id: cart_id, items: [%{stripe_price_id: "price_123"}]}}
+    })
+
+    assert_push("cart_created", %{cart_id: ^cart_id})
   end
 
   test "joining with completed cart" do

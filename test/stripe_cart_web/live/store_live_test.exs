@@ -43,7 +43,7 @@ defmodule StripeCartWeb.StoreLiveTest do
         index_live
         |> form("#store-form", store: @create_attrs)
         |> render_submit(%{stripe_account_id: stripe_account.id})
-        |> follow_redirect(conn, Routes.store_index_path(conn, :index))
+        |> follow_redirect(conn)
 
       assert html =~ "Store created successfully"
       assert html =~ "some name"

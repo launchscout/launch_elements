@@ -45,11 +45,11 @@ defmodule StripeCartWeb.StoreLive.FormComponent do
 
   defp save_store(%{assigns: %{user_id: user_id}} = socket, :new, store_params) do
     case Stores.create_store(store_params |> Map.put("user_id", user_id)) do
-      {:ok, _store} ->
+      {:ok, store} ->
         {:noreply,
          socket
          |> put_flash(:info, "Store created successfully")
-         |> push_redirect(to: socket.assigns.return_to)}
+         |> push_redirect(to: Routes.store_show_path(socket, :show, store))}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, changeset: changeset)}

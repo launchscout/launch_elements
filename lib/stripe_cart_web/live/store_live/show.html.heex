@@ -35,11 +35,12 @@
 Usage:
 </p>
 
-Add the stripe-cart custom elements in the header:
+Add the stripe-cart custom elements library to your page:
 
 <textarea>
-  <script type="module" src="/javascript/index.js"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/stripe-cart@0.0.4"></script>
 </textarea>
+
 Add a stripe cart to your website:
 
 <textarea>
@@ -53,5 +54,6 @@ Wrap existing add to cart buttons. Use the price id from Stripe:
     <button>Add to cart!</button>
   </stripe-cart-additem>
 </textarea>
+
 <span><%= live_patch "Edit", to: Routes.store_show_path(@socket, :edit, @store), class: "button" %></span> |
 <span><%= live_redirect "Back", to: Routes.store_index_path(@socket, :index) %></span>

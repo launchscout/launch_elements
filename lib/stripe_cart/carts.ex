@@ -56,7 +56,16 @@ defmodule StripeCart.Carts do
   end
 
   def create_cart(store_id) do
-    %{store_id: store_id} |> Cart.create_changeset() |> Repo.insert()
+    %{store_id: store_id}
+    |> Cart.create_changeset()
+    |> Repo.insert()
+    |> case do
+      {:ok, cart} ->
+        {:ok, Repo.preload(cart, items: [], store: [:stripe_account])}
+
+      {:error, error} ->
+        {:error, error}
+    end
   end
 
   def add_item(%Cart{} = cart, price_id) do

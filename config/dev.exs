@@ -26,7 +26,12 @@ config :stripe_cart, StripeCartWeb.Endpoint,
   secret_key_base: "BK7jggu9HbMlIGEJhCTr1IunrA81FT3GnbhMVYn9x9GPEOuiCX4MDKLHSM6FbiAQ",
   watchers: [
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
-    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
+    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
+    sass: {
+      DartSass,
+      :install_and_run,
+      [:default, ~w(--embed-source-map --source-map-urls=absolute --watch)]
+    }
   ]
 
 # ## SSL Support

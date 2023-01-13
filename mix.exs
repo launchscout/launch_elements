@@ -57,7 +57,8 @@ defmodule StripeCart.MixProject do
       {:ex_machina, "~> 2.7.0"},
       {:faker, ">= 0.0.0"},
       {:wallaby, "~> 0.29.1",
-       git: "https://github.com/launchscout/wallaby.git", runtime: false, only: :test}
+       git: "https://github.com/launchscout/wallaby.git", runtime: false, only: :test},
+      {:dart_sass, "~> 0.5", runtime: Mix.env() == :dev}
     ]
   end
 
@@ -73,7 +74,11 @@ defmodule StripeCart.MixProject do
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
-      "assets.deploy": ["esbuild default", "phx.digest"]
+      "assets.deploy": [
+        "esbuild default",
+        "phx.digest",
+        "sass default --no-source-map --style=compressed"
+      ]
     ]
   end
 end

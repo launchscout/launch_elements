@@ -135,7 +135,7 @@ export class StripeCartElement extends LitElement {
       <sl-button @click=${this.checkout}>Check out</sl-button>
     </sl-dialog>
     <sl-button @click=${this.expandCart}>
-      <sl-icon name="cart" style="font-size: 2em;"></sl-icon>
+      <slot name="icon"><sl-icon name="cart" style="font-size: 2em;"></sl-icon></slot>
       ${this.itemCount()}
     </sl-button>
     `;

@@ -1,0 +1,12 @@
+button, .button {
+    background-color: $color-primary;
+    border-radius: $border-radius;
+    color: $white;
+    padding: $space-xs $space-md;
+
+    @include focus-visible;
+
+    &--cta {
+
+    }
+}

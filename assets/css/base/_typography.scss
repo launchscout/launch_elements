@@ -1,3 +1,53 @@
 body {
+    color: $black;
     font-family: museo-sans-rounded, sans-serif;
+    font-size: $font-size-base;
+    line-height: $line-height;
+}
+
+h1, .h1 {
+    font-size: $h1-font-size;
+}
+
+h2, .h2 {
+    font-size: $h2-font-size;
+}
+
+h3, .h3 {
+    font-size: $h3-font-size;
+}
+
+h4, .h4 {
+    font-size: $h4-font-size;
+}
+
+h5, .h5 {
+    font-size: $h5-font-size;
+}
+
+h6, .h6 {
+    font-size: $h6-font-size;
+}
+
+a, .text-link {
+    border-color: $color-primary-light;
+    border-style: solid;
+    border-width: 0 0 2px 0;
+    color: $black;
+    display: inline-block;
+    font-weight: $font-weight-bold;
+    text-decoration: none;
+    transition: $transition;
+
+    &:visited {
+        color: $color-primary;
+    }
+
+    &:hover,
+    &:active,
+    &:focus {
+        border-width: 0 0 4px 0;
+    }
+
+    @include focus-visible;
 }

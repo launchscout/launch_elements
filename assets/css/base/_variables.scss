@@ -1,0 +1,45 @@
+// ANIMATION
+$transition: all .2s ease;
+
+
+// BORDERS
+$border-radius: 6px;
+
+
+// COLORS
+$color-primary: #6042BC;
+$color-primary-light: #9B74E8;
+$color-action: #F7A006;
+$color-success: #8AD3E3;
+$color-error: #F90B66;
+
+$white: #FFFFFF;
+$gray-light: #dad8db;
+$gray: #a4a3a5;
+$gray-dark: #61666E;
+$black: #190641;
+
+
+// SPACING
+$space-xxs: .25rem;
+$space-xs: .5rem;
+$space-sm: .75rem;
+$space-md: 1rem;
+$space-lg: 2rem;
+$space-xl: 3rem;
+
+
+// TYPOGRAPHY
+$font-size-sm: 14px;
+$font-size-base: clamp($font-size-sm, 1vmin, 16px);
+
+$line-height: 1.5;
+
+$h1-font-size: clamp(2.5rem, 5vmin, 3rem);
+$h2-font-size: clamp(2rem, 4vmin, 2.5rem);
+$h3-font-size: clamp(1.5rem, 3vmin, 2rem);
+$h4-font-size: clamp(1rem, 2vmin, 1.5rem);
+$h5-font-size: clamp(.8rem, 1.5vmin, 1rem);
+$h6-font-size: clamp(.7rem, .8vmin, .8rem);
+
+$font-weight-bold: 700;

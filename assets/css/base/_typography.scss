@@ -36,6 +36,7 @@ a, .text-link {
     color: $black;
     display: inline-block;
     font-weight: $font-weight-bold;
+    margin-bottom: 2px;
     text-decoration: none;
     transition: $transition;
 
@@ -47,6 +48,7 @@ a, .text-link {
     &:active,
     &:focus {
         border-width: 0 0 4px 0;
+        margin-bottom: 0;
     }
 
     @include focus-visible;

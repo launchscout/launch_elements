@@ -1,3 +1,17 @@
 .alert {
-    
+    border-radius: $border-radius;
+    font-weight: $font-weight-bold;
+    margin-bottom: $space-xs;
+    margin-top: 0;
+    padding: $space-xs $space-md;
+
+    &--info {
+        background-color: $color-success;
+        color: $black;
+    }
+
+    &--danger {
+        background-color: $color-error;
+        color: $white;
+    }
 }

@@ -1,0 +1,23 @@
+input[type="text"],
+input[type="number"],
+input[type="tel"],
+input[type="email"],
+input[type="password"] {
+    padding: $space-xxs $space-xs;
+    width: 100%;
+}
+
+.input-group {
+
+    label {
+        display: block;
+        font-size: $font-size-sm;
+        font-weight: $font-weight-bold;
+    }
+
+    &--inline {
+        display: flex;
+            gap: $space-xxs;
+            align-items: center;
+    }
+}

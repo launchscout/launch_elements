@@ -3,7 +3,7 @@ $transition: all .2s ease;
 
 
 // BORDERS
-$border-radius: 6px;
+$border-radius: 4px;
 
 
 // COLORS
@@ -30,8 +30,8 @@ $space-xl: 3rem;
 
 
 // TYPOGRAPHY
-$font-size-sm: 14px;
-$font-size-base: clamp($font-size-sm, 1vmin, 16px);
+$font-size-sm: clamp(12px, 1vmin, 14px);
+$font-size-base: clamp(14px, 1vmin, 16px);
 
 $line-height: 1.5;
 

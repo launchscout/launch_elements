@@ -5,9 +5,13 @@
 @import "./base/typography";
 @import "./base/utilities.scss";
 
+@import "./base/layout";
 
 // COMPONENTS
+@import "./components/alert";
 @import "./components/button";
+@import "./components/footer";
+@import "./components/form";
 @import "./components/inputs";
 
 

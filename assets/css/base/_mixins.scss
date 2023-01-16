@@ -1,6 +1,5 @@
 @mixin focus-visible {
     &:focus-visible {
-        border-radius: $border-radius;
         outline: 2px solid $color-action;
         outline-offset: 3px;
     }

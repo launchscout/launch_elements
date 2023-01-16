@@ -1,0 +1,21 @@
+body {
+    box-sizing: border-box;
+    display: grid;
+        grid-template-rows: auto 1fr auto;
+        grid-template-areas: "nav" "main" "footer";
+        gap: $space-md;
+    min-height: 100vh;
+    
+    nav {
+        grid-area: nav;
+    }
+
+    main {
+        grid-area: main;
+        padding: 0 $space-lg;
+    }
+
+    footer {
+        grid-area: footer;
+    }
+}

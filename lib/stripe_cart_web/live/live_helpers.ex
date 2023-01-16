@@ -57,4 +57,12 @@ defmodule StripeCartWeb.LiveHelpers do
     |> JS.hide(to: "#modal", transition: "fade-out")
     |> JS.hide(to: "#modal-content", transition: "fade-out-scale")
   end
+
+  def flash_message(%{flashes: flashes} = assigns) do
+    ~H"""
+      <%= for {type, message} <- flashes do %>
+       <p class={"alert alert--#{type}"}><%= message %></p>
+      <% end %>
+    """
+  end
 end

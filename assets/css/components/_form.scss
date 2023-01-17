@@ -7,5 +7,10 @@ form,
     &__actions {
         display: flex;
             gap: $space-sm;
+            align-items: baseline;
+        
+        &--split {
+            justify-content: space-between;
+        }
     }
 }

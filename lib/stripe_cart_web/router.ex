@@ -22,6 +22,7 @@ defmodule StripeCartWeb.Router do
 
     get "/fake_stores/:store_id", PageController, :fake_store
     get "/", PageController, :index
+    get "/api_docs", PageController, :api_docs
   end
 
   # Other scopes may use custom stacks.

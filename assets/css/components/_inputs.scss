@@ -3,8 +3,20 @@ input[type="number"],
 input[type="tel"],
 input[type="email"],
 input[type="password"] {
+    border-radius: $border-radius;
+    border: $border;
+    margin: 1px 0 1px 0;
     padding: $space-xxs $space-xs;
+    transition: $transition;
     width: 100%;
+
+    &:focus {
+        border-width: 2px;
+        border-color: $color-primary;
+        margin: 0 0 0 0;
+    }
+
+    @include focus-visible;
 }
 
 .input-group {

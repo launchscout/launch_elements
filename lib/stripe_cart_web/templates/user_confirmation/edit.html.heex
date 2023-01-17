@@ -1,12 +1,15 @@
-<h1>Confirm account</h1>
-
-<.form let={_f} for={:user} action={Routes.user_confirmation_path(@conn, :update, @token)}>
-  <div>
-    <%= submit "Confirm my account" %>
-  </div>
-</.form>
-
-<p>
-  <%= link "Register", to: Routes.user_registration_path(@conn, :new) %> |
-  <%= link "Log in", to: Routes.user_session_path(@conn, :new) %>
-</p>
+<div class="card card--contained u-centered u-push__top--xl">
+  <h1>Confirm account</h1>
+  <p>Confirm your account with the button below.</p>
+  
+  <.form let={_f} for={:user} action={Routes.user_confirmation_path(@conn, :update, @token)}>
+    <div class="form__actions">
+      <%= submit "Confirm my account" %>
+    </div>
+  </.form>
+  
+  <p class="u-push__top--lg">
+    <%= link "Register", to: Routes.user_registration_path(@conn, :new) %> |
+    <%= link "Log in", to: Routes.user_session_path(@conn, :new) %>
+  </p>
+</div>

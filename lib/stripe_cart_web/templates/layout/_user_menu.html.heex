@@ -1,13 +1,20 @@
 <nav>
     <%= if @current_user do %>
-      <%= @current_user.email %>
-      <%= link "Settings", to: Routes.user_settings_path(@conn, :edit) %>
-      <%= link "Stores", to: Routes.store_index_path(@conn, :index) %>
-      <%= link "Stripe Accounts", to: Routes.stripe_account_path(@conn, :index) %>
-      <%= link "Log out", to: Routes.user_session_path(@conn, :delete), method: :delete %>
+      <div>
+        <%= link "Settings", to: Routes.user_settings_path(@conn, :edit) %>
+        <%= link "Stores", to: Routes.store_index_path(@conn, :index) %>
+        <%= link "Stripe Accounts", to: Routes.stripe_account_path(@conn, :index) %>
+      </div>
+      
+      <div>
+        <%= @current_user.email %>
+        <%= link "Log out", to: Routes.user_session_path(@conn, :delete), method: :delete %>
+      </div>
     <% else %>
-      <%= link "Register", to: Routes.user_registration_path(@conn, :new) %>
-      <%= link "Log in", to: Routes.user_session_path(@conn, :new) %>
+      <div>
+        <%= link "Register", to: Routes.user_registration_path(@conn, :new) %>
+        <%= link "Log in", to: Routes.user_session_path(@conn, :new) %>  
+      </div>
     <% end %>
 </nav>
 

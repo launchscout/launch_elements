@@ -1,5 +1,6 @@
 <div class="card card--contained u-centered">
   <h1>Register</h1>
+  <p>Welcome to Launch Cart! Enter your email address and password below to create an account and get started.</p>
 
   <.form let={f} for={@changeset} action={Routes.user_registration_path(@conn, :create)}>
     <%= if @changeset.action do %>

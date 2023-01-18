@@ -1,7 +1,8 @@
 .empty-state {
-    background-color: $gray-light;
+    // background-color: $gray-light;
     color: $gray-dark;
-    font-size: $font-size-sm;
-    font-weight: $font-weight-bold;
-    padding: $space-sm;
+    // font-size: $font-size-sm;
+    // font-weight: $font-weight-bold;
+    font-style: italic;
+    padding: $space-sm 0;
 }

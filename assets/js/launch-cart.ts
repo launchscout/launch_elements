@@ -63,7 +63,7 @@ export class LaunchCartElement extends LitElement {
 
   @liveStateConfig('topic')
   get topic() {
-    return `stripe_cart:${this.storeId}`;
+    return `launch_cart:${this.storeId}`;
   }
 
   @liveStateConfig('params.cart_id')

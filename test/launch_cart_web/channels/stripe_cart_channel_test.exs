@@ -22,7 +22,7 @@ defmodule LaunchCartWeb.LaunchCartChannelTest do
       {:ok, _, socket} =
         LaunchCartWeb.UserSocket
         |> socket("user_id", %{some: :assign})
-        |> subscribe_and_join(LaunchCartWeb.LaunchCartChannel, "stripe_cart:#{store.id}", %{
+        |> subscribe_and_join(LaunchCartWeb.LaunchCartChannel, "launch_cart:#{store.id}", %{
           "cart_id" => ""
         })
 
@@ -58,7 +58,7 @@ defmodule LaunchCartWeb.LaunchCartChannelTest do
       {:ok, _, socket} =
         LaunchCartWeb.UserSocket
         |> socket("user_id", %{some: :assign})
-        |> subscribe_and_join(LaunchCartWeb.LaunchCartChannel, "stripe_cart:#{store_id}", %{
+        |> subscribe_and_join(LaunchCartWeb.LaunchCartChannel, "launch_cart:#{store_id}", %{
           "cart_id" => cart.id
         })
 
@@ -85,7 +85,7 @@ defmodule LaunchCartWeb.LaunchCartChannelTest do
     {:ok, _, socket} =
       LaunchCartWeb.UserSocket
       |> socket("my_socket", %{})
-      |> subscribe_and_join(LaunchCartWeb.LaunchCartChannel, "stripe_cart:#{store_id}", %{
+      |> subscribe_and_join(LaunchCartWeb.LaunchCartChannel, "launch_cart:#{store_id}", %{
         "cart_id" => "garbage"
       })
 
@@ -105,7 +105,7 @@ defmodule LaunchCartWeb.LaunchCartChannelTest do
     {:ok, _, socket} =
       LaunchCartWeb.UserSocket
       |> socket("user_id", %{some: :assign})
-      |> subscribe_and_join(LaunchCartWeb.LaunchCartChannel, "stripe_cart:#{cart.store_id}", %{
+      |> subscribe_and_join(LaunchCartWeb.LaunchCartChannel, "launch_cart:#{cart.store_id}", %{
         "cart_id" => cart.id
       })
 

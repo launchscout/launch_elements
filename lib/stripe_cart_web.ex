@@ -30,7 +30,7 @@ defmodule LaunchCartWeb do
   def view do
     quote do
       use Phoenix.View,
-        root: "lib/stripe_cart_web/templates",
+        root: "lib/launch_cart_web/templates",
         namespace: LaunchCartWeb
 
       # Import convenience functions from controllers

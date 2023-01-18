@@ -1,6 +1,6 @@
 defmodule LaunchCart.ReleaseTasks do
 
-  @app :stripe_cart
+  @app :launch_cart
 
   def migrate do
     load_app()

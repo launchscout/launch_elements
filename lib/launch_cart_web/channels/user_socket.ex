@@ -8,7 +8,7 @@ defmodule LaunchCartWeb.UserSocket do
 
   ## Channels
 
-  channel "stripe_cart:*", LaunchCartWeb.LaunchCartChannel
+  channel "launch_cart:*", LaunchCartWeb.LaunchCartChannel
 
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After

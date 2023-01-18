@@ -10,7 +10,7 @@ defmodule LaunchCart.StripeAccounts do
   alias LaunchCart.StripeAccounts.StripeAccount
 
   def fetch_stripe_account(id) do
-    func = Application.get_env(:stripe_cart, :get_stripe_account, &Launch.Account.retrieve/1)
+    func = Application.get_env(:launch_cart, :get_stripe_account, &Launch.Account.retrieve/1)
     func.(id)
   end
 
@@ -140,12 +140,12 @@ defmodule LaunchCart.StripeAccounts do
   end
 
   defp fetch_stripe_products(params, options) do
-    func = Application.get_env(:stripe_cart, :list_stripe_products, &Stripe.Product.list/2)
+    func = Application.get_env(:launch_cart, :list_stripe_products, &Stripe.Product.list/2)
     func.(params, options)
   end
 
   defp fetch_stripe_prices(params, options) do
-    func = Application.get_env(:stripe_cart, :list_stripe_prices, &Launch.Price.list/2)
+    func = Application.get_env(:launch_cart, :list_stripe_prices, &Launch.Price.list/2)
     func.(params, options)
   end
 end

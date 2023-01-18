@@ -50,7 +50,7 @@ defmodule LaunchCartWeb.UserSessionControllerTest do
           }
         })
 
-      assert conn.resp_cookies["_stripe_cart_web_user_remember_me"]
+      assert conn.resp_cookies["_launch_cart_web_user_remember_me"]
       assert redirected_to(conn) == "/stripe_accounts"
     end
 

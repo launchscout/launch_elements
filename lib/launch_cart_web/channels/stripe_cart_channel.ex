@@ -7,14 +7,14 @@ defmodule LaunchCartWeb.LaunchCartChannel do
   alias LaunchCart.Stores
   alias LiveState.Event
 
-  def init("stripe_cart:" <> store_id, %{"cart_id" => ""}, socket) do
+  def init("launch_cart:" <> store_id, %{"cart_id" => ""}, socket) do
     case Stores.get_store!(store_id) do
       %Store{id: store_id} -> {:ok, %{}, socket |> assign(:store_id, store_id)}
       nil -> {:error, "Store not found"}
     end
   end
 
-  def init("stripe_cart:" <> store_id, %{"cart_id" => cart_id}, socket) do
+  def init("launch_cart:" <> store_id, %{"cart_id" => cart_id}, socket) do
     socket = socket |> assign(:store_id, store_id)
 
     case Carts.load_cart(cart_id) do
@@ -30,8 +30,8 @@ defmodule LaunchCartWeb.LaunchCartChannel do
     end
   end
 
-  def init("stripe_cart:" <> store_id, _params, socket),
-    do: init("stripe_cart:#{store_id}", %{"cart_id" => ""}, socket)
+  def init("launch_cart:" <> store_id, _params, socket),
+    do: init("launch_cart:#{store_id}", %{"cart_id" => ""}, socket)
 
   def handle_event(
         "add_cart_item",

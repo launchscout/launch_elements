@@ -1,7 +1,7 @@
 defmodule LaunchCartWeb.Endpoint do
-  use Phoenix.Endpoint, otp_app: :stripe_cart
+  use Phoenix.Endpoint, otp_app: :launch_cart
 
-  if sandbox = Application.compile_env(:stripe_cart, :sandbox) do
+  if sandbox = Application.compile_env(:launch_cart, :sandbox) do
     plug Phoenix.Ecto.SQL.Sandbox, sandbox: sandbox
   end
 
@@ -10,7 +10,7 @@ defmodule LaunchCartWeb.Endpoint do
   # Set :encryption_salt if you would also like to encrypt it.
   @session_options [
     store: :cookie,
-    key: "_stripe_cart_key",
+    key: "_launch_cart_key",
     signing_salt: "XKgctl9d"
   ]
 
@@ -26,7 +26,7 @@ defmodule LaunchCartWeb.Endpoint do
   # when deploying your static files in production.
   plug Plug.Static,
     at: "/",
-    from: :stripe_cart,
+    from: :launch_cart,
     gzip: false,
     only: ~w(assets fonts images favicon.ico robots.txt custom-elements.json)
 
@@ -36,7 +36,7 @@ defmodule LaunchCartWeb.Endpoint do
     socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
     plug Phoenix.LiveReloader
     plug Phoenix.CodeReloader
-    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :stripe_cart
+    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :launch_cart
   end
 
   plug Phoenix.LiveDashboard.RequestLogger,

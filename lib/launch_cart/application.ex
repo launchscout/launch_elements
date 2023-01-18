@@ -21,7 +21,7 @@ defmodule LaunchCart.Application do
         # Start a worker by calling: LaunchCart.Worker.start_link(arg)
         # {LaunchCart.Worker, arg}
       ] ++
-        Application.get_env(:stripe_cart, :supervised_processes, [
+        Application.get_env(:launch_cart, :supervised_processes, [
           {Cachex,
            name: :stripe_products,
            warmers: [warmer(module: LaunchCart.LaunchCacheWarmer, state: %{})]}

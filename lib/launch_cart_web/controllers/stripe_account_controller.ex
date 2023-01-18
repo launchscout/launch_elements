@@ -7,11 +7,11 @@ defmodule LaunchCartWeb.StripeAccountController do
   @stripe_client_id "ca_MgHqblogEu5kjraESIVJRE0KxhPTf44n"
 
   def stripe_oauth do
-    Application.get_env(:stripe_cart, :stripe_oauth, Launch.Connect.OAuth)
+    Application.get_env(:launch_cart, :stripe_oauth, Launch.Connect.OAuth)
   end
 
   def stripe_client_id do
-    Application.get_env(:stripe_cart, :stripe_client_id)
+    Application.get_env(:launch_cart, :stripe_client_id)
   end
 
   def index(%{assigns: %{current_user: current_user}} = conn, _params) do

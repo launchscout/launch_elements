@@ -5,7 +5,7 @@ defmodule LaunchCartWeb.UserAuthTest do
   alias LaunchCartWeb.UserAuth
   import LaunchCart.AccountsFixtures
 
-  @remember_me_cookie "_stripe_cart_web_user_remember_me"
+  @remember_me_cookie "_launch_cart_web_user_remember_me"
 
   setup %{conn: conn} do
     conn =

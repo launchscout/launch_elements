@@ -23,7 +23,7 @@ erl_crash.dump
 *.ez
 
 # Ignore package tarball (built via "mix hex.build").
-stripe_cart-*.tar
+launch_cart-*.tar
 
 # Ignore assets that are produced by build tools.
 /priv/static/assets/

@@ -36,7 +36,7 @@ defmodule StripeCartWeb.UserSessionControllerTest do
       conn = get(conn, "/")
       response = html_response(conn, 200)
       assert response =~ user.email
-      assert response =~ "Settings</a>"
+      assert response =~ "settings</i>"
       assert response =~ "Log out</a>"
     end
 

@@ -1,13 +1,32 @@
+<%= unless Enum.any?(@stripe_accounts) do %>
+<div class="callout u-push__bottom--lg" role="alert">
+  <h3>Getting started with Launch Cart</h3>
+  <p>Before you can start using Launch Cart, you'll need to connect your Stripe account. Don't have one? No problem! Create one through the Stripe website and then come back here to connect it.</p>
+  <p class="u-push__top--lg">
+    <%= link to: Routes.stripe_account_path(@conn, :authorize_stripe), class: "button button--cta" do %>
+      Connect Your Stripe Account
+    <% end %>
+    <span class="u-pad__left--sm u-pad__right--sm">or</span> 
+    <%= link to: "https://dashboard.stripe.com/register", target: "blank" do %>
+      Create a Stripe Account
+    <% end %>
+  </p>
+</div>
+<% end %>
+
 <div class="page-header">
   <h1>Connected Stripe Accounts</h1>
-  <%# if Enum.any?(@stripe_accounts) do %>
+  <%= if Enum.any?(@stripe_accounts) do %>
     <%= link to: Routes.stripe_account_path(@conn, :authorize_stripe), class: "page-header__action" do %>
       <i class="material-icons">add</i> Connect Another
     <% end %>
-  <%# end %>
+  <% end %>
 </div>
 
-<%# if Enum.any?(@stripe_accounts) do %>
+<p>Below are the Stripe accounts that you've connected to Launch Cart. Add or remove as many as you'd like!</p>
+
+
+<%= if Enum.any?(@stripe_accounts) do %>
   <table>
     <thead>
       <tr>
@@ -30,18 +49,6 @@
       <% end %>
     </tbody>
   </table>
-<%# else %>
-  <div class="callout u-push__top--lg">
-    <h2>Getting started with Launch Cart</h2>
-    <p>Before you can start using Launch Cart, you need to connect your Stripe account. Don't have one? No problem! Create one through the Stripe website and then come back here to connect it.</p>
-    <p class="u-push__top--lg">
-      <%= link to: Routes.stripe_account_path(@conn, :authorize_stripe), class: "button button--cta" do %>
-        Connect Your Stripe Account
-      <% end %>
-      <span class="u-pad__left--sm u-pad__right--sm">or</span> 
-      <%= link to: "https://dashboard.stripe.com/register", target: "blank" do %>
-        Create a Stripe Account
-      <% end %>
-    </p>
-  </div>
-<%# end %>
+<% else %>
+  <p class="empty-state">There are no connected Stripe accounts</p>
+<% end %>

@@ -6,6 +6,7 @@ a.button {
     color: $white;
     cursor: pointer;
     font-weight: $font-weight-bold;
+    margin: 0;
     padding: $space-xs $space-md;
     transition: $transition;
 
@@ -14,6 +15,7 @@ a.button {
     &:focus {
         background-color: $color-primary;
         color: $white;
+        margin: 0;
     }
 
     &:active {

@@ -1,27 +1,36 @@
-<h1>Log in</h1>
+<div class="card card--contained u-centered u-push__top--xl">
+  <h1>Log in</h1>
+  <p>Welcome back to Launch Cart! Log in below to view your account.</p>
 
-<.form let={f} for={@conn} action={Routes.user_session_path(@conn, :create)} as={:user}>
-  <%= if @error_message do %>
-    <div class="alert alert-danger">
-      <p><%= @error_message %></p>
+  <.form let={f} for={@conn} action={Routes.user_session_path(@conn, :create)} as={:user}>
+    <%= if @error_message do %>
+      <p class="alert alert--error">
+        <%= @error_message %>
+      </p>
+    <% end %>
+
+    <div class="input-group">
+      <%= label f, :email %>
+      <%= email_input f, :email, required: true %>
     </div>
-  <% end %>
 
-  <%= label f, :email %>
-  <%= email_input f, :email, required: true %>
+    <div class="input-group">
+      <%= label f, :password %>
+      <%= password_input f, :password, required: true %>
+    </div>
 
-  <%= label f, :password %>
-  <%= password_input f, :password, required: true %>
+    <div class="input-group input-group--inline">
+      <%= checkbox f, :remember_me %>
+      <%= label f, :remember_me, "Keep me logged in for 60 days" %>
+    </div>
 
-  <%= label f, :remember_me, "Keep me logged in for 60 days" %>
-  <%= checkbox f, :remember_me %>
+    <div class="form__actions form__actions--split">
+      <%= submit "Log in" %>
+      <%= link "Forgot your password?", to: Routes.user_reset_password_path(@conn, :new) %>
+    </div>
+  </.form>
 
-  <div>
-    <%= submit "Log in" %>
-  </div>
-</.form>
-
-<p>
-  <%= link "Register", to: Routes.user_registration_path(@conn, :new) %> |
-  <%= link "Forgot your password?", to: Routes.user_reset_password_path(@conn, :new) %>
-</p>
+  <p class="u-push__top--lg">
+    Don't have an account yet? <%= link "Register", to: Routes.user_registration_path(@conn, :new) %> for one now!
+  </p>
+</div>

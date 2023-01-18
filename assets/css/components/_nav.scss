@@ -1,0 +1,18 @@
+nav {
+    flex-grow: 1;
+    display: flex;
+        gap: $space-sm;
+        flex-wrap: wrap;
+        justify-content: space-between;
+
+    div {
+        display: flex;
+            flex-wrap: wrap;
+            gap: $space-md;
+    }
+
+    a {
+        border: none;
+        margin: 0;
+    }
+}

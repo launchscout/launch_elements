@@ -1,0 +1,32 @@
+.alert {
+    border-radius: $border-radius;
+    font-weight: $font-weight-bold;
+    margin-bottom: $space-xs;
+    margin-top: 0;
+    padding: $space-xs $space-md;
+
+    &::first-letter {
+        text-transform: capitalize;
+    }
+
+    &--info {
+        background-color: $color-success;
+        color: $black;
+    }
+
+    &--error {
+        background-color: $color-error;
+        color: $white;
+    }
+}
+
+.invalid-feedback {
+    color: $color-error;
+    display: inline-block;
+    font-weight: $font-weight-bold;
+    margin-bottom: $space-xxs;
+    
+    &::first-letter {
+        text-transform: capitalize;
+    }
+}

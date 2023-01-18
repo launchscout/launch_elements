@@ -1,12 +1,22 @@
-<ul>
-<%= if @current_user do %>
-  <li><%= @current_user.email %></li>
-  <li><%= link "Settings", to: Routes.user_settings_path(@conn, :edit) %></li>
-  <li><%= link "Stores", to: Routes.store_index_path(@conn, :index) %></li>
-  <li><%= link "Stripe Accounts", to: Routes.stripe_account_path(@conn, :index) %></li>
-  <li><%= link "Log out", to: Routes.user_session_path(@conn, :delete), method: :delete %></li>
-<% else %>
-  <li><%= link "Register", to: Routes.user_registration_path(@conn, :new) %></li>
-  <li><%= link "Log in", to: Routes.user_session_path(@conn, :new) %></li>
-<% end %>
-</ul>
+<nav>
+    <%= if @current_user do %>
+      <div>
+        <%= link "Stores", to: Routes.store_index_path(@conn, :index) %>
+        <%= link "Stripe Accounts", to: Routes.stripe_account_path(@conn, :index) %>
+      </div>
+      
+      <div>
+        <%= @current_user.email %>
+        <%= link to: Routes.user_settings_path(@conn, :edit) do %>
+          <i class="material-icons">settings</i>
+        <% end %>
+        <%= link "Log out", to: Routes.user_session_path(@conn, :delete), method: :delete %>
+      </div>
+    <% else %>
+      <div>
+        <%= link "Register", to: Routes.user_registration_path(@conn, :new) %>
+        <%= link "Log in", to: Routes.user_session_path(@conn, :new) %>  
+      </div>
+    <% end %>
+</nav>
+

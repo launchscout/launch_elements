@@ -1,0 +1,16 @@
+form,
+.form {
+    display: grid;
+        gap: $space-md;
+        flex-wrap: wrap;
+
+    &__actions {
+        display: flex;
+            gap: $space-sm;
+            align-items: baseline;
+        
+        &--split {
+            justify-content: space-between;
+        }
+    }
+}

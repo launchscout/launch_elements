@@ -47,5 +47,8 @@ jobs:
         working-directory: assets
       - name: build assets
         run: mix esbuild default
+      - name: build api docs
+        run: npm run analyze
+        working-directory: assets
       - name: Run  elixir tests
         run: mix test

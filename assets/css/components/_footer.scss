@@ -1,0 +1,9 @@
+footer {
+    display: flex;
+        flex-wrap: wrap;
+        gap: $space-md;
+        align-items: baseline;
+        justify-content: space-between;
+    padding: $space-sm $space-lg;
+    text-align: center;
+}

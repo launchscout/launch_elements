@@ -1,15 +1,21 @@
-<h1>Resend confirmation instructions</h1>
+<div class="card card--contained u-centered u-push__top--xl">
+  <h1>Resend Confirmation Instructions</h1>
+  <p>Enter your email below and we'll resend the confirmation instructions.</p>
 
-<.form let={f} for={:user} action={Routes.user_confirmation_path(@conn, :create)}>
-  <%= label f, :email %>
-  <%= email_input f, :email, required: true %>
+  <.form let={f} for={:user} action={Routes.user_confirmation_path(@conn, :create)}>
+    <div class="input-group">
+      <%= label f, :email %>
+      <%= email_input f, :email, required: true %>
+    </div>
+  
+    <div class="form__actions">
+      <%= submit "Resend Confirmation Instructions" %>
+    </div>
+  </.form>
+  
+  <p class="u-push__top--lg">
+    <%= link "Register", to: Routes.user_registration_path(@conn, :new) %> |
+    <%= link "Log in", to: Routes.user_session_path(@conn, :new) %>
+  </p>
 
-  <div>
-    <%= submit "Resend confirmation instructions" %>
-  </div>
-</.form>
-
-<p>
-  <%= link "Register", to: Routes.user_registration_path(@conn, :new) %> |
-  <%= link "Log in", to: Routes.user_session_path(@conn, :new) %>
-</p>
+</div>

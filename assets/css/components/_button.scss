@@ -1,0 +1,27 @@
+button, .button {
+    background-color: $black;
+    border: 0;
+    border-radius: $border-radius;
+    color: $white;
+    cursor: pointer;
+    font-weight: $font-weight-bold;
+    padding: $space-xs $space-md;
+    transition: $transition;
+
+    &:active,
+    &:hover,
+    &:focus {
+        background-color: $color-primary;
+    }
+
+    &:active {
+        transform: scale(.97);
+    }
+
+    @include focus-visible;
+
+    &--cta {
+        background-color: $color-action;
+        color: $black;
+    }
+}

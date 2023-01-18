@@ -1,9 +1,9 @@
-defmodule StripeCartWeb.PageController do
-  use StripeCartWeb, :controller
-  alias StripeCartWeb.Endpoint
+defmodule LaunchCartWeb.PageController do
+  use LaunchCartWeb, :controller
+  alias LaunchCartWeb.Endpoint
 
-  alias StripeCart.Carts
-  alias StripeCart.Stores
+  alias LaunchCart.Carts
+  alias LaunchCart.Stores
 
   def index(conn, _params) do
     render(conn, "index.html")

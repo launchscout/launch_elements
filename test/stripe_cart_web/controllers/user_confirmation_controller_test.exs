@@ -1,9 +1,9 @@
-defmodule StripeCartWeb.UserConfirmationControllerTest do
-  use StripeCartWeb.ConnCase, async: true
+defmodule LaunchCartWeb.UserConfirmationControllerTest do
+  use LaunchCartWeb.ConnCase, async: true
 
-  alias StripeCart.Accounts
-  alias StripeCart.Repo
-  import StripeCart.AccountsFixtures
+  alias LaunchCart.Accounts
+  alias LaunchCart.Repo
+  import LaunchCart.AccountsFixtures
 
   setup do
     %{user: user_fixture()}

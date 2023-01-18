@@ -1,3 +1,3 @@
-defmodule StripeCartWeb.PageViewTest do
-  use StripeCartWeb.ConnCase, async: true
+defmodule LaunchCartWeb.PageViewTest do
+  use LaunchCartWeb.ConnCase, async: true
 end

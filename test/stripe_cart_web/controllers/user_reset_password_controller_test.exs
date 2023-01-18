@@ -1,9 +1,9 @@
-defmodule StripeCartWeb.UserResetPasswordControllerTest do
-  use StripeCartWeb.ConnCase, async: true
+defmodule LaunchCartWeb.UserResetPasswordControllerTest do
+  use LaunchCartWeb.ConnCase, async: true
 
-  alias StripeCart.Accounts
-  alias StripeCart.Repo
-  import StripeCart.AccountsFixtures
+  alias LaunchCart.Accounts
+  alias LaunchCart.Repo
+  import LaunchCart.AccountsFixtures
 
   setup do
     %{user: user_fixture()}

@@ -1,13 +1,13 @@
-defmodule StripeCartWeb.StripeAccountController do
-  use StripeCartWeb, :controller
+defmodule LaunchCartWeb.StripeAccountController do
+  use LaunchCartWeb, :controller
 
-  alias StripeCart.StripeAccounts
-  alias StripeCart.StripeAccounts.StripeAccount
+  alias LaunchCart.StripeAccounts
+  alias LaunchCart.StripeAccounts.StripeAccount
 
   @stripe_client_id "ca_MgHqblogEu5kjraESIVJRE0KxhPTf44n"
 
   def stripe_oauth do
-    Application.get_env(:stripe_cart, :stripe_oauth, Stripe.Connect.OAuth)
+    Application.get_env(:stripe_cart, :stripe_oauth, Launch.Connect.OAuth)
   end
 
   def stripe_client_id do
@@ -26,7 +26,7 @@ defmodule StripeCartWeb.StripeAccountController do
 
   def authorize_stripe(conn, _params) do
     return_url = Routes.stripe_account_url(conn, :connect_account)
-    url = Stripe.Connect.OAuth.authorize_url(%{redirect_uri: return_url, client_id: @stripe_client_id})
+    url = Launch.Connect.OAuth.authorize_url(%{redirect_uri: return_url, client_id: @stripe_client_id})
     redirect(conn, external: url)
   end
 
@@ -53,7 +53,7 @@ defmodule StripeCartWeb.StripeAccountController do
     case StripeAccounts.update_stripe_account(stripe_account, stripe_account_params) do
       {:ok, stripe_account} ->
         conn
-        |> put_flash(:info, "Stripe account updated successfully.")
+        |> put_flash(:info, "Launch account updated successfully.")
         |> redirect(to: Routes.stripe_account_path(conn, :show, stripe_account))
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -66,7 +66,7 @@ defmodule StripeCartWeb.StripeAccountController do
     {:ok, _stripe_account} = StripeAccounts.delete_stripe_account(stripe_account)
 
     conn
-    |> put_flash(:info, "Stripe account deleted successfully.")
+    |> put_flash(:info, "Launch account deleted successfully.")
     |> redirect(to: Routes.stripe_account_path(conn, :index))
   end
 end

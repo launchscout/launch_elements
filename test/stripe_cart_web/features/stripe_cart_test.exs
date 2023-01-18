@@ -1,16 +1,16 @@
-defmodule StripeCartWeb.Features.StripeCartTest do
-  alias StripeCart.Test.FakeStripe
+defmodule LaunchCartWeb.Features.LaunchCartTest do
+  alias LaunchCart.Test.FakeLaunch
   use ExUnit.Case, async: false
   use Wallaby.Feature
 
   import Wallaby.Query
-  import StripeCart.Factory
+  import LaunchCart.Factory
 
-  alias StripeCart.Repo
-  alias StripeCart.Carts.Cart
+  alias LaunchCart.Repo
+  alias LaunchCart.Carts.Cart
 
   setup do
-    products = FakeStripe.populate_cache()
+    products = FakeLaunch.populate_cache()
     store = insert(:store)
     {:ok, %{products: products, store: store}}
   end
@@ -20,7 +20,7 @@ defmodule StripeCartWeb.Features.StripeCartTest do
     |> visit("/fake_stores/#{store.id}")
     |> assert_text("My Store")
     |> click(css("button#add-price_123"))
-    |> within_shadow_dom("stripe-cart", fn shadow_dom ->
+    |> within_shadow_dom("launch-cart", fn shadow_dom ->
       shadow_dom
       |> assert_has(css("sl-badge", text: "1"))
       |> click(css("sl-button"))
@@ -34,12 +34,12 @@ defmodule StripeCartWeb.Features.StripeCartTest do
     |> visit("/fake_stores/#{store.id}")
     |> assert_text("My Store")
     |> click(css("button#add-price_123"))
-    |> within_shadow_dom("stripe-cart", fn shadow_dom ->
+    |> within_shadow_dom("launch-cart", fn shadow_dom ->
       shadow_dom
       |> assert_has(css("sl-badge", text: "1"))
     end)
     |> visit("/fake_stores/#{store.id}")
-    |> within_shadow_dom("stripe-cart", fn shadow_dom ->
+    |> within_shadow_dom("launch-cart", fn shadow_dom ->
       shadow_dom
       |> assert_has(css("sl-badge", text: "1"))
     end)
@@ -56,7 +56,7 @@ defmodule StripeCartWeb.Features.StripeCartTest do
     |> assert_text("My Store")
     |> visit("/fake_stores/#{store.id}")
     |> assert_text("My Store")
-    |> within_shadow_dom("stripe-cart", fn shadow_dom ->
+    |> within_shadow_dom("launch-cart", fn shadow_dom ->
       shadow_dom
       |> assert_has(css("sl-dialog", text: "Thanks"))
     end)
@@ -67,7 +67,7 @@ defmodule StripeCartWeb.Features.StripeCartTest do
     |> visit("/fake_stores/#{store.id}")
     |> assert_text("My Store")
     |> click(css("button#add-price_123"))
-    |> within_shadow_dom("stripe-cart", fn shadow_dom ->
+    |> within_shadow_dom("launch-cart", fn shadow_dom ->
       shadow_dom
       |> assert_has(css("sl-badge", text: "1"))
       |> click(css("sl-button"))

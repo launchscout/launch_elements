@@ -1,7 +1,7 @@
-defmodule StripeCart.Carts.CartItem do
+defmodule LaunchCart.Carts.CartItem do
   use Ecto.Schema
   import Ecto.Changeset
-  alias StripeCart.Carts.Cart
+  alias LaunchCart.Carts.Cart
 
   @derive {Jason.Encoder, except: [:__meta__, :cart]}
 

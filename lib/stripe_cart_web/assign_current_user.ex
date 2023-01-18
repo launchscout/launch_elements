@@ -1,6 +1,6 @@
-defmodule StripeCartWeb.AssignCurrentUser do
+defmodule LaunchCartWeb.AssignCurrentUser do
 
-  alias StripeCart.Accounts
+  alias LaunchCart.Accounts
   import Phoenix.LiveView
 
   def on_mount(:default, _params, %{"user_token" => user_token}, socket) do

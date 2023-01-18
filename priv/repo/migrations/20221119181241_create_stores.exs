@@ -1,4 +1,4 @@
-defmodule StripeCart.Repo.Migrations.CreateStores do
+defmodule LaunchCart.Repo.Migrations.CreateStores do
   use Ecto.Migration
 
   def change do

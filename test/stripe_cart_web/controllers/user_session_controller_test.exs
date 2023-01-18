@@ -1,7 +1,7 @@
-defmodule StripeCartWeb.UserSessionControllerTest do
-  use StripeCartWeb.ConnCase, async: true
+defmodule LaunchCartWeb.UserSessionControllerTest do
+  use LaunchCartWeb.ConnCase, async: true
 
-  import StripeCart.AccountsFixtures
+  import LaunchCart.AccountsFixtures
 
   setup do
     %{user: user_fixture()}

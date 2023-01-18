@@ -1,8 +1,8 @@
-defmodule StripeCartWeb.UserSettingsControllerTest do
-  use StripeCartWeb.ConnCase, async: true
+defmodule LaunchCartWeb.UserSettingsControllerTest do
+  use LaunchCartWeb.ConnCase, async: true
 
-  alias StripeCart.Accounts
-  import StripeCart.AccountsFixtures
+  alias LaunchCart.Accounts
+  import LaunchCart.AccountsFixtures
 
   setup :register_and_log_in_user
 

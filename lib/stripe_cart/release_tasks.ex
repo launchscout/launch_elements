@@ -1,4 +1,4 @@
-defmodule StripeCart.ReleaseTasks do
+defmodule LaunchCart.ReleaseTasks do
 
   @app :stripe_cart
 

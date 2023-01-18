@@ -1,12 +1,12 @@
-defmodule StripeCartWeb do
+defmodule LaunchCartWeb do
   @moduledoc """
   The entrypoint for defining your web interface, such
   as controllers, views, channels and so on.
 
   This can be used in your application as:
 
-      use StripeCartWeb, :controller
-      use StripeCartWeb, :view
+      use LaunchCartWeb, :controller
+      use LaunchCartWeb, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -19,11 +19,11 @@ defmodule StripeCartWeb do
 
   def controller do
     quote do
-      use Phoenix.Controller, namespace: StripeCartWeb
+      use Phoenix.Controller, namespace: LaunchCartWeb
 
       import Plug.Conn
-      import StripeCartWeb.Gettext
-      alias StripeCartWeb.Router.Helpers, as: Routes
+      import LaunchCartWeb.Gettext
+      alias LaunchCartWeb.Router.Helpers, as: Routes
     end
   end
 
@@ -31,7 +31,7 @@ defmodule StripeCartWeb do
     quote do
       use Phoenix.View,
         root: "lib/stripe_cart_web/templates",
-        namespace: StripeCartWeb
+        namespace: LaunchCartWeb
 
       # Import convenience functions from controllers
       import Phoenix.Controller,
@@ -45,7 +45,7 @@ defmodule StripeCartWeb do
   def live_view do
     quote do
       use Phoenix.LiveView,
-        layout: {StripeCartWeb.LayoutView, "live.html"}
+        layout: {LaunchCartWeb.LayoutView, "live.html"}
 
       unquote(view_helpers())
     end
@@ -80,7 +80,7 @@ defmodule StripeCartWeb do
   def channel do
     quote do
       use Phoenix.Channel
-      import StripeCartWeb.Gettext
+      import LaunchCartWeb.Gettext
     end
   end
 
@@ -91,14 +91,14 @@ defmodule StripeCartWeb do
 
       # Import LiveView and .heex helpers (live_render, live_patch, <.form>, etc)
       import Phoenix.LiveView.Helpers
-      import StripeCartWeb.LiveHelpers
+      import LaunchCartWeb.LiveHelpers
 
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
 
-      import StripeCartWeb.ErrorHelpers
-      import StripeCartWeb.Gettext
-      alias StripeCartWeb.Router.Helpers, as: Routes
+      import LaunchCartWeb.ErrorHelpers
+      import LaunchCartWeb.Gettext
+      alias LaunchCartWeb.Router.Helpers, as: Routes
     end
   end
 

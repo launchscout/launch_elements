@@ -16,7 +16,7 @@ import Config
 #
 # Alternatively, you can use `mix phx.gen.release` to generate a `bin/server`
 # script that automatically sets the env var above.
-config :stripe_cart, StripeCartWeb.Endpoint, server: true
+config :stripe_cart, LaunchCartWeb.Endpoint, server: true
 
 if config_env() == :prod do
   database_url =
@@ -31,7 +31,7 @@ if config_env() == :prod do
   host = System.get_env("RENDER_EXTERNAL_HOSTNAME") || "example.com"
   port = String.to_integer(System.get_env("PORT") || "4000")
 
-  config :stripe_cart, StripeCart.Repo,
+  config :stripe_cart, LaunchCart.Repo,
     # ssl: true,
     url: database_url,
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
@@ -49,7 +49,7 @@ if config_env() == :prod do
       You can generate one by calling: mix phx.gen.secret
       """
 
-  config :stripe_cart, StripeCartWeb.Endpoint,
+  config :stripe_cart, LaunchCartWeb.Endpoint,
     url: [host: host, port: 443, scheme: "https"],
     check_origin: false,
     http: [
@@ -68,7 +68,7 @@ if config_env() == :prod do
   # Also, you may need to configure the Swoosh API client of your choice if you
   # are not using SMTP. Here is an example of the configuration:
   #
-  #     config :stripe_cart, StripeCart.Mailer,
+  #     config :stripe_cart, LaunchCart.Mailer,
   #       adapter: Swoosh.Adapters.Mailgun,
   #       api_key: System.get_env("MAILGUN_API_KEY"),
   #       domain: System.get_env("MAILGUN_DOMAIN")

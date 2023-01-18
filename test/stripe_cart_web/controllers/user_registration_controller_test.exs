@@ -1,7 +1,7 @@
-defmodule StripeCartWeb.UserRegistrationControllerTest do
-  use StripeCartWeb.ConnCase, async: true
+defmodule LaunchCartWeb.UserRegistrationControllerTest do
+  use LaunchCartWeb.ConnCase, async: true
 
-  import StripeCart.AccountsFixtures
+  import LaunchCart.AccountsFixtures
 
   describe "GET /users/register" do
     test "renders registration page", %{conn: conn} do

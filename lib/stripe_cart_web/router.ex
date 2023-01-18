@@ -1,13 +1,13 @@
-defmodule StripeCartWeb.Router do
-  use StripeCartWeb, :router
+defmodule LaunchCartWeb.Router do
+  use LaunchCartWeb, :router
 
-  import StripeCartWeb.UserAuth
+  import LaunchCartWeb.UserAuth
 
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_live_flash
-    plug :put_root_layout, {StripeCartWeb.LayoutView, :root}
+    plug :put_root_layout, {LaunchCartWeb.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug :fetch_current_user
@@ -17,7 +17,7 @@ defmodule StripeCartWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", StripeCartWeb do
+  scope "/", LaunchCartWeb do
     pipe_through :browser
 
     get "/fake_stores/:store_id", PageController, :fake_store
@@ -26,7 +26,7 @@ defmodule StripeCartWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", StripeCartWeb do
+  # scope "/api", LaunchCartWeb do
   #   pipe_through :api
   # end
 
@@ -43,7 +43,7 @@ defmodule StripeCartWeb.Router do
     scope "/" do
       pipe_through :browser
 
-      live_dashboard "/dashboard", metrics: StripeCartWeb.Telemetry
+      live_dashboard "/dashboard", metrics: LaunchCartWeb.Telemetry
     end
   end
 
@@ -61,7 +61,7 @@ defmodule StripeCartWeb.Router do
 
   ## Authentication routes
 
-  scope "/", StripeCartWeb do
+  scope "/", LaunchCartWeb do
     pipe_through [:browser, :redirect_if_user_is_authenticated]
 
 
@@ -75,7 +75,7 @@ defmodule StripeCartWeb.Router do
     put "/users/reset_password/:token", UserResetPasswordController, :update
   end
 
-  scope "/", StripeCartWeb do
+  scope "/", LaunchCartWeb do
     pipe_through [:browser, :require_authenticated_user]
 
     get "/stripe_accounts/authorize_stripe", StripeAccountController, :authorize_stripe
@@ -89,8 +89,8 @@ defmodule StripeCartWeb.Router do
     get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
   end
 
-  live_session :authenticated, on_mount: StripeCartWeb.AssignCurrentUser do
-    scope "/", StripeCartWeb do
+  live_session :authenticated, on_mount: LaunchCartWeb.AssignCurrentUser do
+    scope "/", LaunchCartWeb do
       pipe_through [:browser, :require_authenticated_user]
       live "/stores", StoreLive.Index, :index
       live "/stores/new", StoreLive.Index, :new
@@ -101,7 +101,7 @@ defmodule StripeCartWeb.Router do
     end
   end
 
-  scope "/", StripeCartWeb do
+  scope "/", LaunchCartWeb do
     pipe_through [:browser]
 
     delete "/users/log_out", UserSessionController, :delete

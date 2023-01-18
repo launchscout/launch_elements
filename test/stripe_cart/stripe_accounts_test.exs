@@ -1,12 +1,12 @@
-defmodule StripeCart.StripeAccountsTest do
-  use StripeCart.DataCase
+defmodule LaunchCart.StripeAccountsTest do
+  use LaunchCart.DataCase
 
-  alias StripeCart.StripeAccounts
+  alias LaunchCart.StripeAccounts
 
   describe "stripe_accounts" do
-    alias StripeCart.StripeAccounts.StripeAccount
+    alias LaunchCart.StripeAccounts.StripeAccount
 
-    import StripeCart.Factory
+    import LaunchCart.Factory
 
     @invalid_attrs %{name: nil, stripe_id: nil}
 
@@ -27,7 +27,7 @@ defmodule StripeCart.StripeAccountsTest do
 
       assert {:ok, %StripeAccount{} = stripe_account} = StripeAccounts.create_stripe_account(user, valid_attrs)
       assert stripe_account.stripe_id == "acc_stripe"
-      # from FakeStripe
+      # from FakeLaunch
       assert stripe_account.name == "Lunch Scout"
     end
 

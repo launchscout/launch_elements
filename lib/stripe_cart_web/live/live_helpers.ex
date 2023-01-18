@@ -1,4 +1,4 @@
-defmodule StripeCartWeb.LiveHelpers do
+defmodule LaunchCartWeb.LiveHelpers do
   import Phoenix.LiveView
   import Phoenix.LiveView.Helpers
 
@@ -14,7 +14,7 @@ defmodule StripeCartWeb.LiveHelpers do
 
       <.modal return_to={Routes.store_index_path(@socket, :index)}>
         <.live_component
-          module={StripeCartWeb.StoreLive.FormComponent}
+          module={LaunchCartWeb.StoreLive.FormComponent}
           id={@store.id || :new}
           title={@page_title}
           action={@live_action}

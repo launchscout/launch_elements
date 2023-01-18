@@ -1,15 +1,15 @@
-defmodule StripeCart.Stores do
+defmodule LaunchCart.Stores do
   @moduledoc """
   The Stores context.
   """
 
   import Ecto.Query, warn: false
-  alias StripeCart.Repo
+  alias LaunchCart.Repo
 
-  alias StripeCart.Stores.Store
-  alias StripeCart.Accounts.User
-  alias StripeCart.StripeAccounts.StripeAccount
-  alias StripeCart.StripeAccounts
+  alias LaunchCart.Stores.Store
+  alias LaunchCart.Accounts.User
+  alias LaunchCart.StripeAccounts.StripeAccount
+  alias LaunchCart.StripeAccounts
 
   @doc """
   Returns the list of stores.

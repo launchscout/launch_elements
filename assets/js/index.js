@@ -1,4 +1,4 @@
-import { StripeCartElement } from "./stripe-cart";
-import { StripeCartAddItemElement } from "./stripe-cart-additem";
+import { LaunchCartElement } from "./launch-cart";
+import { LaunchCartAddItemElement } from "./launch-cart-additem";
 
-export {StripeCartAddItemElement, StripeCartElement};
+export {LaunchCartAddItemElement, LaunchCartElement};

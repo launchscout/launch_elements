@@ -1,16 +1,16 @@
-defmodule StripeCart.StripeAccounts do
+defmodule LaunchCart.StripeAccounts do
   @moduledoc """
   The StripeAccounts context.
   """
 
   import Ecto.Query, warn: false
-  alias StripeCart.Repo
+  alias LaunchCart.Repo
 
-  alias StripeCart.Accounts.User
-  alias StripeCart.StripeAccounts.StripeAccount
+  alias LaunchCart.Accounts.User
+  alias LaunchCart.StripeAccounts.StripeAccount
 
   def fetch_stripe_account(id) do
-    func = Application.get_env(:stripe_cart, :get_stripe_account, &Stripe.Account.retrieve/1)
+    func = Application.get_env(:stripe_cart, :get_stripe_account, &Launch.Account.retrieve/1)
     func.(id)
   end
 
@@ -35,7 +35,7 @@ defmodule StripeCart.StripeAccounts do
   @doc """
   Gets a single stripe_account.
 
-  Raises `Ecto.NoResultsError` if the Stripe account does not exist.
+  Raises `Ecto.NoResultsError` if the Launch account does not exist.
 
   ## Examples
 
@@ -145,7 +145,7 @@ defmodule StripeCart.StripeAccounts do
   end
 
   defp fetch_stripe_prices(params, options) do
-    func = Application.get_env(:stripe_cart, :list_stripe_prices, &Stripe.Price.list/2)
+    func = Application.get_env(:stripe_cart, :list_stripe_prices, &Launch.Price.list/2)
     func.(params, options)
   end
 end

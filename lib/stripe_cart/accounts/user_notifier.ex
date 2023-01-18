@@ -1,14 +1,14 @@
-defmodule StripeCart.Accounts.UserNotifier do
+defmodule LaunchCart.Accounts.UserNotifier do
   import Swoosh.Email
 
-  alias StripeCart.Mailer
+  alias LaunchCart.Mailer
 
   # Delivers the email using the application mailer.
   defp deliver(recipient, subject, body) do
     email =
       new()
       |> to(recipient)
-      |> from({"StripeCart", "contact@example.com"})
+      |> from({"LaunchCart", "contact@example.com"})
       |> subject(subject)
       |> text_body(body)
 

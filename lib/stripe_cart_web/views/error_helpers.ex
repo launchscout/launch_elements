@@ -1,4 +1,4 @@
-defmodule StripeCartWeb.ErrorHelpers do
+defmodule LaunchCartWeb.ErrorHelpers do
   @moduledoc """
   Conveniences for translating and building error messages.
   """
@@ -39,9 +39,9 @@ defmodule StripeCartWeb.ErrorHelpers do
     # should be written to the errors.po file. The :count option is
     # set by Ecto and indicates we should also apply plural rules.
     if count = opts[:count] do
-      Gettext.dngettext(StripeCartWeb.Gettext, "errors", msg, msg, count, opts)
+      Gettext.dngettext(LaunchCartWeb.Gettext, "errors", msg, msg, count, opts)
     else
-      Gettext.dgettext(StripeCartWeb.Gettext, "errors", msg, opts)
+      Gettext.dgettext(LaunchCartWeb.Gettext, "errors", msg, opts)
     end
   end
 end

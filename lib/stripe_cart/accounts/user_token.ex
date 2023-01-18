@@ -1,7 +1,7 @@
-defmodule StripeCart.Accounts.UserToken do
+defmodule LaunchCart.Accounts.UserToken do
   use Ecto.Schema
   import Ecto.Query
-  alias StripeCart.Accounts.UserToken
+  alias LaunchCart.Accounts.UserToken
 
   @hash_algorithm :sha256
   @rand_size 32
@@ -18,7 +18,7 @@ defmodule StripeCart.Accounts.UserToken do
     field :token, :binary
     field :context, :string
     field :sent_to, :string
-    belongs_to :user, StripeCart.Accounts.User
+    belongs_to :user, LaunchCart.Accounts.User
 
     timestamps(updated_at: false)
   end

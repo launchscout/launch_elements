@@ -1,3 +1,3 @@
-defmodule StripeCartWeb.UserResetPasswordView do
-  use StripeCartWeb, :view
+defmodule LaunchCartWeb.UserResetPasswordView do
+  use LaunchCartWeb, :view
 end

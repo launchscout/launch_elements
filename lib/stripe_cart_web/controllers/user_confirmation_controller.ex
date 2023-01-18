@@ -1,7 +1,7 @@
-defmodule StripeCartWeb.UserConfirmationController do
-  use StripeCartWeb, :controller
+defmodule LaunchCartWeb.UserConfirmationController do
+  use LaunchCartWeb, :controller
 
-  alias StripeCart.Accounts
+  alias LaunchCart.Accounts
 
   def new(conn, _params) do
     render(conn, "new.html")

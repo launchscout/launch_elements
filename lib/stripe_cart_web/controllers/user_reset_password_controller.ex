@@ -1,7 +1,7 @@
-defmodule StripeCartWeb.UserResetPasswordController do
-  use StripeCartWeb, :controller
+defmodule LaunchCartWeb.UserResetPasswordController do
+  use LaunchCartWeb, :controller
 
-  alias StripeCart.Accounts
+  alias LaunchCart.Accounts
 
   plug :get_user_by_reset_password_token when action in [:edit, :update]
 

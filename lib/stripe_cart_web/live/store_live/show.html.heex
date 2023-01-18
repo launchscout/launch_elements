@@ -36,7 +36,7 @@
   </li>
 
   <li>
-    <p>And last, you need to be able to add items to your cart. Wrap your <code>button</code> elements in the <code>stripe-cart-additem</code> element below.</p> 
+    <p>And last, you need to be able to add items to your cart. Wrap your <code>button</code> elements in the <code>stripe-cart-additem</code> element below.</p>
     <p><b>Don't forget</b> to replace the <code>price-id</code> with the Price ID of the corresponding item in your Stripe store.</p>
 
     <textarea class="code code--block" role="code" height="3">
@@ -50,7 +50,7 @@
 <%= if @live_action in [:edit] do %>
   <.modal return_to={Routes.store_show_path(@socket, :show, @store)}>
     <.live_component
-      module={StripeCartWeb.StoreLive.FormComponent}
+      module={LaunchCartWeb.StoreLive.FormComponent}
       id={@store.id}
       title={@page_title}
       action={@live_action}

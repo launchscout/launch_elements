@@ -1,10 +1,10 @@
-defmodule StripeCart.StoresTest do
-  use StripeCart.DataCase
+defmodule LaunchCart.StoresTest do
+  use LaunchCart.DataCase
 
-  alias StripeCart.Stores
-  alias StripeCart.Stores.Store
+  alias LaunchCart.Stores
+  alias LaunchCart.Stores.Store
 
-  import StripeCart.Factory
+  import LaunchCart.Factory
 
   describe "stores" do
 

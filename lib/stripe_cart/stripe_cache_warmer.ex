@@ -1,10 +1,10 @@
-defmodule StripeCart.StripeCacheWarmer do
+defmodule LaunchCart.LaunchCacheWarmer do
   use Cachex.Warmer
 
-  alias Stripe.Price
+  alias Launch.Price
   alias Stripe.Product
-  alias StripeCart.StripeAccounts
-  alias StripeCart.StripeAccounts.StripeAccount
+  alias LaunchCart.StripeAccounts
+  alias LaunchCart.StripeAccounts.StripeAccount
 
   def interval() do
     :timer.seconds(300)

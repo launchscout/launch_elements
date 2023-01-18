@@ -1,8 +1,8 @@
-defmodule StripeCartWeb.StoreLive.Index do
-  use StripeCartWeb, :live_view
+defmodule LaunchCartWeb.StoreLive.Index do
+  use LaunchCartWeb, :live_view
 
-  alias StripeCart.Stores
-  alias StripeCart.Stores.Store
+  alias LaunchCart.Stores
+  alias LaunchCart.Stores.Store
 
   @impl true
   def mount(_params, _session, %{assigns: %{current_user: user}} = socket) do

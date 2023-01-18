@@ -1,3 +1,3 @@
-defmodule StripeCartWeb.UserSettingsView do
-  use StripeCartWeb, :view
+defmodule LaunchCartWeb.UserSettingsView do
+  use LaunchCartWeb, :view
 end

@@ -1,8 +1,8 @@
-defmodule StripeCartWeb.StoreLiveTest do
-  use StripeCartWeb.ConnCase
+defmodule LaunchCartWeb.StoreLiveTest do
+  use LaunchCartWeb.ConnCase
 
   import Phoenix.LiveViewTest
-  import StripeCart.Factory
+  import LaunchCart.Factory
 
   @create_attrs %{name: "some name"}
   @update_attrs %{name: "some updated name"}

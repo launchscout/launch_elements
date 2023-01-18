@@ -1,3 +1,3 @@
-defmodule StripeCartWeb.UserConfirmationView do
-  use StripeCartWeb, :view
+defmodule LaunchCartWeb.UserConfirmationView do
+  use LaunchCartWeb, :view
 end

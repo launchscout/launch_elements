@@ -1,16 +1,16 @@
-defmodule StripeCartWeb.UserAuthTest do
-  use StripeCartWeb.ConnCase, async: true
+defmodule LaunchCartWeb.UserAuthTest do
+  use LaunchCartWeb.ConnCase, async: true
 
-  alias StripeCart.Accounts
-  alias StripeCartWeb.UserAuth
-  import StripeCart.AccountsFixtures
+  alias LaunchCart.Accounts
+  alias LaunchCartWeb.UserAuth
+  import LaunchCart.AccountsFixtures
 
   @remember_me_cookie "_stripe_cart_web_user_remember_me"
 
   setup %{conn: conn} do
     conn =
       conn
-      |> Map.replace!(:secret_key_base, StripeCartWeb.Endpoint.config(:secret_key_base))
+      |> Map.replace!(:secret_key_base, LaunchCartWeb.Endpoint.config(:secret_key_base))
       |> init_test_session(%{})
 
     %{user: user_fixture(), conn: conn}
@@ -65,7 +65,7 @@ defmodule StripeCartWeb.UserAuthTest do
 
     test "broadcasts to the given live_socket_id", %{conn: conn} do
       live_socket_id = "users_sessions:abcdef-token"
-      StripeCartWeb.Endpoint.subscribe(live_socket_id)
+      LaunchCartWeb.Endpoint.subscribe(live_socket_id)
 
       conn
       |> put_session(:live_socket_id, live_socket_id)

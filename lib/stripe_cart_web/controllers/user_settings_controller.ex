@@ -1,8 +1,8 @@
-defmodule StripeCartWeb.UserSettingsController do
-  use StripeCartWeb, :controller
+defmodule LaunchCartWeb.UserSettingsController do
+  use LaunchCartWeb, :controller
 
-  alias StripeCart.Accounts
-  alias StripeCartWeb.UserAuth
+  alias LaunchCart.Accounts
+  alias LaunchCartWeb.UserAuth
 
   plug :assign_email_and_password_changesets
 

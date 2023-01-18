@@ -1,6 +1,6 @@
-defmodule StripeCart do
+defmodule LaunchCart do
   @moduledoc """
-  StripeCart keeps the contexts that define your domain
+  LaunchCart keeps the contexts that define your domain
   and business logic.
 
   Contexts are also responsible for managing your data, regardless

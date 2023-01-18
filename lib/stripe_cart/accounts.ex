@@ -1,12 +1,12 @@
-defmodule StripeCart.Accounts do
+defmodule LaunchCart.Accounts do
   @moduledoc """
   The Accounts context.
   """
 
   import Ecto.Query, warn: false
-  alias StripeCart.Repo
+  alias LaunchCart.Repo
 
-  alias StripeCart.Accounts.{User, UserToken, UserNotifier}
+  alias LaunchCart.Accounts.{User, UserToken, UserNotifier}
 
   ## Database getters
 

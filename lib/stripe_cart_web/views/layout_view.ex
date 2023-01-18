@@ -1,5 +1,5 @@
-defmodule StripeCartWeb.LayoutView do
-  use StripeCartWeb, :view
+defmodule LaunchCartWeb.LayoutView do
+  use LaunchCartWeb, :view
 
   import Phoenix.LiveView.Helpers
 

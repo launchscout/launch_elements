@@ -1,4 +1,4 @@
-defmodule StripeCart.Repo.Migrations.RemoveStripeCustomerFromStores do
+defmodule LaunchCart.Repo.Migrations.RemoveLaunchCustomerFromStores do
   use Ecto.Migration
 
   def change do

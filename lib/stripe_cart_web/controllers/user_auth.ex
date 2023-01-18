@@ -1,9 +1,9 @@
-defmodule StripeCartWeb.UserAuth do
+defmodule LaunchCartWeb.UserAuth do
   import Plug.Conn
   import Phoenix.Controller
 
-  alias StripeCart.Accounts
-  alias StripeCartWeb.Router.Helpers, as: Routes
+  alias LaunchCart.Accounts
+  alias LaunchCartWeb.Router.Helpers, as: Routes
 
   # Make the remember me cookie valid for 60 days.
   # If you want bump or reduce this value, also change
@@ -75,7 +75,7 @@ defmodule StripeCartWeb.UserAuth do
     user_token && Accounts.delete_session_token(user_token)
 
     if live_socket_id = get_session(conn, :live_socket_id) do
-      StripeCartWeb.Endpoint.broadcast(live_socket_id, "disconnect", %{})
+      LaunchCartWeb.Endpoint.broadcast(live_socket_id, "disconnect", %{})
     end
 
     conn

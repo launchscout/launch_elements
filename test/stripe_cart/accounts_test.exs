@@ -1,10 +1,10 @@
-defmodule StripeCart.AccountsTest do
-  use StripeCart.DataCase
+defmodule LaunchCart.AccountsTest do
+  use LaunchCart.DataCase
 
-  alias StripeCart.Accounts
+  alias LaunchCart.Accounts
 
-  import StripeCart.AccountsFixtures
-  alias StripeCart.Accounts.{User, UserToken}
+  import LaunchCart.AccountsFixtures
+  alias LaunchCart.Accounts.{User, UserToken}
 
   describe "get_user_by_email/1" do
     test "does not return the user if the email does not exist" do

@@ -1,8 +1,8 @@
-defmodule StripeCart.Carts do
-  alias StripeCart.Carts.{Cart, CartItem}
-  alias StripeCart.Stores.Store
-  alias StripeCart.Stores
-  alias StripeCart.StripeAccounts.StripeAccount
+defmodule LaunchCart.Carts do
+  alias LaunchCart.Carts.{Cart, CartItem}
+  alias LaunchCart.Stores.Store
+  alias LaunchCart.Stores
+  alias LaunchCart.StripeAccounts.StripeAccount
 
   @create_checkout_session Application.get_env(
                              :stripe_cart,
@@ -16,7 +16,7 @@ defmodule StripeCart.Carts do
                           &Stripe.Session.retrieve/2
                         )
 
-  alias StripeCart.Repo
+  alias LaunchCart.Repo
 
   def get_cart!(cart_id), do: Repo.get!(Cart, cart_id) |> Repo.preload(:items)
 

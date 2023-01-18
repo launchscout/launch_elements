@@ -45,5 +45,5 @@ liveSocket.connect()
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket
 
-import './stripe-cart-additem';
-import './stripe-cart';
+import './launch-cart-additem';
+import './launch-cart';

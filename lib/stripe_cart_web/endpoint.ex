@@ -1,4 +1,4 @@
-defmodule StripeCartWeb.Endpoint do
+defmodule LaunchCartWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :stripe_cart
 
   if sandbox = Application.compile_env(:stripe_cart, :sandbox) do
@@ -16,7 +16,7 @@ defmodule StripeCartWeb.Endpoint do
 
   socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
 
-  socket "/socket", StripeCartWeb.UserSocket,
+  socket "/socket", LaunchCartWeb.UserSocket,
     websocket: true,
     longpoll: false
 
@@ -54,5 +54,5 @@ defmodule StripeCartWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
-  plug StripeCartWeb.Router
+  plug LaunchCartWeb.Router
 end

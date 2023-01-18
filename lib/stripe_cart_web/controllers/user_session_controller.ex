@@ -1,8 +1,8 @@
-defmodule StripeCartWeb.UserSessionController do
-  use StripeCartWeb, :controller
+defmodule LaunchCartWeb.UserSessionController do
+  use LaunchCartWeb, :controller
 
-  alias StripeCart.Accounts
-  alias StripeCartWeb.UserAuth
+  alias LaunchCart.Accounts
+  alias LaunchCartWeb.UserAuth
 
   def new(conn, _params) do
     render(conn, "new.html", error_message: nil)

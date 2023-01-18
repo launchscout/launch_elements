@@ -1,10 +1,10 @@
-defmodule StripeCartWeb.StripeCartChannel do
-  use LiveState.Channel, web_module: StripeCartWeb
+defmodule LaunchCartWeb.LaunchCartChannel do
+  use LiveState.Channel, web_module: LaunchCartWeb
 
-  alias StripeCart.Carts
-  alias StripeCart.Carts.Cart
-  alias StripeCart.Stores.Store
-  alias StripeCart.Stores
+  alias LaunchCart.Carts
+  alias LaunchCart.Carts.Cart
+  alias LaunchCart.Stores.Store
+  alias LaunchCart.Stores
   alias LiveState.Event
 
   def init("stripe_cart:" <> store_id, %{"cart_id" => ""}, socket) do

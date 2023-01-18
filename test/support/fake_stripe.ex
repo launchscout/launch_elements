@@ -1,4 +1,4 @@
-defmodule StripeCart.Test.FakeStripe do
+defmodule LaunchCart.Test.FakeLaunch do
   def populate_cache() do
     product = %{
       amount: 1100,
@@ -343,7 +343,7 @@ defmodule StripeCart.Test.FakeStripe do
            images: [],
            livemode: false,
            metadata: %{},
-           name: "Stripe Pins",
+           name: "Launch Pins",
            package_dimensions: nil,
            shippable: true,
            statement_descriptor: nil,
@@ -389,7 +389,7 @@ defmodule StripeCart.Test.FakeStripe do
            images: [],
            livemode: false,
            metadata: %{},
-           name: "Stripe Shirt",
+           name: "Launch Shirt",
            package_dimensions: nil,
            shippable: true,
            statement_descriptor: nil,

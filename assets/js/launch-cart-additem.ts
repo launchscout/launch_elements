@@ -2,14 +2,14 @@ import { html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { liveState } from 'phx-live-state';
 
-@customElement('stripe-cart-additem')
+@customElement('launch-cart-additem')
 @liveState({
   events: {
     send: ['add_cart_item']
   },
   context: 'cartState'
 })
-export class StripeCartAddItemElement extends LitElement {
+export class LaunchCartAddItemElement extends LitElement {
 
   @property({attribute: 'price-id'})
   priceId = '';

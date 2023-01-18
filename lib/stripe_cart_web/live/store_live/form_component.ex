@@ -1,8 +1,8 @@
-defmodule StripeCartWeb.StoreLive.FormComponent do
-  use StripeCartWeb, :live_component
+defmodule LaunchCartWeb.StoreLive.FormComponent do
+  use LaunchCartWeb, :live_component
 
-  alias StripeCart.StripeAccounts
-  alias StripeCart.Stores
+  alias LaunchCart.StripeAccounts
+  alias LaunchCart.Stores
 
   @impl true
   def update(%{store: store, user_id: user_id} = assigns, socket) do

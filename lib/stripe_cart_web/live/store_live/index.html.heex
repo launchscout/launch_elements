@@ -58,7 +58,7 @@
 <%= if @live_action in [:new, :edit] do %>
   <.modal return_to={Routes.store_index_path(@socket, :index)}>
     <.live_component
-      module={StripeCartWeb.StoreLive.FormComponent}
+      module={LaunchCartWeb.StoreLive.FormComponent}
       id={@store.id || :new}
       user_id={@current_user.id}
       title={@page_title}

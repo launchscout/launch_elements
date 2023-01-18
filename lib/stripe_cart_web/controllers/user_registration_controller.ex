@@ -1,9 +1,9 @@
-defmodule StripeCartWeb.UserRegistrationController do
-  use StripeCartWeb, :controller
+defmodule LaunchCartWeb.UserRegistrationController do
+  use LaunchCartWeb, :controller
 
-  alias StripeCart.Accounts
-  alias StripeCart.Accounts.User
-  alias StripeCartWeb.UserAuth
+  alias LaunchCart.Accounts
+  alias LaunchCart.Accounts.User
+  alias LaunchCartWeb.UserAuth
 
   def new(conn, _params) do
     changeset = Accounts.change_user_registration(%User{})

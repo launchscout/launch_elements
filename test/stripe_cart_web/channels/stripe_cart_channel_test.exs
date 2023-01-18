@@ -1,18 +1,18 @@
-defmodule StripeCartWeb.StripeCartChannelTest do
-  use StripeCartWeb.ChannelCase
+defmodule LaunchCartWeb.LaunchCartChannelTest do
+  use LaunchCartWeb.ChannelCase
 
-  alias StripeCart.Carts
-  alias StripeCart.Test.FakeStripe
+  alias LaunchCart.Carts
+  alias LaunchCart.Test.FakeLaunch
 
   import Phoenix.ChannelTest
-  import StripeCart.Factory
+  import LaunchCart.Factory
 
   setup do
     stripe_account = insert(:stripe_account, stripe_id: "acc_valid_account")
 
     {:ok,
      %{
-       products: FakeStripe.populate_cache(),
+       products: FakeLaunch.populate_cache(),
        store: insert(:store, stripe_account: stripe_account)
      }}
   end
@@ -20,9 +20,9 @@ defmodule StripeCartWeb.StripeCartChannelTest do
   describe "joining with new cart" do
     setup %{store: store} do
       {:ok, _, socket} =
-        StripeCartWeb.UserSocket
+        LaunchCartWeb.UserSocket
         |> socket("user_id", %{some: :assign})
-        |> subscribe_and_join(StripeCartWeb.StripeCartChannel, "stripe_cart:#{store.id}", %{
+        |> subscribe_and_join(LaunchCartWeb.LaunchCartChannel, "stripe_cart:#{store.id}", %{
           "cart_id" => ""
         })
 
@@ -56,9 +56,9 @@ defmodule StripeCartWeb.StripeCartChannelTest do
       {:ok, cart} = Carts.add_item(cart, "price_123")
 
       {:ok, _, socket} =
-        StripeCartWeb.UserSocket
+        LaunchCartWeb.UserSocket
         |> socket("user_id", %{some: :assign})
-        |> subscribe_and_join(StripeCartWeb.StripeCartChannel, "stripe_cart:#{store_id}", %{
+        |> subscribe_and_join(LaunchCartWeb.LaunchCartChannel, "stripe_cart:#{store_id}", %{
           "cart_id" => cart.id
         })
 
@@ -83,9 +83,9 @@ defmodule StripeCartWeb.StripeCartChannelTest do
 
   test "joining with non-existent cart and adding an item", %{store: %{id: store_id}} do
     {:ok, _, socket} =
-      StripeCartWeb.UserSocket
+      LaunchCartWeb.UserSocket
       |> socket("my_socket", %{})
-      |> subscribe_and_join(StripeCartWeb.StripeCartChannel, "stripe_cart:#{store_id}", %{
+      |> subscribe_and_join(LaunchCartWeb.LaunchCartChannel, "stripe_cart:#{store_id}", %{
         "cart_id" => "garbage"
       })
 
@@ -103,9 +103,9 @@ defmodule StripeCartWeb.StripeCartChannelTest do
     cart = insert(:cart, status: :checkout_complete)
 
     {:ok, _, socket} =
-      StripeCartWeb.UserSocket
+      LaunchCartWeb.UserSocket
       |> socket("user_id", %{some: :assign})
-      |> subscribe_and_join(StripeCartWeb.StripeCartChannel, "stripe_cart:#{cart.store_id}", %{
+      |> subscribe_and_join(LaunchCartWeb.LaunchCartChannel, "stripe_cart:#{cart.store_id}", %{
         "cart_id" => cart.id
       })
 

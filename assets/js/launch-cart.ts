@@ -29,7 +29,7 @@ const formatPrice = (price) => {
   return price > 0 ? new Intl.NumberFormat('en-us', {style: 'currency', currency: 'USD'}).format(price / 100) : '';
 }
 
-@customElement('stripe-cart')
+@customElement('launch-cart')
 @liveState({
   properties: ['cart'],
   provide: {
@@ -41,7 +41,7 @@ const formatPrice = (price) => {
     receive: ['checkout_redirect', 'cart_created', 'checkout_complete']
   }
 })
-export class StripeCartElement extends LitElement {
+export class LaunchCartElement extends LitElement {
 
   static styles = [shoelace_light];
 

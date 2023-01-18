@@ -1,8 +1,8 @@
-defmodule StripeCartWeb.StoreLive.Show do
-  use StripeCartWeb, :live_view
+defmodule LaunchCartWeb.StoreLive.Show do
+  use LaunchCartWeb, :live_view
 
-  alias StripeCartWeb.Endpoint
-  alias StripeCart.Stores
+  alias LaunchCartWeb.Endpoint
+  alias LaunchCart.Stores
 
   @impl true
   def mount(_params, _session, socket) do

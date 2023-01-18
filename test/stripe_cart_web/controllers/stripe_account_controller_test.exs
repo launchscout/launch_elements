@@ -1,9 +1,9 @@
-defmodule StripeCartWeb.StripeAccountControllerTest do
-  use StripeCartWeb.ConnCase
+defmodule LaunchCartWeb.StripeAccountControllerTest do
+  use LaunchCartWeb.ConnCase
 
-  import StripeCart.Factory
-  alias StripeCart.Repo
-  alias StripeCart.StripeAccounts.StripeAccount
+  import LaunchCart.Factory
+  alias LaunchCart.Repo
+  alias LaunchCart.StripeAccounts.StripeAccount
 
   setup :register_and_log_in_user
 

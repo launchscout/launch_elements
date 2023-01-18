@@ -1,8 +1,8 @@
-defmodule StripeCart.Stores.Store do
+defmodule LaunchCart.Stores.Store do
   use Ecto.Schema
   import Ecto.Changeset
-  alias StripeCart.Accounts.User
-  alias StripeCart.StripeAccounts.StripeAccount
+  alias LaunchCart.Accounts.User
+  alias LaunchCart.StripeAccounts.StripeAccount
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id

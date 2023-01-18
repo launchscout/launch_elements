@@ -1,3 +1,3 @@
-defmodule StripeCartWeb.PageView do
-  use StripeCartWeb, :view
+defmodule LaunchCartWeb.PageView do
+  use LaunchCartWeb, :view
 end

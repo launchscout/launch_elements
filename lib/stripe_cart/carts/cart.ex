@@ -1,14 +1,14 @@
 require Protocol
 Protocol.derive(Jason.Encoder, Stripe.Session, only: [:id, :status, :url])
-defmodule StripeCart.Carts.Cart do
+defmodule LaunchCart.Carts.Cart do
 
   @derive {Jason.Encoder, except: [:__meta__, :store]}
 
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias StripeCart.Carts.CartItem
-  alias StripeCart.Stores.Store
+  alias LaunchCart.Carts.CartItem
+  alias LaunchCart.Stores.Store
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id

@@ -1,10 +1,10 @@
-<nav-toggle title="Open Navigation" class="nav__toggle">
+<nav-toggle title="Toggle Navigation" class="nav__toggle">
   <span></span>
   <span></span>
   <span></span>
 </nav-toggle>
 
-<nav class="nav">
+<nav class="nav" title="Site Navigation">
     <%= if @current_user do %>
       <div>
         <%= link "Stripe Accounts", to: Routes.stripe_account_path(@conn, :index) %>

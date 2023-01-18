@@ -1,0 +1,11 @@
+.page-header {
+    display: flex;
+        flex-wrap: wrap;
+        gap: $space-md;
+        align-items: baseline;
+        justify-content: space-between;
+
+    &__action {
+        
+    }
+}

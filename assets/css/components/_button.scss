@@ -1,4 +1,5 @@
-button, .button {
+button, .button,
+a.button {
     background-color: $black;
     border: 0;
     border-radius: $border-radius;
@@ -12,10 +13,11 @@ button, .button {
     &:hover,
     &:focus {
         background-color: $color-primary;
+        color: $white;
     }
 
     &:active {
-        transform: scale(.97);
+        transform: scale(.99);
     }
 
     @include focus-visible;
@@ -23,5 +25,12 @@ button, .button {
     &--cta {
         background-color: $color-action;
         color: $black;
+
+        &:hover,
+        &:active,
+        &:focus {
+            background-color: lighten($color-action, 15%);
+            color: $black;
+        }
     }
 }

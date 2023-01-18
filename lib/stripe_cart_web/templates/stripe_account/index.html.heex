@@ -1,26 +1,47 @@
-<h1>Listing Stripe accounts</h1>
+<div class="page-header">
+  <h1>Connected Stripe Accounts</h1>
+  <%# if Enum.any?(@stripe_accounts) do %>
+    <%= link to: Routes.stripe_account_path(@conn, :authorize_stripe), class: "page-header__action" do %>
+      <i class="material-icons">add</i> Connect Another
+    <% end %>
+  <%# end %>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Stripe</th>
+<%# if Enum.any?(@stripe_accounts) do %>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Stripe</th>
 
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for stripe_account <- @stripe_accounts do %>
-    <tr>
-      <td><%= stripe_account.name %></td>
-      <td><%= stripe_account.stripe_id %></td>
+        <th></th>
+      </tr>
+    </thead>
+        <tbody>
+      <%= for stripe_account <- @stripe_accounts do %>
+          <tr>
+            <td><%= stripe_account.name %></td>
+            <td><%= stripe_account.stripe_id %></td>
 
-      <td>
-        <span><%= link "Show", to: Routes.stripe_account_path(@conn, :show, stripe_account) %></span>
-      </td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
-
-<span><%= link "Connect Stripe account", to: Routes.stripe_account_path(@conn, :authorize_stripe) %></span>
+            <td>
+              <span><%= link "Show", to: Routes.stripe_account_path(@conn, :show, stripe_account) %></span>
+            </td>
+          </tr>
+      <% end %>
+    </tbody>
+  </table>
+<%# else %>
+  <div class="callout u-push__top--lg">
+    <h2>Getting started with Launch Cart</h2>
+    <p>Before you can start using Launch Cart, you need to connect your Stripe account. Don't have one? No problem! Create one through the Stripe website and then come back here to connect it.</p>
+    <p class="u-push__top--lg">
+      <%= link to: Routes.stripe_account_path(@conn, :authorize_stripe), class: "button button--cta" do %>
+        Connect Your Stripe Account
+      <% end %>
+      <span class="u-pad__left--sm u-pad__right--sm">or</span> 
+      <%= link to: "https://dashboard.stripe.com/register", target: "blank" do %>
+        Create a Stripe Account
+      <% end %>
+    </p>
+  </div>
+<%# end %>

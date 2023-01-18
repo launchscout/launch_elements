@@ -1,13 +1,15 @@
 <nav>
     <%= if @current_user do %>
       <div>
-        <%= link "Settings", to: Routes.user_settings_path(@conn, :edit) %>
         <%= link "Stores", to: Routes.store_index_path(@conn, :index) %>
         <%= link "Stripe Accounts", to: Routes.stripe_account_path(@conn, :index) %>
       </div>
       
       <div>
         <%= @current_user.email %>
+        <%= link to: Routes.user_settings_path(@conn, :edit) do %>
+          <i class="material-icons">settings</i>
+        <% end %>
         <%= link "Log out", to: Routes.user_session_path(@conn, :delete), method: :delete %>
       </div>
     <% else %>

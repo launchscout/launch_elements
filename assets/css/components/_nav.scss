@@ -10,4 +10,9 @@ nav {
             flex-wrap: wrap;
             gap: $space-md;
     }
+
+    a {
+        border: none;
+        margin: 0;
+    }
 }

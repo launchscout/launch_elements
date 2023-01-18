@@ -16,3 +16,45 @@ nav {
         margin: 0;
     }
 }
+
+// MOBILE NAV
+.nav__toggle {
+    display: none;
+    height: calc($space-xxs * 5);
+    position: relative;
+    width: $space-lg;
+
+    span {
+        background-color: $black;
+        display: block;
+        height: $space-xxs;
+        position: absolute;
+        width: $space-lg;
+
+        &:first-child {
+            top: 0;
+        }
+
+        &:nth-child(2) {
+            top: calc($space-xxs + $space-xxs);
+        }
+
+        &:nth-child(3) {
+            top: calc(2 * ($space-xxs + $space-xxs));
+        }
+    }
+}
+
+@media screen and (max-width: $screen-tablet) {
+    .nav__toggle {
+        display: block;
+    }
+
+    // nav {
+    //     display: none;
+
+    //     &.open {
+    //         display: block;
+    //     }
+    // }
+}

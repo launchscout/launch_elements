@@ -1,4 +1,10 @@
-<nav>
+<button title="Open Navigation" class="nav__toggle" phx-click={JS.add_class("open", to: ".nav")}>
+  <span></span>
+  <span></span>
+  <span></span>
+</button>
+
+<nav class="nav">
     <%= if @current_user do %>
       <div>
         <%= link "Stripe Accounts", to: Routes.stripe_account_path(@conn, :index) %>
@@ -19,4 +25,3 @@
       </div>
     <% end %>
 </nav>
-

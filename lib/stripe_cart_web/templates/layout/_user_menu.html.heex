@@ -1,8 +1,8 @@
 <nav>
     <%= if @current_user do %>
       <div>
-        <%= link "Stores", to: Routes.store_index_path(@conn, :index) %>
         <%= link "Stripe Accounts", to: Routes.stripe_account_path(@conn, :index) %>
+        <%= link "Stores", to: Routes.store_index_path(@conn, :index) %>
       </div>
       
       <div>

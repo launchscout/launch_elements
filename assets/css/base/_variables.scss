@@ -5,11 +5,13 @@ $transition: all .2s ease;
 // COLORS
 $color-primary: #6042BC;
 $color-primary-light: #9B74E8;
+$color-primary-tint: lighten(#9B74E8, 25%);
 $color-action: #F7A006;
 $color-success: #8AD3E3;
 $color-error: #F90B66;
 
 $white: #FFFFFF;
+$gray-lightest: #f9f7fa;
 $gray-light: #eae7ed;
 $gray: #a4a3a5;
 $gray-dark: #61666E;
@@ -40,8 +42,8 @@ $font-size-sm: .85rem;
 $font-size-xs: .65rem;
 
 $h1-font-size: clamp(1.75rem, 5vmin, 2rem);
-$h2-font-size: clamp(1.75rem, 4vmin, 2rem);
-$h3-font-size: clamp(1.25rem, 3vmin, 1.75rem);
+$h2-font-size: clamp(1.5rem, 4vmin, 1.75rem);
+$h3-font-size: clamp(1.25rem, 3vmin, 1.5rem);
 $h4-font-size: clamp(1rem, 3vmin, 1.25rem);
 $h5-font-size: clamp(.8rem, 2vmin, 1rem);
 $h6-font-size: clamp(.7rem, 1.75vmin, .8rem);

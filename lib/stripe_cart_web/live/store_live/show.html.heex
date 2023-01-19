@@ -1,4 +1,54 @@
-<h1>Show Store</h1>
+<%= live_redirect to: Routes.store_index_path(@socket, :index), class: "u-text-sm" do %>
+    <i class="material-icons">arrow_back</i> Back to all stores
+<% end %>
+
+<div class="page-header u-push__top--lg">
+  <h1>Store Details</h1>
+  <%= live_patch "Edit", to: Routes.store_show_path(@socket, :edit, @store) %>
+</div>
+
+<p>
+  Below are the details you'll need to incorporate your Launch Cart store into your codebase.
+</p>
+
+<dl>
+    <dt>Name:</dt>
+    <dd><%= @store.name %></dd>
+    <dt>ID:</dt>
+    <dd><%= @store.id %></dd>
+    <dt>URL:</dt>
+    <dd><%= @url %></dd>
+</dl>
+
+<h2>Usage:</h2>
+
+<ol>
+  <li>
+    Add the stripe-cart custom elements library to your page:
+
+    <textarea>
+      <script type="module" src="https://cdn.jsdelivr.net/npm/stripe-cart@0.0.4"></script>
+    </textarea>
+  </li>
+
+  <li>
+    Add a stripe cart to your website:
+
+    <textarea>
+      <stripe-cart url={@url} store-id={@store.id}></stripe-cart>
+    </textarea>
+  </li>
+
+  <li>
+    Wrap existing add to cart buttons. Use the price id from Stripe:
+
+    <textarea>
+      <stripe-cart-additem price-id="price_12345">
+        <button>Add to cart!</button>
+      </stripe-cart-additem>
+    </textarea>
+  </li>
+</ol>
 
 <%= if @live_action in [:edit] do %>
   <.modal return_to={Routes.store_show_path(@socket, :show, @store)}>
@@ -13,47 +63,3 @@
     />
   </.modal>
 <% end %>
-
-<ul>
-
-  <li>
-    <strong>Name:</strong>
-    <%= @store.name %>
-  </li>
-  <li>
-    <strong>ID:</strong>
-    <%= @store.id %>
-  </li>
-  <li>
-    <strong>URL:</strong>
-    <%= @url %>
-  </li>
-
-</ul>
-
-<p>
-Usage:
-</p>
-
-Add the stripe-cart custom elements library to your page:
-
-<textarea>
-  <script type="module" src="https://cdn.jsdelivr.net/npm/stripe-cart@0.0.4"></script>
-</textarea>
-
-Add a stripe cart to your website:
-
-<textarea>
-  <stripe-cart url={@url} store-id={@store.id}></stripe-cart>
-</textarea>
-
-Wrap existing add to cart buttons. Use the price id from Stripe:
-
-<textarea>
-  <stripe-cart-additem price-id="price_12345">
-    <button>Add to cart!</button>
-  </stripe-cart-additem>
-</textarea>
-
-<span><%= live_patch "Edit", to: Routes.store_show_path(@socket, :edit, @store), class: "button" %></span> |
-<span><%= live_redirect "Back", to: Routes.store_index_path(@socket, :index) %></span>

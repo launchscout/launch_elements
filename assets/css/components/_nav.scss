@@ -19,13 +19,16 @@ nav {
 
 // MOBILE NAV
 .nav__toggle {
+    background-color: transparent !important;
     display: none;
     height: calc($space-xxs * 5);
     position: relative;
     width: $space-lg;
+    z-index: 100;
 
     span {
         background-color: $black;
+        border-radius: $border-radius;
         display: block;
         height: $space-xxs;
         position: absolute;
@@ -50,11 +53,29 @@ nav {
         display: block;
     }
 
-    // nav {
-    //     display: none;
+    nav {
+        background-color: $white;
+        flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        font-size: $font-size-base;
+        overflow: hidden;
+        padding: 0 $space-lg;
+        position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 100%;
+            left: 0;
+        transition: $transition;
+        
+        div {
+            flex-direction: column;
+                align-items: center;
+        }
 
-    //     &.open {
-    //         display: block;
-    //     }
-    // }
+        &.open {
+            bottom: 0;
+            padding: 10rem $space-lg;
+        }
+    }
 }

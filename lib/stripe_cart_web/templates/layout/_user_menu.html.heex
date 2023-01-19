@@ -1,4 +1,4 @@
-<button title="Open Navigation" class="nav__toggle" phx-click={JS.add_class("open", to: ".nav")}>
+<button title="Open Navigation" class="nav__toggle" phx-click={toggle_class("open", ".nav")}>
   <span></span>
   <span></span>
   <span></span>
@@ -14,7 +14,7 @@
       <div>
         <%= @current_user.email %>
         <%= link to: Routes.user_settings_path(@conn, :edit) do %>
-          <i class="material-icons">settings</i>
+          <i class="material-icons">settings</i> <span class="u-show--tablet">Settings</span>
         <% end %>
         <%= link "Log out", to: Routes.user_session_path(@conn, :delete), method: :delete %>
       </div>

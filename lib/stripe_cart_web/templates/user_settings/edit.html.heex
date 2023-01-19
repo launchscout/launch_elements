@@ -1,53 +1,61 @@
-<h1>Settings</h1>
+<div class="card card--contained u-centered u-push__top--xl">
+  <h1>Settings</h1>
 
-<h3>Change email</h3>
-
-<.form let={f} for={@email_changeset} action={Routes.user_settings_path(@conn, :update)} id="update_email">
-  <%= if @email_changeset.action do %>
-    <div class="alert alert-danger">
-      <p>Oops, something went wrong! Please check the errors below.</p>
+  <h2 class="h4 u-push__top--md">Update Email</h2>
+  <.form let={f} for={@email_changeset} action={Routes.user_settings_path(@conn, :update)} id="update_email">
+    <%= if @email_changeset.action do %>
+      <p class="alert alert--error">Oops, something went wrong! Please check the errors below.</p>
+    <% end %>
+  
+    <%= hidden_input f, :action, name: "action", value: "update_email" %>
+  
+    <div class="input-group">
+      <%= label f, :email %>
+      <%= error_tag f, :email %>
+      <%= email_input f, :email, required: true %>
     </div>
-  <% end %>
-
-  <%= hidden_input f, :action, name: "action", value: "update_email" %>
-
-  <%= label f, :email %>
-  <%= email_input f, :email, required: true %>
-  <%= error_tag f, :email %>
-
-  <%= label f, :current_password, for: "current_password_for_email" %>
-  <%= password_input f, :current_password, required: true, name: "current_password", id: "current_password_for_email" %>
-  <%= error_tag f, :current_password %>
-
-  <div>
-    <%= submit "Change email" %>
-  </div>
-</.form>
-
-<h3>Change password</h3>
-
-<.form let={f} for={@password_changeset} action={Routes.user_settings_path(@conn, :update)} id="update_password">
-  <%= if @password_changeset.action do %>
-    <div class="alert alert-danger">
-      <p>Oops, something went wrong! Please check the errors below.</p>
+  
+    <div class="inoput-group">
+      <%= label f, :current_password, for: "current_password_for_email" %>
+      <%= error_tag f, :current_password %>
+      <%= password_input f, :current_password, required: true, name: "current_password", id: "current_password_for_email" %>
     </div>
-  <% end %>
+  
+    <div class="form__actions">
+      <%= submit "Change email" %>
+    </div>
+  </.form>
+  
+  <h2 class="h4 u-push__top--lg">Change password</h2>
+  
+  <.form let={f} for={@password_changeset} action={Routes.user_settings_path(@conn, :update)} id="update_password">
+    <%= if @password_changeset.action do %>
+      <p class="alert alert--error">Oops, something went wrong! Please check the errors below.</p>
+    <% end %>
+  
+    <%= hidden_input f, :action, name: "action", value: "update_password" %>
+  
+    <div class="input-group">
+      <%= label f, :password, "New password" %>
+      <%= error_tag f, :password %>
+      <%= password_input f, :password, required: true %>
+    </div>
+  
+    <div class="input-group">
+      <%= label f, :password_confirmation, "Confirm new password" %>
+      <%= error_tag f, :password_confirmation %>
+      <%= password_input f, :password_confirmation, required: true %>
+    </div>
+  
+    <div class="input-group">
+      <%= label f, :current_password, for: "current_password_for_password" %>
+      <%= error_tag f, :current_password %>
+      <%= password_input f, :current_password, required: true, name: "current_password", id: "current_password_for_password" %>
+    </div>
 
-  <%= hidden_input f, :action, name: "action", value: "update_password" %>
-
-  <%= label f, :password, "New password" %>
-  <%= password_input f, :password, required: true %>
-  <%= error_tag f, :password %>
-
-  <%= label f, :password_confirmation, "Confirm new password" %>
-  <%= password_input f, :password_confirmation, required: true %>
-  <%= error_tag f, :password_confirmation %>
-
-  <%= label f, :current_password, for: "current_password_for_password" %>
-  <%= password_input f, :current_password, required: true, name: "current_password", id: "current_password_for_password" %>
-  <%= error_tag f, :current_password %>
-
-  <div>
-    <%= submit "Change password" %>
-  </div>
-</.form>
+    <div class="form__acitons">
+      <%= submit "Change password" %>
+    </div>
+  </.form>
+  
+</div>

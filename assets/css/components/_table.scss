@@ -1,17 +1,31 @@
-table {
+table,
+.table {
     border-collapse: collapse;
     margin: $space-md 0;
     width: 100%;
 
     th, td {
+        padding: $space-xs $space-xxs;
         text-align: left;
     }
 
     thead th {
-        border-bottom: 3px solid $gray-light;
+        border-bottom: 3px solid $gray;
     }
 
-    tbody {
+    tr + tr {
+        td {
+            border-top: $border;
+            border-color: $gray-light;
+        }
+    }
 
+    &__actions {
+        white-space: nowrap;
+        width: 1px;
+
+        * + * {
+            margin-left: $space-xs;
+        }
     }
 }

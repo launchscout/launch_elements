@@ -49,7 +49,7 @@
             <td><%= stripe_account.name %></td>
             <td><%= stripe_account.stripe_id %></td>
 
-            <td>
+            <td class="table__actions">
               <span><%= link "Show", to: Routes.stripe_account_path(@conn, :show, stripe_account) %></span>
             </td>
           </tr>

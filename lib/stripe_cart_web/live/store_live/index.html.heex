@@ -39,7 +39,7 @@
     <%= for store <- @stores do %>
       <tr id={"store-#{store.id}"}>
         <td><%= store.name %></td>
-        <td>
+        <td class="table__actions">
           <span><%= live_redirect "Show", to: Routes.store_show_path(@socket, :show, store) %></span>
           <span><%= live_patch "Edit", to: Routes.store_index_path(@socket, :edit, store) %></span>
           <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: store.id, data: [confirm: "Are you sure?"] %></span>

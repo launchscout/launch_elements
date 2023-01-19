@@ -1,8 +1,8 @@
-<button title="Open Navigation" class="nav__toggle" phx-click={toggle_class("open", ".nav")}>
+<nav-toggle title="Open Navigation" class="nav__toggle" phx-click={toggle_class("open", ".nav")}>
   <span></span>
   <span></span>
   <span></span>
-</button>
+</nav-toggle>
 
 <nav class="nav">
     <%= if @current_user do %>

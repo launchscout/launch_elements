@@ -31,7 +31,10 @@ nav {
         border-radius: $border-radius;
         display: block;
         height: $space-xxs;
+        opacity: 1;
         position: absolute;
+            left: 0;
+        transition: $transition;
         width: $space-lg;
 
         &:first-child {
@@ -61,7 +64,7 @@ nav {
         font-size: $font-size-base;
         overflow: hidden;
         padding: 0 $space-lg;
-        position: absolute;
+        position: fixed;
             top: 0;
             right: 0;
             bottom: 100%;
@@ -76,6 +79,35 @@ nav {
         &.open {
             bottom: 0;
             padding: 10rem $space-lg;
+        }
+    }
+
+    header.open {
+        position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            
+        .nav__toggle {
+            span {
+                transform-origin: left;
+
+                &:nth-child(2) {
+                    opacity: 0;
+                }
+
+                &:first-child {
+                    transform: rotate(45deg);
+                    top: -.2rem;
+                    left: .3rem;
+                }
+
+                &:nth-child(3) {
+                    transform: rotate(-45deg);
+                    top: 1.2rem;
+                    left: .3rem;
+                }
+            }
         }
     }
 }

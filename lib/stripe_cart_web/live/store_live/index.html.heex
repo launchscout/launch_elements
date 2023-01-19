@@ -1,19 +1,33 @@
-<h1>Listing Stores</h1>
-
-<%= if @live_action in [:new, :edit] do %>
-  <.modal return_to={Routes.store_index_path(@socket, :index)}>
-    <.live_component
-      module={StripeCartWeb.StoreLive.FormComponent}
-      id={@store.id || :new}
-      user_id={@current_user.id}
-      title={@page_title}
-      action={@live_action}
-      store={@store}
-      return_to={Routes.store_index_path(@socket, :index)}
-    />
-  </.modal>
+<%= unless Enum.any?(@stores) do %>
+  <div class="callout u-push__bottom--xl" role="alert">
+    <h3>Time to Create a Launch Cart Store</h3>
+    <p>
+      After you've connected your Stripe account, you need to create a Launch Cart store.
+      Creating a Launch Cart store is the last step before incorporating Launch Cart into your codebase. 
+    </p>
+    <p><b>Haven't connected your Stripe account yet?</b> You'll need to do that before you can create a Launch Cart store.</p>
+    <p class="u-push__top--lg">
+      <%= live_patch to: Routes.store_index_path(@socket, :new), class: "button button--cta" do %>
+        Create a Launch Cart Store
+      <% end %>
+      <span class="u-pad__left--sm u-pad__right--sm">or</span> 
+      <%= link "Manage your connected Stripe accounts", to: Routes.stripe_account_path(@socket, :index) %>
+    </p>
+  </div>
 <% end %>
 
+<div class="page-header">
+  <h1>Launch Cart Stores</h1>
+  <%= if Enum.any?(@stores) do %>
+    <%= live_patch to: Routes.store_index_path(@socket, :new) do %>
+      <i class="material-icons">add</i> Create a Store
+    <% end %>
+  <% end %>
+</div>
+
+<p>Below are the Launch Cart stores you've created. Each Launch Cart store is associated with one of your Stripe stores. You can manage them here.</p>
+
+<%= if Enum.any?(@stores) do %>
 <table>
   <thead>
     <tr>
@@ -34,5 +48,23 @@
     <% end %>
   </tbody>
 </table>
+<% else %>
+<p class="empty-state">
+  <i class="material-icons">list</i> 
+  All of your Launch Cart stores will be shown here.
+</p>
+<% end %>
 
-<span><%= live_patch "New Store", to: Routes.store_index_path(@socket, :new) %></span>
+<%= if @live_action in [:new, :edit] do %>
+  <.modal return_to={Routes.store_index_path(@socket, :index)}>
+    <.live_component
+      module={StripeCartWeb.StoreLive.FormComponent}
+      id={@store.id || :new}
+      user_id={@current_user.id}
+      title={@page_title}
+      action={@live_action}
+      store={@store}
+      return_to={Routes.store_index_path(@socket, :index)}
+    />
+  </.modal>
+<% end %>

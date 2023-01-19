@@ -6,7 +6,7 @@
       Already have one? Great! Your next step is to connect your Stripe account to Launch Cart. 
     </p>
     <p>
-      Don't have one yet? No problem. You can create one through the Stripe website and then 
+      <b>Don't have one yet? No problem.</b> You can create one through the Stripe website and then 
       come back here to connect your account.
     </p>
     <p class="u-push__top--lg">
@@ -23,11 +23,11 @@
 
 <div class="page-header">
   <h1>Connected Stripe Accounts</h1>
-  <%= if Enum.any?(@stripe_accounts) do %>
+  <%# if Enum.any?(@stripe_accounts) do %>
     <%= link to: Routes.stripe_account_path(@conn, :authorize_stripe), class: "page-header__action" do %>
       <i class="material-icons">add</i> Connect Another
     <% end %>
-  <% end %>
+  <%# end %>
 </div>
 
 <p>Below are the Stripe accounts that you've connected to Launch Cart. Add or remove as many as you'd like!</p>

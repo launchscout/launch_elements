@@ -1,5 +1,24 @@
 <%= unless Enum.any?(@stripe_accounts) do %>
-
+  <div class="callout u-push__bottom--xl" role="alert">
+    <h3>Getting started with Launch Cart</h3>
+    <p>
+      Before you can start using Launch Cart, you need to have your store set up on Stripe. 
+      Already have one? Great! Your next step is to connect your Stripe account to Launch Cart. 
+    </p>
+    <p>
+      Don't have one yet? No problem. You can create one through the Stripe website and then 
+      come back here to connect your account.
+    </p>
+    <p class="u-push__top--lg">
+      <%= link to: Routes.stripe_account_path(@conn, :authorize_stripe), class: "button button--cta" do %>
+        Connect Your Stripe Account
+      <% end %>
+      <span class="u-pad__left--sm u-pad__right--sm">or</span> 
+      <%= link to: "https://dashboard.stripe.com/register", target: "blank" do %>
+        Create a Stripe Account
+      <% end %>
+    </p>
+  </div>
 <% end %>
 
 <div class="page-header">
@@ -38,24 +57,8 @@
     </tbody>
   </table>
 <% else %>
-<div class="callout u-push__bottom--lg" role="alert">
-  <h3>Getting started with Launch Cart</h3>
-  <p>
-    Before you can start using Launch Cart, you need to have your store set up on Stripe. 
-    Already have one? Great! Your next step is to connect your Stripe account to Launch Cart. 
+  <p class="empty-state">
+    <i class="material-icons">list</i> 
+    Any Stripe accounts that you connect will be shown here.
   </p>
-  <p>
-    Don't have one yet? No problem. You can create one through the Stripe website and then 
-    come back here to connect your account.
-  </p>
-  <p class="u-push__top--lg">
-    <%= link to: Routes.stripe_account_path(@conn, :authorize_stripe), class: "button button--cta" do %>
-      Connect Your Stripe Account
-    <% end %>
-    <span class="u-pad__left--sm u-pad__right--sm">or</span> 
-    <%= link to: "https://dashboard.stripe.com/register", target: "blank" do %>
-      Create a Stripe Account
-    <% end %>
-  </p>
-</div>
 <% end %>

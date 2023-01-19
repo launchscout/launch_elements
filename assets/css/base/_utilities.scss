@@ -287,3 +287,15 @@
         }
     }
 }
+
+
+// TYPOGRAPHY 
+.u-text {
+    &-lg {
+        font-size: $font-size-lg;
+    }
+
+    &-center {
+        text-align: center;
+    }
+}

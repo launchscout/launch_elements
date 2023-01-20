@@ -61,7 +61,10 @@ defmodule StripeCartWeb.LiveHelpers do
   def flash_message(%{flashes: flashes} = assigns) do
     ~H"""
       <%= for {type, message} <- flashes do %>
-       <p class={"alert alert--#{type}"}><%= message %></p>
+       <p class={"alert alert--#{type}"}>
+        <%= message %>
+        <button class="alert__close" phx-click={JS.hide(to: ".alert")}><i class="material-icons">close</i></button>
+       </p>
       <% end %>
     """
   end

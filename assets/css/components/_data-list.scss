@@ -1,0 +1,13 @@
+dl {
+    display: grid;
+        grid-template-columns: auto 2fr;
+        gap: $space-sm $space-xs;
+
+    dt {
+        font-weight: $font-weight-bold;
+    }
+
+    dd {
+
+    }
+}

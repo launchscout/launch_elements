@@ -3,7 +3,7 @@
 <% end %>
 
 <div class="page-header u-push__top--lg">
-  <h1>Store Details</h1>
+  <h1><%= @store.name %></h1>
   <%= live_patch "Edit", to: Routes.store_show_path(@socket, :edit, @store) %>
 </div>
 
@@ -11,7 +11,7 @@
   Below are the details you'll need to incorporate your Launch Cart store into your codebase.
 </p>
 
-<dl>
+<dl >
     <dt>Name:</dt>
     <dd><%= @store.name %></dd>
     <dt>ID:</dt>
@@ -21,28 +21,25 @@
 </dl>
 
 <h2>Usage:</h2>
-
+<p>Using your Launch Cart is easy! Follow the steps below to incorporate Launch Cart into your site now.</p>
 <ol>
   <li>
-    Add the stripe-cart custom elements library to your page:
-
-    <textarea>
-      <script type="module" src="https://cdn.jsdelivr.net/npm/stripe-cart@0.0.4"></script>
-    </textarea>
+    <p>First, you'll need to add the stripe-cart custom elements library to your page. Copy + Paste this script tag into your <code>head</code> block:</p>
+    <textarea class="code code--block" role="code"><script type="module" src="https://cdn.jsdelivr.net/npm/stripe-cart@0.0.4"></script></textarea>
   </li>
 
   <li>
-    Add a stripe cart to your website:
-
-    <textarea>
-      <stripe-cart url={@url} store-id={@store.id}></stripe-cart>
-    </textarea>
+    <p>
+      Next, you'll need to add the <code>stripe-cart</code> to your site. Copy + Paste this line of code wherever you'd like the cart icon to display:
+    </p>
+    <textarea class="code code--block" role="code"><stripe-cart url={@url} store-id={@store.id}></stripe-cart></textarea>
   </li>
 
   <li>
-    Wrap existing add to cart buttons. Use the price id from Stripe:
+    <p>And last, you need to be able to add items to your cart. Wrap your <code>button</code> elements in the <code>stripe-cart-additem</code> element below.</p> 
+    <p><b>Don't forget</b> to replace the <code>price-id</code> with the Price ID of the corresponding item in your Stripe store.</p>
 
-    <textarea>
+    <textarea class="code code--block" role="code" height="3">
       <stripe-cart-additem price-id="price_12345">
         <button>Add to cart!</button>
       </stripe-cart-additem>

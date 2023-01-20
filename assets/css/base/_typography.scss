@@ -13,6 +13,10 @@ h5, .h5,
 h6 ,.h6 {
     margin-bottom: $space-xs;
     margin-top: 0;
+
+    + p {
+        margin-top: $space-sm;
+    }
 }
 
 h1, .h1 {
@@ -32,6 +36,7 @@ h3, .h3 {
 
 h4, .h4 {
     font-size: $h4-font-size;
+    font-weight: 300;
     line-height: $h4-line-height;
 }
 
@@ -72,4 +77,9 @@ a, .text-link {
     }
 
     @include focus-visible;
+
+    i.material-icons {
+        font-size: inherit;
+        vertical-align: middle;
+    }
 }

@@ -1,0 +1,12 @@
+.empty-state {
+    background-color: $gray-light;
+    border-radius: $border-radius;
+    color: $gray-dark;
+    font-size: $font-size-lg;
+    padding: $space-lg;
+    text-align: center;
+
+    i {
+        vertical-align: middle;
+    }
+}

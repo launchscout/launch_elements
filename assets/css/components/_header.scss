@@ -1,6 +1,11 @@
-header {
+header,
+header.header {
     display: flex;
         gap: $space-md;
         align-items: center;
     padding: $space-sm $space-lg;
+
+    @media screen and (max-width: $screen-tablet) {
+        justify-content: space-between;
+    }
 }

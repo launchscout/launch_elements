@@ -27,10 +27,10 @@ defmodule StripeCartWeb.LiveHelpers do
     assigns = assign_new(assigns, :return_to, fn -> nil end)
 
     ~H"""
-    <div id="modal" class="phx-modal fade-in" phx-remove={hide_modal()}>
+    <div id="modal" class="modal fade-in" phx-remove={hide_modal()}>
       <div
         id="modal-content"
-        class="phx-modal-content fade-in-scale"
+        class="modal__content fade-in-scale"
         phx-click-away={JS.dispatch("click", to: "#close")}
         phx-window-keydown={JS.dispatch("click", to: "#close")}
         phx-key="escape"
@@ -39,11 +39,11 @@ defmodule StripeCartWeb.LiveHelpers do
           <%= live_patch "✖",
             to: @return_to,
             id: "close",
-            class: "phx-modal-close",
+            class: "modal__close",
             phx_click: hide_modal()
           %>
         <% else %>
-          <a id="close" href="#" class="phx-modal-close" phx-click={hide_modal()}>✖</a>
+          <a id="close" href="#" class="modal__close" phx-click={hide_modal()}>✖</a>
         <% end %>
 
         <%= render_slot(@inner_block) %>
@@ -61,7 +61,10 @@ defmodule StripeCartWeb.LiveHelpers do
   def flash_message(%{flashes: flashes} = assigns) do
     ~H"""
       <%= for {type, message} <- flashes do %>
-       <p class={"alert alert--#{type}"}><%= message %></p>
+       <p class={"alert alert--#{type}"}>
+        <%= message %>
+        <button class="alert__close" phx-click={JS.hide(to: ".alert")}><i class="material-icons">close</i></button>
+       </p>
       <% end %>
     """
   end

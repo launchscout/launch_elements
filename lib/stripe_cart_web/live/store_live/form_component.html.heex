@@ -9,15 +9,19 @@
     phx-change="validate"
     phx-submit="save">
 
-    <%= label f, :name %>
-    <%= text_input f, :name %>
-    <%= error_tag f, :name %>
+    <div class="input-group">
+      <%= label f, :name %>
+      <%= error_tag f, :name %>
+      <%= text_input f, :name %>
+    </div>
 
-    <%= label f, :stripe_account_id %>
-    <%= select f, :stripe_account_id, @stripe_accounts %>
-    <%= error_tag f, :stripe_account_id %>
+    <div class="input-group">
+      <%= label f, :stripe_account_id, "Stripe Account" %>
+      <%= error_tag f, :stripe_account_id %>
+      <%= select f, :stripe_account_id, @stripe_accounts %>
+    </div>
 
-    <div>
+    <div class="form__actions">
       <%= submit "Save", phx_disable_with: "Saving..." %>
     </div>
   </.form>

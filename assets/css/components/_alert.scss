@@ -1,5 +1,8 @@
 .alert {
     border-radius: $border-radius;
+    display: flex;
+        align-items: center;
+        justify-content: space-between;
     font-weight: $font-weight-bold;
     margin-bottom: $space-xs;
     margin-top: 0;
@@ -7,6 +10,20 @@
 
     &::first-letter {
         text-transform: capitalize;
+    }
+
+    &__close {
+        background-color: transparent !important;
+        color: inherit;
+        cursor: pointer;
+        font-size: $font-size-sm;
+
+        &:hover,
+        &:active,
+        &:focus {
+            color: inherit;
+            transform: scale(1.1);
+        }
     }
 
     &--info {

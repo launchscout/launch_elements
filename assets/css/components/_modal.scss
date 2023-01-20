@@ -1,0 +1,28 @@
+.modal {
+    background-color: transparentize($color: $black, $amount: .6);
+    box-shadow: $box-shadow-lg;
+    display: flex;
+        align-items: center;
+        justify-content: center;
+    padding: $space-lg 0 $space-xl;
+    position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    
+    &__content {
+        background-color: $white;
+        border-radius: $border-radius;
+        max-height: 100vh;
+        max-width: 40rem;
+        overflow: scroll;
+        padding: $space-lg;
+        width: 100%;
+    }
+
+    &__close {
+        border: 0;
+        float: right;
+    }
+}

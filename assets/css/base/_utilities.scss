@@ -275,3 +275,31 @@
     margin-left: auto;
     margin-right: auto;
 }
+
+
+// SHOW/HIDE
+.u-show {
+    &--tablet {
+        display: none;
+
+        @media screen and (max-width: $screen-tablet) {
+            display: inline-block;
+        }
+    }
+}
+
+
+// TYPOGRAPHY 
+.u-text {
+    &-lg {
+        font-size: $font-size-lg;
+    }
+
+    &-sm {
+        font-size: $font-size-sm;
+    }
+
+    &-center {
+        text-align: center;
+    }
+}

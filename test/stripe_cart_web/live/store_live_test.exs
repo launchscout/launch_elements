@@ -30,7 +30,7 @@ defmodule StripeCartWeb.StoreLiveTest do
     test "saves new store", %{conn: conn, stripe_account: stripe_account} do
       {:ok, index_live, _html} = live(conn, Routes.store_index_path(conn, :index))
 
-      assert index_live |> element("a", "New Store") |> render_click() =~
+      assert index_live |> element("a", "Create a Store") |> render_click() =~
                "New Store"
 
       assert_patch(index_live, Routes.store_index_path(conn, :new))

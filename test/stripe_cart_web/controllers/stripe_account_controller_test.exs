@@ -14,7 +14,7 @@ defmodule StripeCartWeb.StripeAccountControllerTest do
   describe "index" do
     test "lists all stripe_accounts", %{conn: conn} do
       conn = get(conn, Routes.stripe_account_path(conn, :index))
-      assert html_response(conn, 200) =~ "Listing Stripe accounts"
+      assert html_response(conn, 200) =~ "Connected Stripe Accounts"
     end
   end
 

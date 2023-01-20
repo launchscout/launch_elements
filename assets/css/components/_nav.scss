@@ -23,30 +23,31 @@ nav {
     display: none;
     height: calc($space-xxs * 5);
     position: relative;
-    width: $space-lg;
+    width: 1.75rem;
     z-index: 100;
 
     span {
         background-color: $black;
         border-radius: $border-radius;
         display: block;
-        height: $space-xxs;
+        height: .2rem;
         opacity: 1;
         position: absolute;
             left: 0;
         transition: $transition;
-        width: $space-lg;
+        transform-orgin: center;
+        width: 1.75rem;
 
         &:first-child {
             top: 0;
         }
 
         &:nth-child(2) {
-            top: calc($space-xxs + $space-xxs);
+            top: .4rem;
         }
 
         &:nth-child(3) {
-            top: calc(2 * ($space-xxs + $space-xxs));
+            top: .9rem;
         }
     }
 }
@@ -90,7 +91,6 @@ nav {
             
         .nav__toggle {
             span {
-                transform-origin: left;
 
                 &:nth-child(2) {
                     opacity: 0;
@@ -98,14 +98,12 @@ nav {
 
                 &:first-child {
                     transform: rotate(45deg);
-                    top: -.2rem;
-                    left: .3rem;
+                    top: 50%;
                 }
 
                 &:nth-child(3) {
                     transform: rotate(-45deg);
-                    top: 1.2rem;
-                    left: .3rem;
+                    top: 50%;
                 }
             }
         }

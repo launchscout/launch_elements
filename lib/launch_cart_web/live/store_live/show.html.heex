@@ -4,7 +4,9 @@
 
 <div class="page-header u-push__top--lg">
   <h1><%= @store.name %></h1>
-  <%= live_patch "Edit", to: Routes.store_show_path(@socket, :edit, @store) %>
+  <%= live_patch to: Routes.store_show_path(@socket, :edit, @store), class: "button button--sm" do %>
+    <i class="material-icons">edit</i> Edit
+  <% end %>
 </div>
 
 <p>
@@ -20,15 +22,17 @@
     <dd><%= @url %></dd>
 </dl>
 
-<h2>Usage:</h2>
+<h2 class="u-push__top--xl">Usage:</h2>
 <p>Using your Launch Cart is easy! Follow the steps below to incorporate Launch Cart into your site now.</p>
 <ol>
   <li>
+    <h3 class="h5">Include Launch Cart in your project</h3>
     <p>First, you'll need to add the launch-cart custom elements library to your page. Copy + Paste this script tag into your <code>head</code> block:</p>
     <textarea class="code code--block" role="code"><script type="module" src="https://cdn.jsdelivr.net/npm/launch-cart"></script></textarea>
   </li>
 
   <li>
+    <h3 class="h5">Place your cart</h3>
     <p>
       Next, you'll need to add the <code>launch-cart</code> to your site. Copy + Paste this line of code wherever you'd like the cart icon to display:
     </p>
@@ -36,6 +40,7 @@
   </li>
 
   <li>
+    <h3 class="h5">Enable "Add to Cart"</h3>    
     <p>And last, you need to be able to add items to your cart. Wrap your <code>button</code> elements in the <code>launch-cart-additem</code> element below.</p>
     <p><b>Don't forget</b> to replace the <code>price-id</code> with the Price ID of the corresponding item in your Stripe store.</p>
 

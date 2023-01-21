@@ -1,6 +1,6 @@
 {
   "name": "launch-cart",
-  "description": "A set of custom elements to add a Launch based shopping cart to your website",
+  "description": "A set of custom elements to add an interactive shopping cart to your website",
   "version": "0.0.4",
   "main": "dist/index.js",
   "author": {

@@ -7,7 +7,7 @@ defmodule LaunchCartWeb.StripeAccountController do
   @stripe_client_id "ca_MgHqblogEu5kjraESIVJRE0KxhPTf44n"
 
   def stripe_oauth do
-    Application.get_env(:launch_cart, :stripe_oauth, Launch.Connect.OAuth)
+    Application.get_env(:launch_cart, :stripe_oauth, Stripe.Connect.OAuth)
   end
 
   def stripe_client_id do
@@ -26,7 +26,7 @@ defmodule LaunchCartWeb.StripeAccountController do
 
   def authorize_stripe(conn, _params) do
     return_url = Routes.stripe_account_url(conn, :connect_account)
-    url = Launch.Connect.OAuth.authorize_url(%{redirect_uri: return_url, client_id: @stripe_client_id})
+    url = Stripe.Connect.OAuth.authorize_url(%{redirect_uri: return_url, client_id: @stripe_client_id})
     redirect(conn, external: url)
   end
 

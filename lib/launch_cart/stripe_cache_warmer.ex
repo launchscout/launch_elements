@@ -1,7 +1,7 @@
 defmodule LaunchCart.LaunchCacheWarmer do
   use Cachex.Warmer
 
-  alias Launch.Price
+  alias Stripe.Price
   alias Stripe.Product
   alias LaunchCart.StripeAccounts
   alias LaunchCart.StripeAccounts.StripeAccount

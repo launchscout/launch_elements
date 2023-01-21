@@ -24,25 +24,25 @@
 <p>Using your Launch Cart is easy! Follow the steps below to incorporate Launch Cart into your site now.</p>
 <ol>
   <li>
-    <p>First, you'll need to add the stripe-cart custom elements library to your page. Copy + Paste this script tag into your <code>head</code> block:</p>
-    <textarea class="code code--block" role="code"><script type="module" src="https://cdn.jsdelivr.net/npm/stripe-cart@0.0.4"></script></textarea>
+    <p>First, you'll need to add the launch-cart custom elements library to your page. Copy + Paste this script tag into your <code>head</code> block:</p>
+    <textarea class="code code--block" role="code"><script type="module" src="https://cdn.jsdelivr.net/npm/launch-cart"></script></textarea>
   </li>
 
   <li>
     <p>
-      Next, you'll need to add the <code>stripe-cart</code> to your site. Copy + Paste this line of code wherever you'd like the cart icon to display:
+      Next, you'll need to add the <code>launch-cart</code> to your site. Copy + Paste this line of code wherever you'd like the cart icon to display:
     </p>
-    <textarea class="code code--block" role="code"><stripe-cart url={@url} store-id={@store.id}></stripe-cart></textarea>
+    <textarea class="code code--block" role="code"><launch-cart url={@url} store-id={@store.id}></launch-cart></textarea>
   </li>
 
   <li>
-    <p>And last, you need to be able to add items to your cart. Wrap your <code>button</code> elements in the <code>stripe-cart-additem</code> element below.</p>
+    <p>And last, you need to be able to add items to your cart. Wrap your <code>button</code> elements in the <code>launch-cart-additem</code> element below.</p>
     <p><b>Don't forget</b> to replace the <code>price-id</code> with the Price ID of the corresponding item in your Stripe store.</p>
 
     <textarea class="code code--block" role="code" height="3">
-      <stripe-cart-additem price-id="price_12345">
+      <launch-cart-additem price-id="price_12345">
         <button>Add to cart!</button>
-      </stripe-cart-additem>
+      </launch-cart-additem>
     </textarea>
   </li>
 </ol>

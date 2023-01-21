@@ -1,14 +1,14 @@
-defmodule StripeCart.CartTest do
-  use StripeCart.DataCase
+defmodule LaunchCart.CartTest do
+  use LaunchCart.DataCase
 
-  alias StripeCart.Test.FakeStripe
-  alias StripeCart.Carts
-  alias StripeCart.Carts.{Cart, CartItem}
+  alias LaunchCart.Test.FakeLaunch
+  alias LaunchCart.Carts
+  alias LaunchCart.Carts.{Cart, CartItem}
 
-  import StripeCart.Factory
+  import LaunchCart.Factory
 
   setup do
-    [product, product2] = FakeStripe.populate_cache()
+    [product, product2] = FakeLaunch.populate_cache()
     stripe_account = insert(:stripe_account, stripe_id: "acc_valid_account")
     store = insert(:store, stripe_account: stripe_account)
     {:ok,

@@ -1,4 +1,4 @@
-# StripeCart
+# LaunchCart
 
 To start your Phoenix server:
 

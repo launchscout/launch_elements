@@ -7,19 +7,19 @@
 # General application configuration
 import Config
 
-config :stripe_cart,
-  ecto_repos: [StripeCart.Repo]
+config :launch_cart,
+  ecto_repos: [LaunchCart.Repo]
 
 # Configures the endpoint
-config :stripe_cart, StripeCartWeb.Endpoint,
+config :launch_cart, LaunchCartWeb.Endpoint,
   url: [host: "localhost"],
-  render_errors: [view: StripeCartWeb.ErrorView, accepts: ~w(html json), layout: false],
-  pubsub_server: StripeCart.PubSub,
+  render_errors: [view: LaunchCartWeb.ErrorView, accepts: ~w(html json), layout: false],
+  pubsub_server: LaunchCart.PubSub,
   live_view: [signing_salt: "LYciOSHB"]
 
 config :stripity_stripe, api_key: System.get_env("STRIPE_API_KEY")
 
-config :stripe_cart, stripe_client_id: System.get_env("STRIPE_CLIENT_ID")
+config :launch_cart, stripe_client_id: System.get_env("STRIPE_CLIENT_ID")
 
 # Configures the mailer
 #
@@ -28,7 +28,7 @@ config :stripe_cart, stripe_client_id: System.get_env("STRIPE_CLIENT_ID")
 #
 # For production it's recommended to configure a different adapter
 # at the `config/runtime.exs`.
-config :stripe_cart, StripeCart.Mailer, adapter: Swoosh.Adapters.Local
+config :launch_cart, LaunchCart.Mailer, adapter: Swoosh.Adapters.Local
 
 # Swoosh API client is needed for adapters other than SMTP.
 config :swoosh, :api_client, false

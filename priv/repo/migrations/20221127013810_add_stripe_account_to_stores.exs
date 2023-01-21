@@ -1,4 +1,4 @@
-defmodule StripeCart.Repo.Migrations.AddStripeAccountToStores do
+defmodule LaunchCart.Repo.Migrations.AddStripeAccountToStores do
   use Ecto.Migration
 
   def change do

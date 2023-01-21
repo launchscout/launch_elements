@@ -1,4 +1,4 @@
-defmodule StripeCart.Repo.Migrations.AddStatusAndCheckoutSessionToCart do
+defmodule LaunchCart.Repo.Migrations.AddStatusAndCheckoutSessionToCart do
   use Ecto.Migration
 
   def change do

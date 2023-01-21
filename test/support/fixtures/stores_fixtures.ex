@@ -1,7 +1,7 @@
-defmodule StripeCart.StoresFixtures do
+defmodule LaunchCart.StoresFixtures do
   @moduledoc """
   This module defines test helpers for creating
-  entities via the `StripeCart.Stores` context.
+  entities via the `LaunchCart.Stores` context.
   """
 
   @doc """
@@ -14,7 +14,7 @@ defmodule StripeCart.StoresFixtures do
         name: "some name",
         stripe_customer_id: "some stripe_customer_id"
       })
-      |> StripeCart.Stores.create_store()
+      |> LaunchCart.Stores.create_store()
 
     store
   end

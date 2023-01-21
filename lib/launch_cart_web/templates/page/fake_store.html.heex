@@ -1,0 +1,9 @@
+<h1>My Store</h1>
+<%= for product <- @products do %>
+<launch-cart-additem price-id={product.id}>
+  <button id={"add-#{product.id}"}><%= product.product.description %></button>
+</launch-cart-additem>
+<% end %>
+<div> Here is a cart
+  <launch-cart url={@url} store-id={@store.id}></launch-cart>
+</div>

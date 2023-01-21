@@ -1,14 +1,14 @@
-defmodule StripeCart.Factory do
+defmodule LaunchCart.Factory do
 
   alias Faker.Internet
 
-  use ExMachina.Ecto, repo: StripeCart.Repo
+  use ExMachina.Ecto, repo: LaunchCart.Repo
 
-  alias StripeCart.Stores.Store
-  alias StripeCart.Accounts.User
-  alias StripeCart.Carts.Cart
-  alias StripeCart.Carts.CartItem
-  alias StripeCart.StripeAccounts.StripeAccount
+  alias LaunchCart.Stores.Store
+  alias LaunchCart.Accounts.User
+  alias LaunchCart.Carts.Cart
+  alias LaunchCart.Carts.CartItem
+  alias LaunchCart.StripeAccounts.StripeAccount
 
   def store_factory() do
     %Store{

@@ -1,7 +1,7 @@
-defmodule StripeCart.AccountsFixtures do
+defmodule LaunchCart.AccountsFixtures do
   @moduledoc """
   This module defines test helpers for creating
-  entities via the `StripeCart.Accounts` context.
+  entities via the `LaunchCart.Accounts` context.
   """
 
   def unique_user_email, do: "user#{System.unique_integer()}@example.com"
@@ -18,7 +18,7 @@ defmodule StripeCart.AccountsFixtures do
     {:ok, user} =
       attrs
       |> valid_user_attributes()
-      |> StripeCart.Accounts.register_user()
+      |> LaunchCart.Accounts.register_user()
 
     user
   end

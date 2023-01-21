@@ -14,7 +14,7 @@ jobs:
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-          POSTRGES_DB: stripe_cart_test
+          POSTRGES_DB: launch_cart_test
         options: >-
           --health-cmd pg_isready
           --health-interval 10s

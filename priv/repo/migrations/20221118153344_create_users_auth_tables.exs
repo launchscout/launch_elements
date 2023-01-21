@@ -1,4 +1,4 @@
-defmodule StripeCart.Repo.Migrations.CreateUsersAuthTables do
+defmodule LaunchCart.Repo.Migrations.CreateUsersAuthTables do
   use Ecto.Migration
 
   def change do

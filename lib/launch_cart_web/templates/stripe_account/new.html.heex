@@ -1,0 +1,5 @@
+<h1>New Launch account</h1>
+
+<%= render "form.html", Map.put(assigns, :action, Routes.stripe_account_path(@conn, :create)) %>
+
+<span><%= link "Back", to: Routes.stripe_account_path(@conn, :index) %></span>

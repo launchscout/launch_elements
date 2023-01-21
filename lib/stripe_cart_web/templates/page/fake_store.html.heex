@@ -1,9 +1,0 @@
-<h1>My Store</h1>
-<%= for product <- @products do %>
-<stripe-cart-additem price-id={product.id}>
-  <button id={"add-#{product.id}"}><%= product.product.description %></button>
-</stripe-cart-additem>
-<% end %>
-<div> Here is a cart
-  <stripe-cart url={@url} store-id={@store.id}></stripe-cart>
-</div>

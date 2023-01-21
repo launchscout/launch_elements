@@ -45,7 +45,7 @@ config :launch_cart, :sandbox, Ecto.Adapters.SQL.Sandbox
 
 config :wallaby,
   otp_app: :launch_cart,
-  base_url: "http://localhost:4002",
-  chromedriver: [
-    headless: false
-  ]
+  base_url: "http://localhost:4002"
+  # chromedriver: [
+  #   headless: false
+  # ]

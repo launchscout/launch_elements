@@ -5,13 +5,14 @@ code,
     border: $border;
     display: inline-block;
     font-family: monospace;
-    line-height: 1.5;
-    padding: 0 $space-xxs;
+    line-height: 1.2;
+    padding: 0 $space-xxs .05rem;
 
     &--block {
         background-color: $black;
         color: $white;
         display: block;
+        line-height: 1.5;
         width: 100%;
     }
 }

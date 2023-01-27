@@ -109,7 +109,7 @@ export class LaunchCartElement extends LitElement {
   render() {
     return html`
     <sl-dialog id="thank-you">
-      Thanks for purchasing!
+      <p part="cart-thank-you">Thanks for purchasing!</p>
     </sl-dialog>
     <sl-dialog id="cart-details">
       ${this.cart?.items.length > 0 ? html`
@@ -137,8 +137,6 @@ export class LaunchCartElement extends LitElement {
       </table>
       <button part="checkout-button" @click=${this.checkout}>Check out</button>
       ` : html`<p part="cart-empty-message">You currently don't have any items in your cart.</p>`}
-        
-        
     </sl-dialog>
     <button part="cart-button" @click=${this.expandCart} aria-label="View Cart">
       <slot name="icon">

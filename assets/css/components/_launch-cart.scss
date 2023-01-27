@@ -49,26 +49,37 @@ launch-cart {
         text-align: center;
     }
 
+    &::part(cart-thank-you) {
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin-bottom: 70px;
+        text-align: center;
+    }
+
     &::part(cart-summary-table) {
         border-collapse: collapse;
-        margin-bottom: 20px;
+        margin-bottom: 40px;
         width: 100%;
     }
 
     &::part(cart-summary-item) {
         text-align: left;
+        padding: 10px 5px;
     }
 
     &::part(cart-summary-qty) {
         text-align: center;
+        padding: 10px 5px;
     }
 
     &::part(cart-summary-price) {
         text-align: right;
+        padding: 10px 5px;
     }
 
     &::part(cart-summary-remove) {
         text-align: center;
+        padding: 10px 5px;
     }
 
     &::part(cart-remove-item-button) {

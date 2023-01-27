@@ -112,29 +112,31 @@ export class LaunchCartElement extends LitElement {
       Thanks for purchasing!
     </sl-dialog>
     <sl-dialog id="cart-details">
-      ${this.cart?.items ? html`
+      ${this.cart?.items.length > 0 ? html`
         <table part="cart-summary-table" title="Your Cart Summary">
         <thead part="cart-summary-table-header">
           <tr>
-            <th scope="col">Item</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Price</th>
+            <th part="cart-summary-item" scope="col">Item</th>
+            <th part="cart-summary-price" scope="col">Price</th>
+            <th part="cart-summary-qty" scope="col">Qty.</th>
             <th aria-hidden="true"></th>
           </tr>
         </thead>
         <tbody>
           ${this.cart?.items.map(item => html`
           <tr title="${item.product.name}">
-            <td>${item.product.name}</td>
-            <td>${item.quantity}</td>
-            <td>${formatPrice(item.price)}</td>
-            <td><sl-button data-item-id=${item.id} id="remove-item" @click=${this.removeItem}>Remove</sl-button></td>
+            <td part="cart-summary-item">${item.product.name}</td>
+            <td part="cart-summary-price">${formatPrice(item.price)}</td>
+            <td part="cart-summary-qty">${item.quantity}</td>
+            <td part="cart-summary-remove">
+              <button part="cart-remove-item-button" title="Remove item" data-item-id=${item.id} id="remove-item" @click=${this.removeItem}>✕</button>
+            </td>
           </tr>
           `)}
         </tbody>
       </table>
       <button part="checkout-button" @click=${this.checkout}>Check out</button>
-      ` : html``}
+      ` : html`<p part="cart-empty-message">You currently don't have any items in your cart.</p>`}
         
         
     </sl-dialog>

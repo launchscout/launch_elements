@@ -28,7 +28,7 @@ if config_env() == :prod do
 
   maybe_ipv6 = if System.get_env("ECTO_IPV6"), do: [:inet6], else: []
 
-  host = System.get_env("RENDER_EXTERNAL_HOSTNAME") || "example.com"
+  host = System.get_env("PHX_HOST") || "example.com"
   port = String.to_integer(System.get_env("PORT") || "4000")
 
   config :launch_cart, LaunchCart.Repo,
@@ -79,4 +79,8 @@ if config_env() == :prod do
   #     config :swoosh, :api_client, Swoosh.ApiClient.Hackney
   #
   # See https://hexdocs.pm/swoosh/Swoosh.html#module-installation for details.
+
+  config :stripity_stripe, api_key: System.get_env("STRIPE_API_KEY")
+
+  config :launch_cart, stripe_client_id: System.get_env("STRIPE_CLIENT_ID")
 end

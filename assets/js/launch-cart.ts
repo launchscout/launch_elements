@@ -89,7 +89,7 @@ export class LaunchCartElement extends LitElement {
 
   itemCount() {
     return this.cart && this.cart.items && this.cart.items.length > 0 ? html`
-      <span part="cart-count">${this.cart.items.length}</span>
+      <span class="cart-count" part="cart-count">${this.cart.items.length}</span>
     ` : ``;
   }
 

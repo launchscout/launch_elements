@@ -289,6 +289,19 @@
 }
 
 
+// DISPLAY
+.u-grid {
+    display: grid;
+        align-items: baseline;
+        gap: $space-lg;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+
+    &--3 {
+        grid-template-columns: repeat(3, minmax(200px, 1fr));
+    }
+}
+
+
 // TYPOGRAPHY 
 .u-text {
     &-lg {

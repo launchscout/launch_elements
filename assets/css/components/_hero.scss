@@ -1,0 +1,15 @@
+.hero {
+    display: grid;
+        gap: $space-xl;
+        align-items: center;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    padding: $space-xl 0;
+
+    h1 {
+        font-size: clamp(2rem, 6vmin, 3rem);
+    }
+
+    p {
+        font-size: $font-size-lg;
+    }
+}

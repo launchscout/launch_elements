@@ -22,8 +22,8 @@ defmodule LaunchCartWeb.Features.LaunchCartTest do
     |> click(css("button#add-price_123"))
     |> within_shadow_dom("launch-cart", fn shadow_dom ->
       shadow_dom
-      |> assert_has(css("cart-count", text: "1"))
-      |> click(css("cart-count"))
+      |> assert_has(css(".cart-count", text: "1"))
+      |> click(css(".cart-count"))
       |> assert_has(css("table", text: "Nifty onesie"))
     end)
     assert Repo.get_by(Cart, store_id: store.id)
@@ -36,12 +36,12 @@ defmodule LaunchCartWeb.Features.LaunchCartTest do
     |> click(css("button#add-price_123"))
     |> within_shadow_dom("launch-cart", fn shadow_dom ->
       shadow_dom
-      |> assert_has(css("cart-count", text: "1"))
+      |> assert_has(css(".cart-count", text: "1"))
     end)
     |> visit("/fake_stores/#{store.id}")
     |> within_shadow_dom("launch-cart", fn shadow_dom ->
       shadow_dom
-      |> assert_has(css("cart-count", text: "1"))
+      |> assert_has(css(".cart-count", text: "1"))
     end)
   end
 
@@ -69,10 +69,10 @@ defmodule LaunchCartWeb.Features.LaunchCartTest do
     |> click(css("button#add-price_123"))
     |> within_shadow_dom("launch-cart", fn shadow_dom ->
       shadow_dom
-      |> assert_has(css("cart-count", text: "1"))
-      |> click(css("sl-button"))
+      |> assert_has(css(".cart-count", text: "1"))
+      |> click(css("button"))
       |> assert_has(css("td", text: "Nifty onesie"))
-      |> click(css("sl-button#remove-item"))
+      |> click(css("button#remove-item"))
       |> assert_has(css("td", text: "Nifty onesie", count: 0))
     end)
 

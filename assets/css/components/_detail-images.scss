@@ -5,8 +5,8 @@
         box-sizing: border-box;
         border: 8px solid transparentize($white, .6);
         display: flex;
-        position: absolute;
-        width: 13rem;
+        position: relative;
+        width: 80%;
 
         img {
             width: 100%;
@@ -17,13 +17,13 @@
     &--front-left {
         .detail-images__image {
             &:nth-child(1) {
-                top: -2rem;
-                right: 0;
+                top: 0;
+                left: 20%;
             }
     
             &:nth-child(2) {
-                top: 12rem;
-                width: 15rem;
+                top: -2rem;
+                width: 90%;
             }
         }
     }
@@ -31,12 +31,13 @@
     &--front-right {
         .detail-images__image {
             &:nth-child(1) {
-                top: -2rem;
+                top: 0;
             }
     
             &:nth-child(2) {
-                top: 0;
-                right: 0;
+                position: absolute;
+                top: 6rem;
+                left: 20%;
             }
         }
     }

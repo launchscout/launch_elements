@@ -23,4 +23,8 @@
             margin-top: unset;
         }
     }
+
+    @media screen and (max-width: $screen-tablet) {
+        grid-template-columns: 1fr;
+    }
 }

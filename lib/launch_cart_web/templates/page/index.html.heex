@@ -37,34 +37,42 @@
     </div>
 </section>
 
-<section class="u-grid u-grid--stretch contained-width" title="Customization">
-    <div class="detail-images detail-images--front-left">
-        <div class="detail-images__image marketing-image">
-            <%= img_tag(Routes.static_path(@conn, "/images/part-selectors.png"), alt: "Screenshot of custom CSS") %>
+<section class="contained-width" title="Customization">
+    <div class="u-grid u-grid--stretch">
+        <div class="detail-images detail-images--front-left">
+            <div class="detail-images__image marketing-image">
+                <%= img_tag(Routes.static_path(@conn, "/images/part-selectors.png"), alt: "Screenshot of custom CSS") %>
+            </div>
+            <div class="detail-images__image marketing-image">
+                <%= img_tag(Routes.static_path(@conn, "/images/slot-code.png"), alt: "Screenshot of slot code") %>
+            </div>
         </div>
-        <div class="detail-images__image marketing-image">
-            <%= img_tag(Routes.static_path(@conn, "/images/slot-code.png"), alt: "Screenshot of slot code") %>
+        <div>
+            <h2>Fully Customizable or Ready to Use Out of the Box</h2>
+            <p>
+                Customization is entirely up to you! There are three options: 1. Use the default elements as-is, 2. Customize the default elements' CSS through shadow DOM <code>::part()</code> selectors, or 3. Provide your own elements within the <code>slot</code>. The choice is yours.
+            </p>
         </div>
-    </div>
-    <div>
-        <h2>Fully Customizable or Ready to Use Out of the Box</h2>
-        <p>
-            Customization is entirely up to you! There are three options: 1. Use the default elements as-is, 2. Customize the default elements' CSS through shadow DOM <code>::part()</code> selectors, or 3. Provide your own elements within the <code>slot</code>. The choice is yours.
-        </p>
     </div>
 </section>
 
-<section class="u-grid u-grid--stretch contained-width" title="Technology Overview">
-    <div>
-        <h2>Built on top of Live State with custom elements</h2>
-        <p>
-            Launch Cart is built using custom elements and Live State. Live State is a [insert marketing pitch for Live State here].
-        </p>
-        <a href="">Learn more about Live State</a>
-    </div>
-    <div class="detail-images detail-images--front-left">
-        <div class="detail-images__image marketing-image"></div>
-        <div class="detail-images__image marketing-image"></div>
+<section class="contained-width" title="Technology Overview">
+    <div class="u-grid u-grid--stretch">
+        <div class="u-push__bottom--lg">
+            <h2>Built on top of Live State with custom elements</h2>
+            <p>
+                Launch Cart is built using custom elements and Live State. Live State is a [insert marketing pitch for Live State here].
+            </p>
+            <a href="">Learn more about Live State</a>
+        </div>
+        <div class="detail-images detail-images--front-right">
+            <div class="detail-images__image marketing-image">
+                <%= img_tag(Routes.static_path(@conn, "/images/custom-element.png"), alt: "Screenshot of custom element code") %>
+            </div>
+            <div class="detail-images__image marketing-image">
+                <%= img_tag(Routes.static_path(@conn, "/images/live-state.png"), alt: "Screenshot of Live State repo on GitHub") %>
+            </div>
+        </div>
     </div>
 </section>
 

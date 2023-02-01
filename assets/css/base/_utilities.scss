@@ -293,8 +293,8 @@
 .u-grid {
     display: grid;
         align-items: baseline;
-        gap: $space-lg;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: $space-xxs $space-lg;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 
     &--stretch {
         align-items: stretch;

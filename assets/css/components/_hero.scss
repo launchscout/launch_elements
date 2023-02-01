@@ -1,8 +1,10 @@
 .hero {
+    background: radial-gradient($color-primary-tint, $gray-lightest 70%);
     display: grid;
         gap: $space-xl;
         align-items: center;
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+     height: clamp(400px, 60vh, 700px);
     padding: $space-xl 0;
 
     h1 {
@@ -11,5 +13,30 @@
 
     p {
         font-size: $font-size-lg;
+    }
+
+    &__images {
+        position: relative;
+    }
+
+    &__image {
+        border-radius: $border-radius;
+        box-shadow: 0 0 30px transparentize($color-primary, .85);
+        height: 10rem;
+        width: 10rem;
+        overflow: hidden;
+        // position: absolute;
+
+        &:nth-child(1) {
+            // top: 0;
+        }
+
+        &:nth-child(2) {
+            
+        }
+
+        &:nth-child(3) {
+            
+        }
     }
 }

@@ -5,9 +5,9 @@
         <%= link "Get Started Now", to: Routes.user_registration_path(@conn, :new), class: "button button--cta" %>
     </div>
     <div class="hero__images">
-        <div class="hero__image"></div>
-        <div class="hero__image"></div>
-        <div class="hero__image"></div>
+        <div class="hero__image marketing-image"></div>
+        <div class="hero__image marketing-image"></div>
+        <div class="hero__image marketing-image"></div>
     </div>
 </section>
 
@@ -37,19 +37,24 @@
     </div>
 </section>
 
-<section class="u-grid contained-width" title="Customization">
-    <div>
-        Image Placeholders
+<section class="u-grid u-grid--stretch contained-width" title="Customization">
+    <div class="detail-images detail-images--front-left">
+        <div class="detail-images__image marketing-image">
+            <%= img_tag(Routes.static_path(@conn, "/images/part-selectors.png"), alt: "Screenshot of custom CSS") %>
+        </div>
+        <div class="detail-images__image marketing-image">
+            <%= img_tag(Routes.static_path(@conn, "/images/slot-code.png"), alt: "Screenshot of slot code") %>
+        </div>
     </div>
     <div>
         <h2>Fully Customizable or Ready to Use Out of the Box</h2>
         <p>
-            Customization is entirely up to you! With built in default elements, you can simply copy, paste, and continue or you can customize the CSS to fit your site's aesthetic. The choice is yours.
+            Customization is entirely up to you! There are three options: 1. Use the default elements as-is, 2. Customize the default elements' CSS through shadow DOM <code>::part()</code> selectors, or 3. Provide your own elements within the <code>slot</code>. The choice is yours.
         </p>
     </div>
 </section>
 
-<section class="u-grid contained-width" title="Technology Overview">
+<section class="u-grid u-grid--stretch contained-width" title="Technology Overview">
     <div>
         <h2>Built on top of Live State with custom elements</h2>
         <p>
@@ -57,8 +62,9 @@
         </p>
         <a href="">Learn more about Live State</a>
     </div>
-    <div>
-        Image Placeholders
+    <div class="detail-images detail-images--front-left">
+        <div class="detail-images__image marketing-image"></div>
+        <div class="detail-images__image marketing-image"></div>
     </div>
 </section>
 

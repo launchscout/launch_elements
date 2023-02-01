@@ -20,11 +20,6 @@
     }
 
     &__image {
-        border-radius: $border-radius;
-        box-shadow: 0 0 30px transparentize($color-primary, .85);
-        height: 10rem;
-        width: 10rem;
-        overflow: hidden;
         // position: absolute;
 
         &:nth-child(1) {

@@ -1,0 +1,43 @@
+.detail-images {
+    position: relative;
+
+    &__image {
+        box-sizing: border-box;
+        border: 8px solid transparentize($white, .6);
+        display: flex;
+        position: absolute;
+        width: 13rem;
+
+        img {
+            width: 100%;
+            min-height: 100%;
+        }
+    }
+
+    &--front-left {
+        .detail-images__image {
+            &:nth-child(1) {
+                top: -2rem;
+                right: 0;
+            }
+    
+            &:nth-child(2) {
+                top: 12rem;
+                width: 15rem;
+            }
+        }
+    }
+
+    &--front-right {
+        .detail-images__image {
+            &:nth-child(1) {
+                top: -2rem;
+            }
+    
+            &:nth-child(2) {
+                top: 0;
+                right: 0;
+            }
+        }
+    }
+}

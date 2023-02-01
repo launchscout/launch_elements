@@ -295,6 +295,10 @@
         align-items: baseline;
         gap: $space-lg;
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+
+    &--stretch {
+        align-items: stretch;
+    }
 }
 
 

@@ -1,0 +1,105 @@
+/* PrismJS 1.29.0
+https://prismjs.com/download.html#themes=prism-tomorrow&languages=markup */
+code[class*=language-], pre[class*=language-] {
+  color: $black;
+  background: lighten($color-primary-tint, 2%);
+  border-radius: $border-radius;
+  border: 2px solid $color-primary-tint;
+  box-sizing: border-box;
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  font-size: $font-size-sm;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.5;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+pre[class*=language-] {
+  display: block;
+  padding: 1em;
+  margin: .5em 0;
+  overflow: auto;
+  width: 100%;
+}
+
+pre[class*=language-]>code[class*=language-] {
+  border: none;
+}
+
+:not(pre)>code[class*=language-], pre[class*=language-] {
+  background: lighten($color-primary-tint, 2%);
+  border-radius: $border-radius;
+  border: 2px solid $color-primary-tint;
+  box-sizing: border-box;
+}
+
+:not(pre)>code[class*=language-] {
+  padding: 0 $space-xxs;
+  border-radius: .3em;
+  white-space: normal;
+}
+
+.token.block-comment, .token.cdata, .token.comment, .token.doctype, .token.prolog {
+  color: #999;
+}
+
+.token.punctuation {
+  color: $black;
+}
+
+.token.tag {
+  color: $color-primary-bright;
+}
+
+.token.attr-name, .token.deleted, .token.namespace {
+  color: $color-error;
+}
+
+.token.function-name {
+  color: #6196cc;
+}
+
+.token.boolean, .token.function, .token.number {
+  color: #f08d49;
+}
+
+.token.class-name, .token.constant, .token.property, .token.symbol {
+  color: #f8c555;
+}
+
+.token.atrule, .token.builtin, .token.important, .token.keyword, .token.selector {
+  color: #cc99cd;
+}
+
+.token.attr-value, .token.char, .token.regex, .token.string, .token.variable {
+  color: darken($color-success, 25%);
+}
+
+.token.entity, .token.operator, .token.url {
+  color: #67cdcc;
+}
+
+.token.bold, .token.important {
+  font-weight: 700;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.inserted {
+  color: green;
+}

@@ -19,7 +19,7 @@
 <div class="page-header">
   <h1>Launch Cart Stores</h1>
   <%= if Enum.any?(@stores) do %>
-    <%= live_patch to: Routes.store_index_path(@socket, :new) do %>
+    <%= live_patch to: Routes.store_index_path(@socket, :new), class: "button button--sm" do %>
       <i class="material-icons">add</i> Create a Store
     <% end %>
   <% end %>

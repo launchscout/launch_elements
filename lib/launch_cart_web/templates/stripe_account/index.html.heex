@@ -24,7 +24,7 @@
 <div class="page-header">
   <h1>Connected Stripe Accounts</h1>
   <%= if Enum.any?(@stripe_accounts) do %>
-    <%= link to: Routes.stripe_account_path(@conn, :authorize_stripe), class: "page-header__action" do %>
+    <%= link to: Routes.stripe_account_path(@conn, :authorize_stripe), class: "button button--sm" do %>
       <i class="material-icons">add</i> Connect Another
     <% end %>
   <% end %>

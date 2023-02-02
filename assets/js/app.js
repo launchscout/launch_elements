@@ -27,9 +27,18 @@ import {LiveSocket} from "phoenix_live_view"
 import topbar from "../vendor/topbar"
 import 'api-viewer-element';
 import './nav-toggle';
+import Prism from "./prism"
+
+const Hooks = {
+  Prism: {
+    mounted() { this.highlight() },
+    reconnected() { this.highlight() },
+    highlight() { Prism.highlightAll() }
+  }
+}
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
-let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}})
+let liveSocket = new LiveSocket("/live", Socket, {hooks: Hooks, params: {_csrf_token: csrfToken}})
 
 // Show progress bar on live navigation and form submits
 topbar.config({barColors: {0: "#29d"}, shadowColor: "rgba(0, 0, 0, .3)"})

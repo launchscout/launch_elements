@@ -10,6 +10,10 @@ a.button {
     padding: $space-xs $space-md;
     transition: $transition;
 
+    i.material-icons {
+        margin-left: -$space-xxs;
+    }
+
     &:active,
     &:hover,
     &:focus {
@@ -34,5 +38,10 @@ a.button {
             background-color: lighten($color-action, 15%);
             color: $black;
         }
+    }
+
+    &--sm {
+        font-size: $font-size-sm;
+        padding: $space-xxs $space-sm;
     }
 }

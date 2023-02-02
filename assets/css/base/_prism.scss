@@ -1,8 +1,9 @@
 /* PrismJS 1.29.0
 https://prismjs.com/download.html#themes=prism-tomorrow&languages=markup */
 code[class*=language-], pre[class*=language-] {
-  color: #ccc;
-  background: 0 0;
+  color: $black;
+  background: $color-primary-tint;
+  border-radius: $border-radius;
   font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   font-size: 1em;
   text-align: left;
@@ -21,17 +22,20 @@ code[class*=language-], pre[class*=language-] {
 }
 
 pre[class*=language-] {
+  display: block;
   padding: 1em;
   margin: .5em 0;
   overflow: auto;
+  width: 100%;
 }
 
 :not(pre)>code[class*=language-], pre[class*=language-] {
-  background: #2d2d2d;
+  background: $color-primary-tint;
+  border-radius: $border-radius;
 }
 
 :not(pre)>code[class*=language-] {
-  padding: .1em;
+  padding: $space-xxs $space-xs;
   border-radius: .3em;
   white-space: normal;
 }
@@ -41,11 +45,11 @@ pre[class*=language-] {
 }
 
 .token.punctuation {
-  color: #ccc;
+  color: $black;
 }
 
 .token.attr-name, .token.deleted, .token.namespace, .token.tag {
-  color: #e2777a;
+  color: $color-primary-bright;
 }
 
 .token.function-name {
@@ -65,7 +69,7 @@ pre[class*=language-] {
 }
 
 .token.attr-value, .token.char, .token.regex, .token.string, .token.variable {
-  color: #7ec699;
+  color: $color-error;
 }
 
 .token.entity, .token.operator, .token.url {

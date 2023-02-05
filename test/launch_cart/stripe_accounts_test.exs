@@ -2,11 +2,10 @@ defmodule LaunchCart.StripeAccountsTest do
   use LaunchCart.DataCase
 
   alias LaunchCart.StripeAccounts
+  alias LaunchCart.StripeAccounts.StripeAccount
+  import LaunchCart.Factory
 
   describe "stripe_accounts" do
-    alias LaunchCart.StripeAccounts.StripeAccount
-
-    import LaunchCart.Factory
 
     @invalid_attrs %{name: nil, stripe_id: nil}
 
@@ -19,16 +18,6 @@ defmodule LaunchCart.StripeAccountsTest do
       stripe_account = insert(:stripe_account)
 
       assert_equivalent StripeAccounts.get_stripe_account!(stripe_account.id), stripe_account
-    end
-
-    test "create_stripe_account/1 with valid data creates a stripe_account" do
-      user = insert(:user)
-      valid_attrs = %{stripe_user_id: "acc_stripe"}
-
-      assert {:ok, %StripeAccount{} = stripe_account} = StripeAccounts.create_stripe_account(user, valid_attrs)
-      assert stripe_account.stripe_id == "acc_stripe"
-      # from FakeLaunch
-      assert stripe_account.name == "Lunch Scout"
     end
 
     test "update_stripe_account/2 with valid data updates the stripe_account" do
@@ -55,6 +44,33 @@ defmodule LaunchCart.StripeAccountsTest do
     test "change_stripe_account/1 returns a stripe_account changeset" do
       stripe_account = insert(:stripe_account)
       assert %Ecto.Changeset{} = StripeAccounts.change_stripe_account(stripe_account)
+    end
+  end
+
+  describe "create stripe accounts" do
+    test "create_stripe_account/1 with valid data creates a stripe_account" do
+      user = insert(:user)
+      valid_attrs = %{stripe_user_id: "acc_stripe"}
+
+      assert {:ok, %StripeAccount{} = stripe_account} = StripeAccounts.create_stripe_account(user, valid_attrs)
+      assert stripe_account.stripe_id == "acc_stripe"
+      # from FakeLaunch
+      assert stripe_account.name == "Lunch Scout"
+    end
+
+    test "create_stripe_account with no business profile using dashboard settings" do
+      user = insert(:user)
+      valid_attrs = %{stripe_user_id: "acc_dashboard_settings"}
+
+      assert {:ok, %StripeAccount{} = stripe_account} = StripeAccounts.create_stripe_account(user, valid_attrs)
+      assert stripe_account.name == "SuperMegaFoobarCorp!"
+    end
+
+    test "create_stripe_account with nothing but id" do
+      user = insert(:user)
+      valid_attrs = %{stripe_user_id: "acc_id_only"}
+
+      assert {:ok, %StripeAccount{} = stripe_account} = StripeAccounts.create_stripe_account(user, valid_attrs)
     end
   end
 

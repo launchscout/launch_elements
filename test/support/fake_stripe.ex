@@ -149,6 +149,44 @@ defmodule LaunchCart.Test.FakeLaunch do
      }}
   end
 
+  def get_stripe_account("acc_id_only") do
+    {:ok, %Stripe.Account{id: "acct_1Lww2pKjsAoFfhR4"}}
+  end
+
+  def get_stripe_account("acc_dashboard_settings") do
+    {:ok,
+     %Stripe.Account{
+       id: "acct_1Lww2pKjsAoFfhR4",
+       object: "account",
+       business_profile: nil,
+       business_type: nil,
+       charges_enabled: true,
+       settings: %{
+         bacs_debit_payments: %{},
+         branding: %{icon: nil, logo: nil, primary_color: nil, secondary_color: nil},
+         card_issuing: %{tos_acceptance: %{date: nil, ip: nil}},
+         card_payments: %{
+           statement_descriptor_prefix: "BLOOF",
+           statement_descriptor_prefix_kana: nil,
+           statement_descriptor_prefix_kanji: nil
+         },
+         dashboard: %{
+           display_name: "SuperMegaFoobarCorp!",
+           timezone: "America/New_York"
+         },
+         payments: %{
+           statement_descriptor: "BLOOF",
+           statement_descriptor_kana: nil,
+           statement_descriptor_kanji: nil
+         },
+         sepa_debit_payments: %{}
+       },
+       country: "US",
+       default_currency: "usd",
+       details_submitted: false
+     }}
+  end
+
   def get_stripe_account(_id) do
     {:ok,
      %Stripe.Account{

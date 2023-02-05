@@ -63,13 +63,23 @@ defmodule LaunchCart.StripeAccounts do
   def create_stripe_account(%User{id: user_id}, %{stripe_user_id: stripe_user_id}) do
     case fetch_stripe_account(stripe_user_id) do
       {:ok, %Stripe.Account{business_profile: %{name: name}}} ->
-        %StripeAccount{}
-        |> StripeAccount.changeset(%{user_id: user_id, stripe_id: stripe_user_id, name: name})
-        |> Repo.insert()
+        create_stripe_account(%{user_id: user_id, stripe_id: stripe_user_id, name: name})
+
+      {:ok, %Stripe.Account{settings: %{dashboard: %{display_name: name}}}} ->
+        create_stripe_account(%{user_id: user_id, stripe_id: stripe_user_id, name: name})
+
+      {:ok, %Stripe.Account{}} ->
+        create_stripe_account(%{user_id: user_id, stripe_id: stripe_user_id})
 
       {:error, error} ->
         {:error, error}
     end
+  end
+
+  def create_stripe_account(attrs) do
+    %StripeAccount{}
+    |> StripeAccount.changeset(attrs)
+    |> Repo.insert()
   end
 
   @doc """

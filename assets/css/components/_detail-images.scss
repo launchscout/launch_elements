@@ -1,0 +1,44 @@
+.detail-images {
+    position: relative;
+
+    &__image {
+        box-sizing: border-box;
+        border: 8px solid transparentize($white, .6);
+        display: flex;
+        position: relative;
+        width: 80%;
+
+        img {
+            width: 100%;
+            min-height: 100%;
+        }
+    }
+
+    &--front-left {
+        .detail-images__image {
+            &:nth-child(1) {
+                top: 0;
+                left: 20%;
+            }
+    
+            &:nth-child(2) {
+                top: -2rem;
+                width: 90%;
+            }
+        }
+    }
+
+    &--front-right {
+        .detail-images__image {
+            &:nth-child(1) {
+                top: 0;
+            }
+    
+            &:nth-child(2) {
+                position: absolute;
+                top: 6rem;
+                left: 20%;
+            }
+        }
+    }
+}

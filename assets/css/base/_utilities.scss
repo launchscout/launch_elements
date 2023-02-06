@@ -289,6 +289,25 @@
 }
 
 
+// DISPLAY
+.u-grid {
+    display: grid;
+        align-items: baseline;
+        gap: $space-xxs $space-lg;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+
+    &--stretch {
+        align-items: stretch;
+    }
+}
+
+
+// VERTICAL ALIGNMENT
+.u-vertical-middle {
+    vertical-align: middle;
+}
+
+
 // TYPOGRAPHY 
 .u-text {
     &-lg {
@@ -296,7 +315,7 @@
     }
 
     &-sm {
-        font-size: $font-size-sm;
+        font-size: $font-size-sm !important;
     }
 
     &-center {

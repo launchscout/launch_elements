@@ -1,0 +1,6 @@
+.marketing-image {
+    border-radius: $border-radius;
+    box-shadow: 0 0 40px transparentize($color-primary, .65);
+    // width: 10rem;
+    overflow: hidden;
+}

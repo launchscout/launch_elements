@@ -24,3 +24,13 @@ body {
         grid-area: footer;
     }
 }
+
+.contained-width {
+    max-width: 40rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+section + section {
+    margin-top: calc(4 * $space-xl);
+}

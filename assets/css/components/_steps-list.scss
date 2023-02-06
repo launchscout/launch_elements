@@ -1,0 +1,30 @@
+.steps-list {
+    display: grid;
+        align-items: stretch;
+        gap: $space-lg;
+        grid-template-columns: repeat(3, minmax(200px, 1fr));
+    margin-top: $space-lg;
+    text-align: left;
+    
+    li {
+        background-color: $color-primary-tint;
+        border-radius: $border-radius;
+        list-style-position: inside;
+        padding: $space-lg;
+
+        &::marker {
+            content: "[" counter(list-item) "]";
+            color: $color-primary;
+            font-size: 1.3rem;
+            // font-weight: 700;
+        }
+
+        + li {
+            margin-top: unset;
+        }
+    }
+
+    @media screen and (max-width: $screen-tablet) {
+        grid-template-columns: 1fr;
+    }
+}

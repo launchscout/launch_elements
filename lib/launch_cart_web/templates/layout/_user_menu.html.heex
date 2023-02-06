@@ -19,8 +19,9 @@
         <%= link "Log out", to: Routes.user_session_path(@conn, :delete), method: :delete %>
       </div>
     <% else %>
+      <span></span>
       <div>
-        <%= link "Register", to: Routes.user_registration_path(@conn, :new) %>
+        <%= link "Register", to: Routes.user_registration_path(@conn, :new) %> or 
         <%= link "Log in", to: Routes.user_session_path(@conn, :new) %>
       </div>
     <% end %>

@@ -4,6 +4,7 @@ footer {
         gap: $space-md;
         align-items: baseline;
         justify-content: space-between;
+    font-size: $font-size-sm;
+    margin-top: calc(4 * $space-xl);
     padding: $space-sm $space-lg;
-    text-align: center;
 }

@@ -1,33 +1,33 @@
-<section class="hero" title="Hero Banner">
+<section class="hero" aria-label="Hero Banner">
     <div>
-        <h1>From static site to ecommerce platform in a matter of minutes.</h1>
+        <h1>Headless ecommerce in a matter of minutes.</h1>
         <p>All you need is your static site, a Stripe account, and Launch Cart.</p>
         <%= link "Get Started Now", to: Routes.user_registration_path(@conn, :new), class: "button button--cta" %>
     </div>
     <div class="hero__images">
-        <div class="hero__image marketing-image"></div>
-        <div class="hero__image marketing-image"></div>
-        <div class="hero__image marketing-image"></div>
+        <div class="hero__image marketing-image"><%= img_tag(Routes.static_path(@conn, "/images/cart.png"), alt: "Cart icon screenshot") %></div>
+        <div class="hero__image marketing-image"><%= img_tag(Routes.static_path(@conn, "/images/usage-instructions.png"), alt: "Usage instructions screenshot") %></div>
+        <div class="hero__image marketing-image"><%= img_tag(Routes.static_path(@conn, "/images/add-to-cart-btn.png"), alt: "Add to cart button screenshot") %></div>
     </div>
 </section>
 
-<section class="u-text-center" title="How-to Overview">
+<section class="u-text-center" aria-label="How-to Overview">
     <h2>It's as easy as 1-2-3</h2>
     <p>
-        Including Launch Cart in your website really is as easy at it gets. All it takes is some simple setup and a single <code class="language-html">script</code> tag and you're able to use the custom elements!
+        Including Launch Cart in your website really is as easy at it gets. Regardless of your site generator, all it takes is some simple setup and a single <code class="language-html">script</code> tag and you're able to use the custom HTML elements!
         Not sure if Launch Cart fits your needs? Check out the demo site below.
     </p>
     <a href="https://launchscout.github.io/demo-store/" target="blank">See it in action</a>
 
     <div>
-        <ol class="steps-list" title="The Steps">
+        <ol class="steps-list" aria-label="The Steps">
             <li>
                 <h3>Connect and create</h3>
                 <p>Register for a Launch Cart account, connect your Stripe account, and create a Launch Cart store.</p>
             </li>
             <li>
                 <h3>Include in your website</h3>
-                <p>We'll generate the script tag to copy + paste into your <code>head</code> block.</p>
+                <p>We'll generate the script tag to copy + paste into your <code class="language-html">head</code> block.</p>
             </li>
             <li>
                 <h3>Start using Launch Cart</h3>
@@ -37,7 +37,7 @@
     </div>
 </section>
 
-<section class="contained-width" title="Customization">
+<section class="contained-width" aria-label="Customization">
     <div class="u-grid u-grid--stretch">
         <div class="detail-images detail-images--front-left">
             <div class="detail-images__image marketing-image">
@@ -50,18 +50,18 @@
         <div>
             <h2>Fully Customizable or Ready to Use Out of the Box</h2>
             <p>
-                Customization is entirely up to you! Because Launch Cart is custom HTML elements you can style them with CSS just like the rest of your site. So, you can use the default styles or roll your own—dealer's choice!
+                Customization is entirely up to you. Because Launch Cart uses custom HTML elements, you hold the power. You can style each element using CSS, just like the rest of your site, or use the styles it's shipped with—dealer's choice!
             </p>
         </div>
     </div>
 </section>
 
-<section class="contained-width" title="Technology Overview">
+<section class="contained-width" aria-label="Technology Overview">
     <div class="u-grid u-grid--stretch">
         <div class="u-push__bottom--lg">
             <h2>Built on top of Live State with custom HTML elements</h2>
             <p>
-                Launch Cart is built using custom HTML elements and Live State. Live State is a [insert marketing pitch for Live State here].
+                Launch Cart is built using custom HTML elements and Live State. Live State is an Elixir library that allows developers to create real-time experiences without dictating a language. What does that mean for you? No matter what language your site is built on, you can capitalize on the power of Launch Cart.
             </p>
             <a href="https://github.com/launchscout/live_state" target="blank">Learn more about Live State</a>
         </div>

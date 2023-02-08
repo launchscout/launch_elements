@@ -2,10 +2,16 @@
     background: radial-gradient($color-primary-tint, $gray-lightest 70%);
     display: grid;
         gap: $space-xl;
-        align-items: center;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        align-items: stretch;
+        grid-template-columns: 1fr 1.75fr;
      height: clamp(400px, 60vh, 700px);
     padding: $space-xl 0;
+    position: relative;
+
+    @media screen and (max-width: $screen-tablet) {
+        grid-template-columns: 1fr;
+        height: unset;
+    }
 
     h1 {
         font-size: clamp(2rem, 6vmin, 3rem);
@@ -14,24 +20,37 @@
     p {
         font-size: $font-size-lg;
     }
+    > div {
+        margin: auto 0;
+    }
 
     &__images {
         position: relative;
     }
 
     &__image {
-        // position: absolute;
+        position: relative;
+
+        img {
+            width: 100%;
+        }
 
         &:nth-child(1) {
-            // top: 0;
+            top: 30px;
+            width: 35%;
         }
 
         &:nth-child(2) {
-            
+            position: absolute;
+            top: -30px;
+            right: 0;
+            width: 60%;
         }
 
         &:nth-child(3) {
-            
+            top: 50px;
+            left: 15%;
+            width: 45%;
         }
     }
 }

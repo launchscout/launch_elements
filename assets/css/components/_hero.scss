@@ -3,7 +3,7 @@
     display: grid;
         gap: $space-xl;
         align-items: stretch;
-        grid-template-columns: 1fr 2fr;
+        grid-template-columns: 1fr 1.75fr;
      height: clamp(400px, 60vh, 700px);
     padding: $space-xl 0;
     position: relative;

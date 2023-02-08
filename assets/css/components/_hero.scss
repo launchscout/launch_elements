@@ -10,8 +10,7 @@
 
     @media screen and (max-width: $screen-tablet) {
         grid-template-columns: 1fr;
-
-        
+        height: unset;
     }
 
     h1 {

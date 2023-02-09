@@ -59,10 +59,10 @@ export class LaunchCartElement extends LitElement {
   @state()
   checkingOut: boolean = false;
 
-  @query('sl-dialog#cart-details')
+  @query('#cart-details')
   cartDetails: HTMLElement | undefined;
 
-  @query('sl-dialog#thank-you')
+  @query('#thank-you')
   thanks: HTMLElement | undefined;
 
   @liveStateConfig('topic')
@@ -98,7 +98,7 @@ export class LaunchCartElement extends LitElement {
   }
 
   expandCart() {
-    this.cartDetails && (this.cartDetails as any).show();
+    this.cartDetails && (this.cartDetails as any).showModal();
   }
 
   showThanks() {
@@ -112,38 +112,52 @@ export class LaunchCartElement extends LitElement {
 
   render() {
     return html`
-    <sl-dialog id="thank-you" exportparts="overlay, panel, body, header, close-button">
-      <p part="cart-thank-you">Thanks for purchasing!</p>
-    </sl-dialog>
-    <sl-dialog id="cart-details" exportparts="overlay, panel, body, header, close-button">
-      ${this.cart?.items.length > 0 ? html`
-        <table part="cart-summary-table" title="Your Cart Summary">
-        <thead part="cart-summary-table-header">
-          <tr>
-            <th part="cart-summary-item" scope="col">Item</th>
-            <th part="cart-summary-price" scope="col">Price</th>
-            <th part="cart-summary-qty" scope="col">Qty.</th>
-            <th aria-hidden="true"></th>
-          </tr>
-        </thead>
-        <tbody>
-          ${this.cart?.items.map(item => html`
-          <tr title="${item.product.name}">
-            <td part="cart-summary-item">${item.product.name}</td>
-            <td part="cart-summary-price">${formatPrice(item.price)}</td>
-            <td part="cart-summary-qty">${item.quantity}</td>
-            <td part="cart-summary-remove">
-              <button part="cart-remove-item-button" title="Remove item" data-item-id=${item.id} id="remove-item" @click=${this.removeItem}>✕</button>
-            </td>
-          </tr>
-          `)}
-        </tbody>
-      </table>
-      <button id="checkout-button" part="checkout-button" @click=${this.checkout}>
-        ${this.checkingOut ? html`<span id="checkout-spinner">spin spin spin</span>` : ''} Check out
-      </button>
-      ` : html`<p part="cart-empty-message">You currently don't have any items in your cart.</p>`}
-    </sl-dialog>
+    <dialog part="modal" id="thank-you">
+      <div part="modal-header">
+        <form method="form">
+          <button type="submit" part="close-modal" aria-label="Close Modal">✕</button>
+        </form>
+      </div>
+      <div part="modal-body">   
+        <p part="cart-thank-you">Thanks for purchasing!</p>
+      </div>
+    </dialog>
+    <dialog part="modal" id="cart-details">
+      <div part="modal-header">
+        <form method="dialog">
+          <button type="submit" part="close-modal" id="close-modal" aria-label="Close Modal">✕</button>
+        </form>
+      </div>
+      <div part="modal-body">      
+        ${this.cart?.items.length > 0 ? html`
+          <table part="cart-summary-table" aria-label="Your Cart Summary">
+          <thead part="cart-summary-table-header">
+            <tr>
+              <th part="cart-summary-item" scope="col">Item</th>
+              <th part="cart-summary-price" scope="col">Price</th>
+              <th part="cart-summary-qty" scope="col">Qty.</th>
+              <th aria-hidden="true"></th>
+            </tr>
+          </thead>
+          <tbody>
+            ${this.cart?.items.map(item => html`
+            <tr aria-label="${item.product.name}">
+              <td part="cart-summary-item">${item.product.name}</td>
+              <td part="cart-summary-price">${formatPrice(item.price)}</td>
+              <td part="cart-summary-qty">${item.quantity}</td>
+              <td part="cart-summary-remove">
+                <button part="cart-remove-item-button" aria-label="Remove item" data-item-id=${item.id} id="remove-item" @click=${this.removeItem}>✕</button>
+              </td>
+            </tr>
+            `)}
+          </tbody>
+        </table>
+        <button id="checkout-button" part="checkout-button" @click=${this.checkout}>
+          ${this.checkingOut ? html`<span id="checkout-spinner">spin spin spin</span>` : ''} Check out
+        </button>
+        ` : html`<p part="cart-empty-message">You currently don't have any items in your cart.</p>`}
+      </div>
+    </dialog>
     <button part="cart-button" @click=${this.expandCart} aria-label="View Cart">
       <slot name="icon">
         <svg part="cart-icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M15.55 13c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.37-.66-.11-1.48-.87-1.48H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 15.37 5.48 17 7 17h12v-2H7l1.1-2h7.45zM6.16 6h12.15l-2.76 5H8.53L6.16 6zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>

@@ -44,33 +44,77 @@ launch-cart {
         width:8px;
     }
 
-    // This is the selector to control the modal overlay styles
-    &::part(overlay) {
-        background-color: rgba(23, 44, 96, .3);
-    }
-
-    // This is the selector to control the modal styles
-    &::part(panel) {
+    &::part(modal) {
         background-color: #ffffff;
-        margin: 0 20px;
-        max-width: 800px;
+        border: 0;
+        border-radius: 10px;
+        box-sizing: border-box;
+        box-shadow: 0 0 2rem rgba(128, 128, 128, .3);
+        padding: 0;
+        margin: auto;
+        max-width: 50rem;
         width: 100%;
     }
 
-    // This is the selector to control the modal content styles
-    &::part(body) {
-        padding: 30px 60px 60px;
+    &::part(modal-header) {
+        display: flex;
+        justify-content: end;
+        padding: 1rem;
     }
+
+    &::part(modal-body) {
+        padding: 1rem 3rem 3rem;
+    }
+
+    &::part(close-modal) {
+        appearance: none;
+        background-color: transparent;
+        border: 0;
+        color: #2C1760;
+        cursor: pointer;
+        font-size: 1.2rem;
+        padding: 1rem;
+        text-align: right;
+
+        &:hover,
+        &:active,
+        &:focus {
+            color: #6042BC;
+        }
+
+        &:focus-visible {
+            outline: 2px solid #F7A006;
+            outline-offset: 3px;
+        }
+    }
+
+    // This is the selector to control the modal overlay styles
+    // &::part(overlay) {
+    //     background-color: rgba(23, 44, 96, .3);
+    // }
+
+    // This is the selector to control the modal styles
+    // &::part(panel) {
+    //     background-color: #ffffff;
+    //     margin: 0 20px;
+    //     max-width: 800px;
+    //     width: 100%;
+    // }
+
+    // This is the selector to control the modal content styles
+    // &::part(body) {
+    //     padding: 30px 60px 60px;
+    // }
 
     // This is the selector to control the modal header styles
-    &::part(header) {
-        padding: 10px 0 0;
-    }
+    // &::part(header) {
+    //     padding: 10px 0 0;
+    // }
 
     // This is the selector to control the close button wrapper styles
-    &::part(close-button) {
+    // &::part(close-button) {
 
-    } 
+    // } 
 
     &::part(cart-empty-message) {
         margin-bottom: 40px;

@@ -44,6 +44,34 @@ launch-cart {
         width:8px;
     }
 
+    // This is the selector to control the modal overlay styles
+    &::part(overlay) {
+        background-color: rgba(23, 44, 96, .3);
+    }
+
+    // This is the selector to control the modal styles
+    &::part(panel) {
+        background-color: #ffffff;
+        margin: 0 20px;
+        max-width: 800px;
+        width: 100%;
+    }
+
+    // This is the selector to control the modal content styles
+    &::part(body) {
+        padding: 30px 60px 60px;
+    }
+
+    // This is the selector to control the modal header styles
+    &::part(header) {
+        padding: 10px 0 0;
+    }
+
+    // This is the selector to control the close button wrapper styles
+    &::part(close-button) {
+
+    } 
+
     &::part(cart-empty-message) {
         margin-bottom: 40px;
         text-align: center;
@@ -78,8 +106,9 @@ launch-cart {
     }
 
     &::part(cart-summary-remove) {
-        text-align: center;
+        text-align: right;
         padding: 10px 5px;
+        width: 1px;
     }
 
     &::part(cart-remove-item-button) {
@@ -99,7 +128,7 @@ launch-cart {
         }
     }
     &::part(checkout-button) {
-        background-color: #2C1760;
+        background-color: #2c1760;
         border: 0;
         border-radius: 4px;
         color: #ffffff;

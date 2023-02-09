@@ -111,10 +111,10 @@ export class LaunchCartElement extends LitElement {
 
   render() {
     return html`
-    <sl-dialog id="thank-you">
+    <sl-dialog id="thank-you" exportparts="overlay, panel, body, header, close-button">
       <p part="cart-thank-you">Thanks for purchasing!</p>
     </sl-dialog>
-    <sl-dialog id="cart-details">
+    <sl-dialog id="cart-details" exportparts="overlay, panel, body, header, close-button">
       ${this.cart?.items.length > 0 ? html`
         <table part="cart-summary-table" title="Your Cart Summary">
         <thead part="cart-summary-table-header">

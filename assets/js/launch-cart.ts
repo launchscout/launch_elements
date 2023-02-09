@@ -6,21 +6,21 @@ import shoelace_light from '@shoelace-style/shoelace/dist/themes/light.styles.js
 import { setBasePath } from '@shoelace-style/shoelace';
 setBasePath('https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.86/dist/')
 
-type CartItem = {
+export type CartItem = {
   id: string;
   product: Product;
   quantity: number;
   price: number
 }
 
-type Product = {
+export type Product = {
   description: string;
   id: string;
   images: string[];
   name: string;
 }
 
-type Cart = {
+export type Cart = {
   items: Array<CartItem>;
   total: number;
 }
@@ -89,7 +89,7 @@ export class LaunchCartElement extends LitElement {
 
   itemCount() {
     return this.cart && this.cart.items && this.cart.items.length > 0 ? html`
-      <span class="cart-count" part="cart-count">${this.cart.items.length}</span>
+      <span class="cart-count" part="cart-count">${this.cart.items.reduce((total, {quantity}) => quantity + total, 0)}</span>
     ` : ``;
   }
 

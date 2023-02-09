@@ -88,34 +88,6 @@ launch-cart {
         }
     }
 
-    // This is the selector to control the modal overlay styles
-    // &::part(overlay) {
-    //     background-color: rgba(23, 44, 96, .3);
-    // }
-
-    // This is the selector to control the modal styles
-    // &::part(panel) {
-    //     background-color: #ffffff;
-    //     margin: 0 20px;
-    //     max-width: 800px;
-    //     width: 100%;
-    // }
-
-    // This is the selector to control the modal content styles
-    // &::part(body) {
-    //     padding: 30px 60px 60px;
-    // }
-
-    // This is the selector to control the modal header styles
-    // &::part(header) {
-    //     padding: 10px 0 0;
-    // }
-
-    // This is the selector to control the close button wrapper styles
-    // &::part(close-button) {
-
-    // } 
-
     &::part(cart-empty-message) {
         margin-bottom: 40px;
         text-align: center;

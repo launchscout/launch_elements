@@ -1,8 +1,10 @@
-import { html, LitElement } from 'lit'
+import { html, LitElement, css } from 'lit'
 import { customElement, property, query, state } from 'lit/decorators.js'
 import { liveState, liveStateConfig } from 'phx-live-state';
 import '@shoelace-style/shoelace';
 import shoelace_light from '@shoelace-style/shoelace/dist/themes/light.styles.js';
+import cartStyles from '../css/cart.lit.scss';
+
 import { setBasePath } from '@shoelace-style/shoelace';
 setBasePath('https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.86/dist/')
 
@@ -12,7 +14,6 @@ export type CartItem = {
   quantity: number;
   price: number
 }
-
 export type Product = {
   description: string;
   id: string;
@@ -43,7 +44,7 @@ const formatPrice = (price) => {
 })
 export class LaunchCartElement extends LitElement {
 
-  static styles = [shoelace_light];
+  static styles = [shoelace_light].concat(cartStyles);
 
   @property()
   @liveStateConfig('url')

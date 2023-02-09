@@ -10,6 +10,10 @@ const loader = {
 }
 
 const plugins = [
+  sassPlugin({
+    filter: /.lit.s?css$/,
+    type: 'lit-css'
+  }),
   sassPlugin()
 ];
 

@@ -35,12 +35,20 @@ describe('launch-cart test', async () => {
         }
       ]
     }
-  });
-  it('renders', async () => {
     window['cartState'] = sinon.createStubInstance(LiveState);
+  });
+  it('totals item quantity correctly', async () => {
     const launchCart: LaunchCartElement = await fixture('<launch-cart url="wss://foo.bar"></launch-cart>');
     launchCart.cart =  cart;
     await launchCart.updateComplete;
     expect(launchCart.shadowRoot.querySelector("span.cart-count").textContent).to.equal('5');
-  })
+  });
+  it('starts spinner on checkout', async () => {
+    const launchCart: LaunchCartElement = await fixture('<launch-cart url="wss://foo.bar"></launch-cart>');
+    launchCart.cart =  cart;
+    await launchCart.updateComplete;
+    (launchCart.shadowRoot.querySelector("#checkout-button") as HTMLButtonElement).click();
+    await launchCart.updateComplete;
+    expect(launchCart.shadowRoot.querySelector("#checkout-spinner")).to.exist;
+  });
 })

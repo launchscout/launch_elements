@@ -55,6 +55,9 @@ export class LaunchCartElement extends LitElement {
   @state()
   cart: Cart | undefined;
 
+  @state()
+  checkingOut: boolean = false;
+
   @query('sl-dialog#cart-details')
   cartDetails: HTMLElement | undefined;
 
@@ -135,7 +138,9 @@ export class LaunchCartElement extends LitElement {
           `)}
         </tbody>
       </table>
-      <button part="checkout-button" @click=${this.checkout}>Check out</button>
+      <button id="checkout-button" part="checkout-button" @click=${this.checkout}>
+        ${this.checkingOut ? html`<span id="checkout-spinner">spin spin spin</span>` : ''} Check out
+      </button>
       ` : html`<p part="cart-empty-message">You currently don't have any items in your cart.</p>`}
     </sl-dialog>
     <button part="cart-button" @click=${this.expandCart} aria-label="View Cart">
@@ -148,7 +153,10 @@ export class LaunchCartElement extends LitElement {
   }
 
   checkout(_e: Event) {
-    this.dispatchEvent(new CustomEvent('checkout', { detail: { return_url: window.location.href } }))
+    if (!this.checkingOut) {
+      this.checkingOut = true;
+      this.dispatchEvent(new CustomEvent('checkout', { detail: { return_url: window.location.href } }))
+    }
   }
 
 }

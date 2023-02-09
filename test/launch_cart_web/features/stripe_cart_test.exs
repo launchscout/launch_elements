@@ -58,7 +58,7 @@ defmodule LaunchCartWeb.Features.LaunchCartTest do
     |> assert_text("My Store")
     |> within_shadow_dom("launch-cart", fn shadow_dom ->
       shadow_dom
-      |> assert_has(css("sl-dialog", text: "Thanks"))
+      |> assert_has(css("dialog", text: "Thanks"))
     end)
   end
 

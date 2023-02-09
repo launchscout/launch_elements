@@ -75,9 +75,8 @@ defmodule LaunchCart.MixProject do
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "assets.deploy": [
-        "esbuild default",
-        "phx.digest",
-        "sass default --no-source-map --style=compressed"
+        "cmd --cd assets node build.mjs --deploy",
+        "phx.digest"
       ]
     ]
   end

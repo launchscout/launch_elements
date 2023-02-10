@@ -101,8 +101,16 @@ export class LaunchCartElement extends LitElement {
     this.cartDetails && (this.cartDetails as any).showModal();
   }
 
+  closeCart() {
+    this.cartDetails.close();
+  }
+
   showThanks() {
     this.thanks && (this.thanks as any).show();
+  }
+
+  closeThanks() {
+    this.thanks.close();
   }
 
   removeItem(e: MouseEvent) {
@@ -114,9 +122,7 @@ export class LaunchCartElement extends LitElement {
     return html`
     <dialog part="modal" id="thank-you">
       <div part="modal-header">
-        <form method="form">
-          <button type="submit" part="close-modal" aria-label="Close Modal">✕</button>
-        </form>
+        <button @click=${this.closeThanks} part="close-modal" aria-label="Close Modal">✕</button>
       </div>
       <div part="modal-body">   
         <p part="cart-thank-you">Thanks for purchasing!</p>
@@ -124,9 +130,7 @@ export class LaunchCartElement extends LitElement {
     </dialog>
     <dialog part="modal" id="cart-details">
       <div part="modal-header">
-        <form method="dialog">
-          <button type="submit" part="close-modal" id="close-modal" aria-label="Close Modal">✕</button>
-        </form>
+          <button @click=${this.closeCart} part="close-modal" aria-label="Close Modal">✕</button>
       </div>
       <div part="modal-body">      
         ${this.cart?.items.length > 0 ? html`

@@ -60,10 +60,10 @@ export class LaunchCartElement extends LitElement {
   checkingOut: boolean = false;
 
   @query('#cart-details')
-  cartDetails: HTMLElement | dialog;
+  cartDetails: HTMLElement | undefined;
 
   @query('#thank-you')
-  thanks: HTMLElement | dialog;
+  thanks: HTMLElement | undefined;
 
   @liveStateConfig('topic')
   get topic() {

@@ -48,11 +48,12 @@ jobs:
       - name: Install npms
         run: npm install
         working-directory: assets
+      - name: build assets
+        run: node build.mjs
+        working-directory: assets
       - name: Run typescript tests
         run: npm test
         working-directory: assets
-      - name: build assets
-        run: mix esbuild default
       - name: build api docs
         run: npm run analyze
         working-directory: assets

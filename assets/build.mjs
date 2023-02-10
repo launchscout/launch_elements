@@ -27,6 +27,12 @@ let opts = {
   plugins
 }
 
+let testOpts = {
+  ...opts,
+  entryPoints: ['test/launch-cart.test.ts'],
+  outdir: './build'
+}
+
 if (watch) {
   opts = {
     ...opts,
@@ -46,16 +52,5 @@ if (watch) {
   await ctx.watch();
 } else {
   esbuild.build(opts);
+  esbuild.build(testOpts);
 }
-
-// const promise = esbuild.build(opts)
-
-// if (watch) {
-//   promise.then(_result => {
-//     process.stdin.on('close', () => {
-//       process.exit(0)
-//     })
-
-//     process.stdin.resume()
-//   })
-// }

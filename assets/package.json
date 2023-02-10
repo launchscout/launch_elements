@@ -14,8 +14,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "web-test-runner \"build/**/*test.js\" --node-resolve",
-    "pretest": "tsc",
+    "test": "web-test-runner \"build/launch-cart.test.js\" --node-resolve",
+    "pretest": "node build.mjs",
     "analyze": "cem analyze --litelement --outdir ../priv/static/assets --globs js/*.ts"
   },
   "dependencies": {
@@ -31,10 +31,12 @@
     "@custom-elements-manifest/analyzer": "^0.6.8",
     "@esm-bundle/chai": "^4.3.4-fix.0",
     "@open-wc/testing": "^3.1.7",
+    "@web/dev-server-import-maps": "^0.0.7",
     "@web/test-runner": "^0.15.0",
     "esbuild": "^0.17.6",
     "esbuild-sass-plugin": "^2.4.5",
     "sinon": "^15.0.1",
-    "typescript": "^4.6.4"
+    "typescript": "^4.6.4",
+    "typescript-plugin-css-modules": "^4.1.1"
   }
 }

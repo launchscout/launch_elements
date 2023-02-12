@@ -33,7 +33,7 @@ const formatPrice = (price) => {
     name: 'cartState'
   },
   events: {
-    send: ['checkout', 'remove_cart_item'],
+    send: ['checkout', 'remove_cart_item', 'increase_quantity', 'decrease_quantity'],
     receive: ['checkout_redirect', 'cart_created', 'checkout_complete']
   }
 })
@@ -117,6 +117,16 @@ export class LaunchCartElement extends LitElement {
   removeItem(e: MouseEvent) {
     const itemId = (e.target as HTMLElement).dataset.itemId;
     this.dispatchEvent(new CustomEvent('remove_cart_item', { detail: { item_id: itemId } }))
+  }
+
+  increaseQuantity(e: MouseEvent) {
+    const itemId = (e.target as HTMLElement).dataset.itemId;
+    this.dispatchEvent(new CustomEvent('increase_quantity', {detail: {item_id: itemId}}))
+  }
+
+  decreaseQuantity(e: MouseEvent) {
+    const itemId = (e.target as HTMLElement).dataset.itemId;
+    this.dispatchEvent(new CustomEvent('decrease_quantity', {detail: {item_id: itemId}}))
   }
 
   render() {

@@ -11,6 +11,7 @@ defmodule LaunchCart.CartTest do
     [product, product2] = FakeLaunch.populate_cache()
     stripe_account = insert(:stripe_account, stripe_id: "acc_valid_account")
     store = insert(:store, stripe_account: stripe_account)
+
     {:ok,
      %{
        product: product,
@@ -30,10 +31,20 @@ defmodule LaunchCart.CartTest do
       {:ok, cart} = Carts.create_cart(store_id)
       %{cart: cart}
     end
-    test "to empty cart", %{product: product, cart: cart} do
 
-      assert {:ok, %Cart{items: [%CartItem{quantity: 1, stripe_price_id: stripe_price_id, price: price, product: product_data}]}} =
-               Carts.add_item(cart, "price_123")
+    test "to empty cart", %{product: product, cart: cart} do
+      assert {:ok,
+              %Cart{
+                items: [
+                  %CartItem{
+                    quantity: 1,
+                    stripe_price_id: stripe_price_id,
+                    price: price,
+                    product: product_data
+                  }
+                ]
+              }} = Carts.add_item(cart, "price_123")
+
       assert price == product.amount
       assert product.product.id == product_data["id"]
     end
@@ -41,8 +52,7 @@ defmodule LaunchCart.CartTest do
     test "second product to existing cart", %{product2: product2, cart: cart} do
       assert {:ok, cart} = Carts.add_item(cart, "price_123")
 
-      assert {:ok, %Cart{items: items}} =
-               Carts.add_item(cart, "price_456")
+      assert {:ok, %Cart{items: items}} = Carts.add_item(cart, "price_456")
       assert Enum.count(items) == 2
       assert "price_456" in (items |> Enum.map(& &1.stripe_price_id))
     end
@@ -55,16 +65,35 @@ defmodule LaunchCart.CartTest do
     end
   end
 
+  test "alter quantity" do
+    %Cart{items: [%CartItem{id: item_id}]} = cart = insert(:cart)
+
+    assert {:ok, %Cart{items: [%CartItem{quantity: 2, id: ^item_id}]}} =
+             Carts.increase_quantity(cart, item_id)
+
+    assert {:ok, %Cart{items: [%CartItem{quantity: 1, id: ^item_id}]}} =
+             Carts.decrease_quantity(cart, item_id)
+  end
+
   describe "checkout" do
-    test "checkout creates sesssion for connected account and returns url", %{store: %{id: store_id}} do
+    test "checkout creates sesssion for connected account and returns url", %{
+      store: %{id: store_id}
+    } do
       {:ok, cart} = Carts.create_cart(store_id)
 
       {:ok, cart} = Carts.add_item(cart, "price_123")
       {:ok, cart} = Carts.add_item(cart, "price_456")
       return_url = "http://foo.bar"
 
-      assert {:ok, %Cart{status: :checkout_started, checkout_session: %{url: checkout_url, success_url: ^return_url, cancel_url: ^return_url}}} =
-               Carts.checkout(return_url, cart)
+      assert {:ok,
+              %Cart{
+                status: :checkout_started,
+                checkout_session: %{
+                  url: checkout_url,
+                  success_url: ^return_url,
+                  cancel_url: ^return_url
+                }
+              }} = Carts.checkout(return_url, cart)
 
       assert checkout_url
     end
@@ -72,7 +101,12 @@ defmodule LaunchCart.CartTest do
 
   describe "load_cart" do
     test "fetches checkout session from stripe" do
-      cart = insert(:cart, status: :checkout_started, checkout_session: %{id: "sess_complete", url: "http://foo.bar"})
+      cart =
+        insert(:cart,
+          status: :checkout_started,
+          checkout_session: %{id: "sess_complete", url: "http://foo.bar"}
+        )
+
       assert {:ok, %Cart{status: :checkout_complete}} = Carts.load_cart(cart.id)
     end
 

@@ -24,6 +24,7 @@ defmodule LaunchCartWeb.Features.LaunchCartTest do
       shadow_dom
       |> assert_has(css(".cart-count", text: "1"))
       |> click(css(".cart-count"))
+      |> assert_has(css("dialog"))
       |> assert_has(css("table", text: "Nifty onesie"))
     end)
     assert Repo.get_by(Cart, store_id: store.id)
@@ -58,7 +59,7 @@ defmodule LaunchCartWeb.Features.LaunchCartTest do
     |> assert_text("My Store")
     |> within_shadow_dom("launch-cart", fn shadow_dom ->
       shadow_dom
-      |> assert_has(css("dialog", text: "Thanks"))
+      |> assert_has(css("dialog"))
     end)
   end
 

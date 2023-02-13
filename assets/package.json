@@ -13,7 +13,7 @@
     "url": "https://github.com/launchscout/launch_cart"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "node build.mjs",
     "test": "web-test-runner \"build/launch-cart.test.js\" --node-resolve",
     "pretest": "node build.mjs",
     "analyze": "cem analyze --litelement --outdir ../priv/static/assets --globs js/*.ts"

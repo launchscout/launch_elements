@@ -55,10 +55,10 @@ export class LaunchCartElement extends LitElement {
   checkingOut: boolean = false;
 
   @query('#cart-details')
-  cartDetails: HTMLElement | undefined;
+  cartDetails: HTMLDialogElement | undefined;
 
   @query('#thank-you')
-  thanks: HTMLElement | undefined;
+  thanks: HTMLDialogElement | undefined;
 
   @liveStateConfig('topic')
   get topic() {
@@ -88,12 +88,12 @@ export class LaunchCartElement extends LitElement {
 
   itemCount() {
     return this.cart && this.cart.items && this.cart.items.length > 0 ? html`
-      <span part="cart-count">${this.cart.items.reduce((total, {quantity}) => quantity + total, 0)}</span>
+      <span class="cart-count" part="cart-count">${this.cart.items.reduce((total, {quantity}) => quantity + total, 0)}</span>
     ` : ``;
   }
 
   expandCart() {
-    this.cartDetails && (this.cartDetails as any).showModal();
+    this.cartDetails?.showModal();
   }
 
   closeCart() {
@@ -101,7 +101,7 @@ export class LaunchCartElement extends LitElement {
   }
 
   showThanks() {
-    this.thanks && (this.thanks as any).show();
+    this.thanks?.show();
   }
 
   closeThanks() {

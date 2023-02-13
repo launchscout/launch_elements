@@ -22,7 +22,7 @@ export type Cart = {
 }
 
 const formatPrice = (price) => {
-  return price > 0 ? new Intl.NumberFormat('en-us', {style: 'currency', currency: 'USD'}).format(price / 100) : '';
+  return price > 0 ? new Intl.NumberFormat('en-us', { style: 'currency', currency: 'USD' }).format(price / 100) : '';
 }
 
 @customElement('launch-cart')
@@ -44,8 +44,8 @@ export class LaunchCartElement extends LitElement {
   @property()
   @liveStateConfig('url')
   url: string | undefined;
-  
-  @property({attribute: "store-id"})
+
+  @property({ attribute: "store-id" })
   storeId: string;
 
   @state()
@@ -60,14 +60,17 @@ export class LaunchCartElement extends LitElement {
   @query('#thank-you')
   thanks: HTMLDialogElement | undefined;
 
+  @query('#close-cart-button')
+  closeCartButton?: HTMLButtonElement;
+
   @liveStateConfig('topic')
   get topic() {
     return `launch_cart:${this.storeId}`;
   }
 
   @liveStateConfig('params.cart_id')
-  get channelName() { 
-    const cartId =  window.localStorage.getItem('cart_id');
+  get channelName() {
+    const cartId = window.localStorage.getItem('cart_id');
     return cartId ? cartId : ''
   }
 
@@ -88,7 +91,8 @@ export class LaunchCartElement extends LitElement {
 
   itemCount() {
     return this.cart && this.cart.items && this.cart.items.length > 0 ? html`
-      <span class="cart-count" part="cart-count">${this.cart.items.reduce((total, {quantity}) => quantity + total, 0)}</span>
+      <span class="cart-count" part="cart-count">${this.cart.items.reduce((total, { quantity }) => quantity + total,
+        0)}</span>
     ` : ``;
   }
 
@@ -96,8 +100,10 @@ export class LaunchCartElement extends LitElement {
     this.cartDetails?.showModal();
   }
 
-  closeCart() {
-    this.cartDetails.close();
+  closeCart(e: MouseEvent) {
+    if (e.target === this.cartDetails || e.target === this.closeCartButton) {
+      this.cartDetails?.close();
+    }
   }
 
   showThanks() {
@@ -105,12 +111,12 @@ export class LaunchCartElement extends LitElement {
   }
 
   closeThanks() {
-    this.thanks.close();
+    this.thanks?.close();
   }
 
   removeItem(e: MouseEvent) {
     const itemId = (e.target as HTMLElement).dataset.itemId;
-    this.dispatchEvent(new CustomEvent('remove_cart_item', {detail: {item_id: itemId}}))
+    this.dispatchEvent(new CustomEvent('remove_cart_item', { detail: { item_id: itemId } }))
   }
 
   render() {
@@ -119,17 +125,17 @@ export class LaunchCartElement extends LitElement {
       <div part="modal-header">
         <button @click=${this.closeThanks} part="close-modal" aria-label="Close Modal">✕</button>
       </div>
-      <div part="modal-body">   
+      <div part="modal-body">
         <p part="cart-thank-you">Thanks for purchasing!</p>
       </div>
     </dialog>
-    <dialog part="modal" id="cart-details">
+    <dialog @click=${this.closeCart} part="modal" id="cart-details">
       <div part="modal-header">
-          <button @click=${this.closeCart} part="close-modal" aria-label="Close Modal">✕</button>
+        <button id="close-cart-button" @click=${this.closeCart} part="close-modal" aria-label="Close Modal">✕</button>
       </div>
-      <div part="modal-body">      
+      <div part="modal-body">
         ${this.cart?.items.length > 0 ? html`
-          <table part="cart-summary-table" aria-label="Your Cart Summary">
+        <table part="cart-summary-table" aria-label="Your Cart Summary">
           <thead part="cart-summary-table-header">
             <tr>
               <th part="cart-summary-item" scope="col">Item</th>
@@ -145,7 +151,8 @@ export class LaunchCartElement extends LitElement {
               <td part="cart-summary-price">${formatPrice(item.price)}</td>
               <td part="cart-summary-qty">${item.quantity}</td>
               <td part="cart-summary-remove">
-                <button part="cart-remove-item-button" aria-label="Remove item" data-item-id=${item.id} id="remove-item" @click=${this.removeItem}>✕</button>
+                <button part="cart-remove-item-button" aria-label="Remove item" data-item-id=${item.id} id="remove-item"
+                  @click=${this.removeItem}>✕</button>
               </td>
             </tr>
             `)}
@@ -159,7 +166,12 @@ export class LaunchCartElement extends LitElement {
     </dialog>
     <button part="cart-button" @click=${this.expandCart} aria-label="View Cart">
       <slot name="icon">
-        <svg part="cart-icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M15.55 13c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.37-.66-.11-1.48-.87-1.48H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 15.37 5.48 17 7 17h12v-2H7l1.1-2h7.45zM6.16 6h12.15l-2.76 5H8.53L6.16 6zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+        <svg part="cart-icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"
+          fill="#000000">
+          <path d="M0 0h24v24H0V0z" fill="none" />
+          <path
+            d="M15.55 13c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.37-.66-.11-1.48-.87-1.48H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 15.37 5.48 17 7 17h12v-2H7l1.1-2h7.45zM6.16 6h12.15l-2.76 5H8.53L6.16 6zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z" />
+        </svg>
       </slot>
       ${this.itemCount()}
     </button>

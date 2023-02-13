@@ -13,13 +13,12 @@
     "url": "https://github.com/launchscout/launch_cart"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "node build.mjs",
     "test": "web-test-runner \"build/launch-cart.test.js\" --node-resolve",
     "pretest": "node build.mjs",
     "analyze": "cem analyze --litelement --outdir ../priv/static/assets --globs js/*.ts"
   },
   "dependencies": {
-    "@shoelace-style/shoelace": "^2.0.0-beta.83",
     "api-viewer-element": "^1.0.0-pre.7",
     "lit": "^2.4.0",
     "phoenix": "file:../deps/phoenix",

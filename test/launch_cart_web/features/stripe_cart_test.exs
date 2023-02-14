@@ -42,9 +42,9 @@ defmodule LaunchCartWeb.Features.LaunchCartTest do
       |> click(css(".cart-count"))
       |> assert_has(css("table", text: "Nifty onesie"))
       |> assert_has(css("td[part='cart-summary-qty']", text: "1"))
-      |> click(css("button[part='cart-increase-quantity-button']"))
+      |> click(css("button[part='cart-increase-qty-button']"))
       |> assert_has(css("td[part='cart-summary-qty']", text: "2"))
-      |> click(css("button[part='cart-decrease-quantity-button']"))
+      |> click(css("button[part='cart-decrease-qty-button']"))
       |> assert_has(css("td[part='cart-summary-qty']", text: "1"))
     end)
   end

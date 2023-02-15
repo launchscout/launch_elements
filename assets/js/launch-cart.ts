@@ -33,7 +33,7 @@ const formatPrice = (price) => {
     name: 'cartState'
   },
   events: {
-    send: ['checkout', 'remove_cart_item'],
+    send: ['checkout', 'remove_cart_item', 'increase_quantity', 'decrease_quantity'],
     receive: ['checkout_redirect', 'cart_created', 'checkout_complete']
   }
 })
@@ -92,7 +92,7 @@ export class LaunchCartElement extends LitElement {
   itemCount() {
     return this.cart && this.cart.items && this.cart.items.length > 0 ? html`
       <span class="cart-count" part="cart-count">${this.cart.items.reduce((total, { quantity }) => quantity + total,
-        0)}</span>
+      0)}</span>
     ` : ``;
   }
 
@@ -117,6 +117,16 @@ export class LaunchCartElement extends LitElement {
   removeItem(e: MouseEvent) {
     const itemId = (e.target as HTMLElement).dataset.itemId;
     this.dispatchEvent(new CustomEvent('remove_cart_item', { detail: { item_id: itemId } }))
+  }
+
+  increaseQuantity(e: MouseEvent) {
+    const itemId = (e.target as HTMLElement).dataset.itemId;
+    this.dispatchEvent(new CustomEvent('increase_quantity', { detail: { item_id: itemId } }))
+  }
+
+  decreaseQuantity(e: MouseEvent) {
+    const itemId = (e.target as HTMLElement).dataset.itemId;
+    this.dispatchEvent(new CustomEvent('decrease_quantity', { detail: { item_id: itemId } }))
   }
 
   render() {
@@ -149,7 +159,13 @@ export class LaunchCartElement extends LitElement {
             <tr aria-label="${item.product.name}">
               <td part="cart-summary-item">${item.product.name}</td>
               <td part="cart-summary-price">${formatPrice(item.price)}</td>
-              <td part="cart-summary-qty">${item.quantity}</td>
+              <td part="cart-summary-qty">
+                <button part="cart-increase-qty-button" title="Increase quantity" data-item-id=${item.id}
+                  @click=${this.increaseQuantity}>+</button>
+                ${item.quantity}
+                <button part="cart-decrease-qty-button" title="Decrease quantity" data-item-id=${item.id}
+                  @click=${this.decreaseQuantity}>-</button>
+              </td>
               <td part="cart-summary-remove">
                 <button part="cart-remove-item-button" aria-label="Remove item" data-item-id=${item.id} id="remove-item"
                   @click=${this.removeItem}>✕</button>

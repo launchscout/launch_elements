@@ -98,6 +98,17 @@ defmodule LaunchCart.Carts do
     Repo.get(Cart, cart_id) |> Repo.preload(:items)
   end
 
+  def increase_quantity(cart, item_id), do: update_quantity(cart, item_id, &(&1 + 1))
+  def decrease_quantity(cart, item_id), do: update_quantity(cart, item_id, &(&1 - 1))
+
+  def update_quantity(cart, item_id, update_fn) do
+    with %CartItem{quantity: quantity} = cart_item <- Repo.get(CartItem, item_id),
+         {:ok, _updated_item} <-
+           cart_item |> CartItem.changeset(%{quantity: update_fn.(quantity)}) |> Repo.update() do
+      {:ok, Repo.get(Cart, cart.id) |> Repo.preload(:items)}
+    end
+  end
+
   def checkout(return_url, %Cart{items: items, store_id: store_id} = cart) do
     %Store{stripe_account: %StripeAccount{stripe_id: stripe_id}} = Stores.get_store!(store_id)
 

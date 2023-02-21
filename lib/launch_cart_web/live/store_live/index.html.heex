@@ -1,14 +1,14 @@
 <%= unless Enum.any?(@stores) do %>
   <div class="callout u-push__bottom--xl" role="alert">
-    <h3>Time to Create a Launch Cart Store</h3>
+    <h3>Time to Create a Launch Elements Store</h3>
     <p>
-      After you've connected your Stripe account, you need to create a Launch Cart store.
-      Creating a Launch Cart store is the last step before incorporating Launch Cart into your codebase. 
+      After you've connected your Stripe account, you need to create a Launch Elements store.
+      Creating a Launch Elements store is the last step before incorporating Launch Elements into your codebase. 
     </p>
-    <p><b>Haven't connected your Stripe account yet?</b> You'll need to do that before you can create a Launch Cart store.</p>
+    <p><b>Haven't connected your Stripe account yet?</b> You'll need to do that before you can create a Launch Elements store.</p>
     <p class="u-push__top--lg">
       <%= live_patch to: Routes.store_index_path(@socket, :new), class: "button button--cta" do %>
-        Create a Launch Cart Store
+        Create a Launch Elements Store
       <% end %>
       <span class="u-pad__left--sm u-pad__right--sm">or</span> 
       <%= link "Manage your connected Stripe accounts", to: Routes.stripe_account_path(@socket, :index) %>
@@ -17,7 +17,7 @@
 <% end %>
 
 <div class="page-header">
-  <h1>Launch Cart Stores</h1>
+  <h1>Launch Elements Stores</h1>
   <%= if Enum.any?(@stores) do %>
     <%= live_patch to: Routes.store_index_path(@socket, :new), class: "button button--sm" do %>
       <i class="material-icons">add</i> Create a Store
@@ -25,7 +25,7 @@
   <% end %>
 </div>
 
-<p>Below are the Launch Cart stores you've created. Each Launch Cart store is associated with one of your Stripe stores. You can manage them here.</p>
+<p>Below are the Launch Elements stores you've created. Each Launch Elements store is associated with one of your Stripe stores. You can manage them here.</p>
 
 <%= if Enum.any?(@stores) do %>
 <table>
@@ -51,7 +51,7 @@
 <% else %>
 <p class="empty-state">
   <i class="material-icons">list</i> 
-  All of your Launch Cart stores will be shown here.
+  All of your Launch Element stores will be shown here.
 </p>
 <% end %>
 

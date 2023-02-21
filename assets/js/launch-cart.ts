@@ -63,6 +63,9 @@ export class LaunchCartElement extends LitElement {
   @query('#close-cart-button')
   closeCartButton?: HTMLButtonElement;
 
+  @query('#checkout-button')
+  checkoutButton?: HTMLButtonElement | null;
+
   @liveStateConfig('topic')
   get topic() {
     return `launch_cart:${this.storeId}`;
@@ -175,7 +178,11 @@ export class LaunchCartElement extends LitElement {
           </tbody>
         </table>
         <button id="checkout-button" part="checkout-button" @click=${this.checkout}>
-          ${this.checkingOut ? html`<span id="checkout-spinner">spin spin spin</span>` : ''} Check out
+          ${this.checkingOut ? html`
+            <svg id="checkout-spinner" part="spinner" viewBox="0 0 50 50">
+              <circle part="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+            </svg>
+            ` : ''} Check out
         </button>
         ` : html`<p part="cart-empty-message">You currently don't have any items in your cart.</p>`}
       </div>
@@ -197,6 +204,7 @@ export class LaunchCartElement extends LitElement {
   checkout(_e: Event) {
     if (!this.checkingOut) {
       this.checkingOut = true;
+      this.checkoutButton.setAttribute('disabled', '');
       this.dispatchEvent(new CustomEvent('checkout', { detail: { return_url: window.location.href } }))
     }
   }

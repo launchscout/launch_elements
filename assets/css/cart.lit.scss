@@ -164,7 +164,8 @@
       outline-offset: 3px;
   }
 }
-[part='checkout-button'] {
+[part='checkout-button'],
+[part='add-to-cart-button'] {
   background-color: #2c1760;
   border: 0;
   border-radius: 4px;

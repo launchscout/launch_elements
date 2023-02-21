@@ -160,11 +160,11 @@ export class LaunchCartElement extends LitElement {
               <td part="cart-summary-item">${item.product.name}</td>
               <td part="cart-summary-price">${formatPrice(item.price)}</td>
               <td part="cart-summary-qty">
-                <button part="cart-increase-qty-button" title="Increase quantity" data-item-id=${item.id}
-                  @click=${this.increaseQuantity}>+</button>
-                ${item.quantity}
-                <button part="cart-decrease-qty-button" title="Decrease quantity" data-item-id=${item.id}
-                  @click=${this.decreaseQuantity}>-</button>
+              <button part="cart-decrease-qty-button" title="Decrease quantity" data-item-id=${item.id}
+              @click=${this.decreaseQuantity}>–</button>
+              ${item.quantity}
+              <button part="cart-increase-qty-button" title="Increase quantity" data-item-id=${item.id}
+                @click=${this.increaseQuantity}>+</button>
               </td>
               <td part="cart-summary-remove">
                 <button part="cart-remove-item-button" aria-label="Remove item" data-item-id=${item.id} id="remove-item"

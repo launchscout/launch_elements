@@ -87,6 +87,28 @@
   }
 }
 
+[part='cart-decrease-qty-button'],
+[part='cart-increase-qty-button'] {
+  appearance: none;
+  background-color: transparent;
+  border: 0;
+  border-radius: 2px;
+  cursor: pointer;
+  margin: 0 .5rem;
+  padding: 0 .4rem;
+
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: hsl(260, 72%, 91%);
+  }
+
+  &:focus-visible {
+    outline: 2px solid #F7A006;
+    outline-offset: 3px;
+}
+}
+
 [part='cart-empty-message'] {
   margin-bottom: 40px;
   text-align: center;

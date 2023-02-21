@@ -4,13 +4,13 @@ defmodule LaunchCart.Carts do
   alias LaunchCart.Stores
   alias LaunchCart.StripeAccounts.StripeAccount
 
-  @create_checkout_session Application.get_env(
+  @create_checkout_session Application.compile_env(
                              :launch_cart,
                              :create_checkout_session,
                              &Stripe.Session.create/2
                            )
 
-  @get_checkout_session Application.get_env(
+  @get_checkout_session Application.compile_env(
                           :launch_cart,
                           :get_checkout_session,
                           &Stripe.Session.retrieve/2

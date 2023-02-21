@@ -1,0 +1,25 @@
+{
+"defaults": {
+  "timeout": 5000,
+  "chromeLaunchConfig": {
+      "args": [
+          "--no-sandbox"
+      ]
+  }
+},
+"urls": [
+  {
+    "url": "http://localhost:4002/stripe_accounts",
+      "actions": [
+        "navigate to http://localhost:4002/users/log_in",
+        "set field #user_email to user123@example.com",
+        "set field #user_password to passwordpassword",
+        "click element button[type='submit']"
+     ]
+  },
+  "http://localhost:4002/users/stores",
+  "http://localhost:4002/users/log_out",
+  "http://localhost:4002/users/reset_password",
+  "http://localhost:4002/users/register"
+  ]
+}

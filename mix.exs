@@ -71,8 +71,14 @@ defmodule LaunchCart.MixProject do
   defp aliases do
     [
       setup: ["deps.get", "ecto.setup"],
-      "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
-      "ecto.reset": ["ecto.drop", "ecto.setup"],
+      "ecto.setup": ["ecto.create", "ecto.migrate"],
+      "ecto.seed": ["run priv/repo/seeds.#{Mix.env()}.exs"],
+      "ecto.reset": ["ecto.drop", "ecto.setup", "ecto.seed"],
+      "ecto.seed_ci": [
+        "ecto.drop --no-compile",
+        "ecto.setup --no-compile",
+        "ecto.seed --no-compile"
+      ],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "assets.deploy": [
         "cmd --cd assets node build.mjs --deploy",

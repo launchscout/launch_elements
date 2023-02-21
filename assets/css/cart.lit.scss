@@ -170,8 +170,22 @@
   border-radius: 4px;
   color: #ffffff;
   cursor: pointer;
+  display: inline-flex;
+    align-items: center;
+    gap: .5rem;
   font-weight: 700;
   padding: 8px 16px;
+  position: relative;
+
+  &:disabled {
+    cursor: not-allowed;
+
+    &:hover,
+    &:active,
+    &:focus {
+        background-color: #2c1760;   
+    }
+  }
 
   &:hover,
   &:active,
@@ -182,5 +196,40 @@
   &:focus-visible {
       outline: 2px solid #F7A006;
       outline-offset: 3px;
+  }
+}
+
+[part='spinner'] {
+  animation: rotate 2s linear infinite;
+  z-index: 2;
+  width: .75rem;
+  height: .75rem;
+  
+  [part='path'] {
+    stroke: hsl(260, 72%, 91%);
+    stroke-linecap: round;
+    animation: dash 1.5s ease-in-out infinite;
+  }
+  
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 150;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -35;
+  }
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -124;
   }
 }

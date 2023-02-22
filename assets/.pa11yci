@@ -17,8 +17,7 @@
         "click element button[type='submit']"
      ]
   },
-  "http://localhost:4002/users/stores",
-  "http://localhost:4002/users/log_out",
+  "http://localhost:4002/stores",
   "http://localhost:4002/users/reset_password",
   "http://localhost:4002/users/register"
   ]

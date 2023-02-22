@@ -27,6 +27,12 @@ let opts = {
   plugins
 }
 
+let packageOpts = {
+  ...opts,
+  outdir: './dist',
+  entryPoints: ['js/index.js']
+}
+
 let testOpts = {
   ...opts,
   entryPoints: ['test/launch-cart.test.ts'],
@@ -52,5 +58,6 @@ if (watch) {
   await ctx.watch();
 } else {
   esbuild.build(opts);
+  esbuild.build(packageOpts);
   esbuild.build(testOpts);
 }

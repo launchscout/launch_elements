@@ -1,7 +1,7 @@
 {
   "name": "launch-cart",
   "description": "A set of custom elements to add an interactive shopping cart to your website",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "main": "dist/index.js",
   "author": {
     "email": "chris@launchscout.com",
@@ -16,6 +16,7 @@
     "build": "node build.mjs",
     "test": "web-test-runner \"build/launch-cart.test.js\" --node-resolve",
     "pretest": "node build.mjs",
+    "prepublish": "node build.mjs",
     "analyze": "cem analyze --litelement --outdir ../priv/static/assets --globs js/*.ts"
   },
   "dependencies": {

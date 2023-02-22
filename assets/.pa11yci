@@ -1,6 +1,7 @@
 {
 "defaults": {
   "runners": ["axe", "htmlcs"],
+  "standard": "WCAG2AAA",
   "timeout": 5000,
   "chromeLaunchConfig": {
       "args": [

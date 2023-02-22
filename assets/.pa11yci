@@ -1,11 +1,12 @@
 {
 "defaults": {
+  "runners": ["axe", "htmlcs"],
   "timeout": 5000,
   "chromeLaunchConfig": {
       "args": [
           "--no-sandbox"
       ]
-  }
+  },
 },
 "urls": [
   {

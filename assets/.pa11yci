@@ -6,7 +6,7 @@
       "args": [
           "--no-sandbox"
       ]
-  },
+  }
 },
 "urls": [
   {

@@ -1,5 +1,6 @@
 <footer title="Site Footer">
-    <a href="/api_docs" target="blank">API Documentation</a>
+    <!-- <a href="/api_docs" target="blank">API Documentation</a> -->
+    <%= link("Usage Documentation", to: Routes.page_path(@conn, :usage_docs)) %>
     <p>
         ©<%= DateTime.utc_now.year %>. Built and maintained with <i class="material-icons u-text-sm u-vertical-middle">favorite</i> by <a href="https://launchscout.com/" target="blank">Launch Scout</a>.
     </p>

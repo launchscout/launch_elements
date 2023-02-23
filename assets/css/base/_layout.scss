@@ -32,5 +32,15 @@ body {
 }
 
 section + section {
-    margin-top: calc(4 * $space-xl);
+    margin-top: calc(3 * $space-xl);
+}
+
+.usage-layout {
+    display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: $space-lg;
+
+    @media screen and (max-size: $screen-tablet) {
+        grid-template-columns: 1fr;
+    }
 }

@@ -1,0 +1,38 @@
+.side-nav {
+    border-right: $border;
+    font-size: $font-size-sm;
+    padding-right: $space-md;
+
+    ul {
+        list-style-type: none;
+        margin: $space-xs 0 0 0;
+        padding: 0;
+        position: sticky;
+            top: $space-md;
+
+        ul {
+            padding-left: $space-sm;
+
+            ul {
+                list-style-type: disc;
+                padding-left: calc(#{$space-md} * 1.5);
+            }
+        }
+    }
+
+    li {
+        margin-top: 0;
+        padding: $space-xxs 0;
+    }
+
+    a {
+        border-bottom: none;
+        font-weight: 300;
+        margin: 0;
+    }
+
+    p {
+        font-weight: 700;
+        margin-bottom: $space-xxs;
+    }
+}

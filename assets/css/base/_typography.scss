@@ -52,6 +52,10 @@ h6, .h6 {
 
 p {
     margin: 0 0 $space-sm 0;
+
+    &:last-child + *:not(p) {
+        margin-top: $space-lg;
+    }
 }
 
 a, .text-link {

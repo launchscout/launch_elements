@@ -1,5 +1,11 @@
-ol, ul {
-    li {
+ol {
+    li + li {
         margin-top: $space-xl;
+    }
+}
+
+ul {
+    li + li {
+        margin-top: $space-md;
     }
 }

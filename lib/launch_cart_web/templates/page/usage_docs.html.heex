@@ -1,0 +1,135 @@
+<h1 class="u-push__bottom--lg">Usage</h1>
+<div class="usage-layout">
+    <div class="side-nav" aria-label="Side Navigation">
+        <ul>
+            <li>
+                <p>Getting Started</p>
+                <ul>
+                    <li>
+                        <a href="#overview">Overview</a>
+                        <ul>
+                            <li><a href="#what-are-components">What are Web Components?</a></li>
+                            <li><a href="#what-problem">What Problem does this Solve?</a></li>
+                            <li><a href="#accessibility">Accessibility</a></li>
+                            <li><a href="#license">License</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#installation">Installation</a>
+                        <ul>
+                            <li><a href="#cart">Cart</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#usage">Usage</a>
+                        <ul>
+                            <li><a href="#the-components">The Web Components</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#customization">Customization</a>
+                        <ul>
+                            <li><a href="#css">CSS</a></li>
+                            <li><a href="#slots">Slots</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <p>Resources</p>
+                <ul>
+                    <li><a href="">GitHub Repo</a></li>
+                    <li><a href="">LiveState</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div>
+        <section id="overview">
+            <h2>Overview of Launch Elements</h2>
+            <p>A library built on Web Components and LiveState that makes injecting interactivity into static HTML sites simple.</p>
+            <ul>
+                <li>Works with all frameworks and static site generators</li>
+                <li>Fully customizable with CSS and <code>slots</code></li>
+                <li>Built with accessibility in mind</li>
+                <li>Open Source</li>
+            </ul>
+            <p>Designed and built by <a href="https://launchscout.com/" target="_blank">Launch Scout</a></p>
+
+            <h3 id="what-are-components">What are Web Components?</h3>
+            <p><b>TLDR;</b> They are custom HTML elements that can be used in any framework you'd like! <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements" target="_blank">Read more here</a>.</p>
+            <p>Component-driven development has become the norm thanks to a variety of popular frameworks. The beauty of web components, though, is that they are not tied to a specific framework, are supported by all modern browsers, and are part of the standard. So, we know they'll be around for a while.</p>
+
+            <h3 id="what-problem">What Problem does this Solve?</h3>
+            <p>The goal of Launch Elements is to make it stupid-simple to inject web-app funcitonality into your static HTML site.</p>
+            <p>Most existing platforms for building sites with web-app features force you to use a pre-designed template. Some of those <i>might</i> give you access to customize those templates. Launch Elements gives you free reign to control the look and feel of not only your site, but also our web components.</p>
+
+            <h3 id="accessibility">Accessibility</h3>
+            <p>Launch Elements has been built with accessibilty in mind. We've taken time to test keyboard accessibility and to meet WCAG AA success criterion.</p>
+            <p>If you notice something we've missed, please let us know so that we can ensure Launch Elements is as inclusive as possible.</p>
+
+            <h3 id="license">License</h3>
+        </section>
+    
+        <section id="installation">
+            <h2>Installation</h2>
+            <h3 id="cart">Cart</h3>
+            <p>Installation is easy. Before you can start using the cart element, you'll need to:</p>
+            <ul>
+                <li>Register for an account</li>
+                <li>Set up a Stripe account and add products to it</li>
+                <li>Connect your Stripe account to Launch Elements</li>
+            </ul>
+            <p>Once you've complete those steps, installation is easy peasy. Here are the installation steps using generic ids.</p>
+            <ol>
+                <li>
+                    <h4 class="h5">Include Launch Elements in your project</h4>
+                    <p>First, you'll need to add the Launch Elements library to your page. Copy + Paste this script tag into your <code class="language-html">head</code> block:</p>
+                    <pre><code class="language-html"><!--<script type="module" src="https://cdn.jsdelivr.net/npm/launch-cart"></script>--></code></pre>
+                </li>
+            </ol>
+            <p>And that's it! That's literally all you need to do to install the Launch Elements Cart in your site. Next we'll talk about using it.</p>
+        </section>
+    
+        <section id="usage">
+            <h2>Usage</h2>
+
+            <h3 id="the-components">The Web Components</h3>
+            <p>To start using the Launch Elements Cart, you just need to start using the web components and pass the correct attributes to them. Creating your Launch Elements store will generate these for you, but here is a generic example to demonstrate how simple it is.</p>
+
+            <ul>
+                <li>
+                    <h4 class="h5">Place your cart</h4>
+                    <p>
+                      You'll need to add the <code class="language-html">launch-cart</code> to your site. Copy + paste this line of code wherever you'd like the cart icon to display:
+                    </p>
+                    <pre><code class="language-html"><!--<launch-cart url="url" store-id="store_id"></launch-cart>--></code></pre>
+                    <p>It's worth calling out that you'll have to replace both the URL and the Store ID with those generated for you by Launch Elements.</p>
+
+                    <div>
+                        <launch-cart url="url" store-id="store_id"></launch-cart>
+                    </div>
+                </li>
+                
+                <li>
+                    <h4 class="h5">Enable "Add to Cart"</h4>
+                    <p>And last, you need to be able to add items to your cart. Just copy + paste the <code class="language-html">launch-cart-additem</code> element below.</p>
+                    <pre><code class="language-html" role="code" height="3"><!--<launch-cart-additem price-id="price_id"></launch-cart-additem>--></code></pre>
+                    <p>Here you'll have to replace the Price ID with the Price ID from the corresponding product in Stripe.</p>
+                </li>
+            </ul>
+        </section>
+    
+        <section id="customization">
+            <h2>Customization</h2>
+            <p>Here comes the fun part. Launch Elements gives you full control of how you want your elements to look via CSS and slots.</p>
+
+            <h3 id="slots">Slots</h3>
+            <p>What are <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot" target="_blank">slots</a>, you ask? Slots enable you to insert your own markup into the shadow DOM of a web component.</p>
+            <p>With the Launch Elements Cart, there are two available slots. </p>
+
+            <h3 id="css">CSS</h3>
+            <p>Because Launch Elements is built with web components, it is fully stylable via CSS. Now, if you know anything about web components, you also know that it introduces the shadow DOM. This may make you hesitate, BUT, we've given you access into the shadow DOM by exposing <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/::part" target="_blank">shadow parts</a> for everything.</p>
+        </section>
+    </div>
+</div>

@@ -8,7 +8,7 @@ defmodule LaunchCartWeb.UserRegistrationControllerTest do
     test "renders registration page", %{conn: conn} do
       conn = get(conn, Routes.user_registration_path(conn, :new))
       response = html_response(conn, 200)
-      assert response =~ "<h1>Register</h1>"
+      assert response =~ "Welcome to Launch Elements"
       assert response =~ "Log in</a>"
       assert response =~ "Register</a>"
     end

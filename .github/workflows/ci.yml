@@ -62,11 +62,13 @@ jobs:
         env:
           MIX_ENV: test
         run: |
-          mix ecto.setup
+          mix ecto.setup --no-compile
           mix run priv/repo/seeds.test.exs --no-compile
           mix phx.server &
           sleep 10
           npm run test-pa11y --prefix assets
+          pkill -9 beam.smp
+          mix ecto.drop --no-compile
       - name: Run elixir tests
         run: mix test --no-compile
   deploy:

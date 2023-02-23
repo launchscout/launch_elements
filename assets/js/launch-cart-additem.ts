@@ -26,7 +26,7 @@ export class LaunchCartAddItemElement extends LitElement {
   
   render() {
     return html`
-    <slot name="add-to-cart-button">
+    <slot>
       <button part="add-to-cart-button">Add to Cart</button>
     </slot>`;
   }

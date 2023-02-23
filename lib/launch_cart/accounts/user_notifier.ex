@@ -76,4 +76,17 @@ defmodule LaunchCart.Accounts.UserNotifier do
     ==============================
     """)
   end
+
+  def deliver_user_signed_up(user) do
+    deliver(launch_scout_email(), "User signed up!", """
+    Woohoo! someone else wants in!!
+    #{user.email}
+
+    Notes: #{user.notes}
+    """)
+  end
+
+  def launch_scout_email() do
+    Application.get_env(:launch_cart, :support_email, "chris@launchscout.com")
+  end
 end

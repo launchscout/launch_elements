@@ -6,6 +6,7 @@ defmodule LaunchCart.AccountsTest do
   import LaunchCart.AccountsFixtures
   import LaunchCart.Factory
   alias LaunchCart.Accounts.{User, UserToken}
+  import Swoosh.TestAssertions
 
   describe "get_user_by_email/1" do
     test "does not return the user if the email does not exist" do
@@ -63,12 +64,15 @@ defmodule LaunchCart.AccountsTest do
              } = errors_on(changeset)
     end
 
-    test "creates a disabled user" do
+    test "creates a disabled user and notifies a Launch Scout" do
       email = unique_user_email()
 
       {:ok, user} = Accounts.register_user(%{email: email, notes: "I want to build something cool"})
       assert user.notes =~ ~r/cool/
       refute user.active?
+      assert_email_sent(fn %{to: [{_name, email_address}]} ->
+        assert email_address =~ ~r/launchscout/
+      end)
     end
 
   end

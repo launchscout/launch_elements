@@ -1,7 +1,7 @@
 <h1>My Store</h1>
 <%= for product <- @products do %>
 <launch-cart-additem price-id={product.id}>
-  <button slot='add-to-cart-button' id={"add-#{product.id}"}><%= product.product.description %></button>
+  <button id={"add-#{product.id}"}><%= product.product.description %></button>
 </launch-cart-additem>
 <% end %>
 <div> Here is a cart

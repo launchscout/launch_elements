@@ -16,6 +16,7 @@ defmodule LaunchCartWeb.ConnCase do
   """
 
   use ExUnit.CaseTemplate
+  import LaunchCart.Factory
 
   using do
     quote do
@@ -45,7 +46,7 @@ defmodule LaunchCartWeb.ConnCase do
   test context.
   """
   def register_and_log_in_user(%{conn: conn}) do
-    user = LaunchCart.AccountsFixtures.user_fixture()
+    user = insert(:user)
     %{conn: log_in_user(conn, user), user: user}
   end
 

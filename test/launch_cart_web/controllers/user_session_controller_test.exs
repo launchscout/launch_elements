@@ -3,8 +3,10 @@ defmodule LaunchCartWeb.UserSessionControllerTest do
 
   import LaunchCart.AccountsFixtures
 
+  import LaunchCart.Factory
+
   setup do
-    %{user: user_fixture()}
+    %{user: insert(:user)}
   end
 
   describe "GET /users/log_in" do

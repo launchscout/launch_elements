@@ -9,6 +9,8 @@ defmodule LaunchCart.Accounts.User do
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
+    field :notes, :string
+    field :active?, :boolean, source: :active
 
     timestamps()
   end
@@ -32,9 +34,8 @@ defmodule LaunchCart.Accounts.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :password])
+    |> cast(attrs, [:email, :notes])
     |> validate_email()
-    |> validate_password(opts)
   end
 
   defp validate_email(changeset) do

@@ -4,6 +4,7 @@ defmodule LaunchCartWeb.UserAuthTest do
   alias LaunchCart.Accounts
   alias LaunchCartWeb.UserAuth
   import LaunchCart.AccountsFixtures
+  import LaunchCart.Factory
 
   @remember_me_cookie "_launch_cart_web_user_remember_me"
 
@@ -13,7 +14,7 @@ defmodule LaunchCartWeb.UserAuthTest do
       |> Map.replace!(:secret_key_base, LaunchCartWeb.Endpoint.config(:secret_key_base))
       |> init_test_session(%{})
 
-    %{user: user_fixture(), conn: conn}
+    %{user: insert(:user), conn: conn}
   end
 
   describe "log_in_user/3" do

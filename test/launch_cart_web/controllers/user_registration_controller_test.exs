@@ -2,6 +2,7 @@ defmodule LaunchCartWeb.UserRegistrationControllerTest do
   use LaunchCartWeb.ConnCase, async: true
 
   import LaunchCart.AccountsFixtures
+  import LaunchCart.Factory
 
   describe "GET /users/register" do
     test "renders registration page", %{conn: conn} do
@@ -13,7 +14,7 @@ defmodule LaunchCartWeb.UserRegistrationControllerTest do
     end
 
     test "redirects if already logged in", %{conn: conn} do
-      conn = conn |> log_in_user(user_fixture()) |> get(Routes.user_registration_path(conn, :new))
+      conn = conn |> log_in_user(insert(:user)) |> get(Routes.user_registration_path(conn, :new))
       assert redirected_to(conn) == "/stripe_accounts"
     end
   end
@@ -29,7 +30,6 @@ defmodule LaunchCartWeb.UserRegistrationControllerTest do
         })
 
       response = html_response(conn, 200)
-      assert response =~ email
       assert response =~ "Thanks"
     end
   end

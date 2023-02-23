@@ -4,9 +4,10 @@ defmodule LaunchCartWeb.UserConfirmationControllerTest do
   alias LaunchCart.Accounts
   alias LaunchCart.Repo
   import LaunchCart.AccountsFixtures
+  import LaunchCart.Factory
 
   setup do
-    %{user: user_fixture()}
+    %{user: insert(:user)}
   end
 
   describe "GET /users/confirm" do

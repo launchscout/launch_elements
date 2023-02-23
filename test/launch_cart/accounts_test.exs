@@ -34,6 +34,11 @@ defmodule LaunchCart.AccountsTest do
       assert %User{id: ^id} =
                Accounts.get_user_by_email_and_password(user.email, "password")
     end
+
+    test "does not return the user if they are not active" do
+      user = insert(:user, active?: false)
+      refute Accounts.get_user_by_email_and_password(user.email, "password")
+    end
   end
 
   describe "get_user!/1" do

@@ -32,21 +32,21 @@ jobs:
         with:
           otp-version: '25.1' # Define the OTP version [required]
           elixir-version: '1.14.0' # Define the elixir version [required]
-      - name: Retrieve dependencies cache
-        uses: actions/cache@v2
+      - name: Store/Retrieve dependencies cache
+        uses: actions/cache@v3
         id: mix-cache # id to use in retrieve action
         with:
-          path: deps
+          path: |
+            deps
+            _build
           key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
-          restore-keys: ${{ runner.os }}-mix-
-      - uses: actions/cache@v1
-        name: Cache build
-        with:
-          path: _build
-          key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-mix-
       - name: Install dependencies
         if: steps.mix-cache.outputs.cache-hit != 'true'
-        run: mix deps.get
+        run: |
+          mix deps.get
+          mix deps.compile --force
       - name: setup npms
         run: |
           npm install
@@ -58,7 +58,7 @@ jobs:
       - name: build api docs
         run: npm run analyze
         working-directory: assets
-      - name: Run axe-core tests with pa11y-ci
+      - name: Run accessibility tests
         env:
           MIX_ENV: test
         run: |

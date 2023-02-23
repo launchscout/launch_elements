@@ -16,7 +16,8 @@
         "navigate to http://localhost:4002/users/log_in",
         "set field #user_email to user123@example.com",
         "set field #user_password to passwordpassword",
-        "click element button[type='submit']"
+        "click element button[type='submit']",
+        "wait for path to be /stripe_accounts"
      ]
   },
   "http://localhost:4002/stores",

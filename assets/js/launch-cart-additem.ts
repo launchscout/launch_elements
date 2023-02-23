@@ -1,6 +1,7 @@
 import { html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { liveState } from 'phx-live-state';
+import cartStyles from '../css/cart.lit.scss';
 
 @customElement('launch-cart-additem')
 @liveState({
@@ -10,6 +11,7 @@ import { liveState } from 'phx-live-state';
   context: 'cartState'
 })
 export class LaunchCartAddItemElement extends LitElement {
+  static styles = cartStyles;
 
   @property({attribute: 'price-id'})
   priceId = '';
@@ -23,6 +25,9 @@ export class LaunchCartAddItemElement extends LitElement {
   }
   
   render() {
-    return html`<slot></slot>`;
+    return html`
+    <slot>
+      <button part="add-to-cart-button">Add to Cart</button>
+    </slot>`;
   }
 }

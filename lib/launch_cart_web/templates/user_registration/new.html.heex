@@ -1,6 +1,6 @@
 <div class="card card--contained u-centered u-push__top--xl">
   <h1>Help us test Launch Elements!</h1>
-  <p>Welcome to Launch Elements! We are currently in beta and looking for folks to help us test out our product.
+  <p>We are currently in beta and looking for folks to help us test out our product. Interested?
   Enter your email address and some info on what you are hoping to build, and we'll get right back to you!</p>
 
   <.form let={f} for={@changeset} action={Routes.user_registration_path(@conn, :create)}>
@@ -19,7 +19,7 @@
     <div class="input-group">
       <%= label f, :notes %>
       <%= error_tag f, :notes %>
-      <%= textarea f, :notes%>
+      <%= textarea f, :notes %>
     </div>
 
 

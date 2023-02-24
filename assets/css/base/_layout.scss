@@ -37,7 +37,7 @@ section + section {
 
 .usage-layout {
     display: grid;
-        grid-template-columns: 1fr 2fr;
+        grid-template-columns: 1fr minmax(0, 2.5fr);
         gap: $space-lg;
 
     @media screen and (max-size: $screen-tablet) {

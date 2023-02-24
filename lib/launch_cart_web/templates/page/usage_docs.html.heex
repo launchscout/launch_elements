@@ -29,8 +29,8 @@
                     <li>
                         <a href="#customization">Customization</a>
                         <ul>
-                            <li><a href="#css">CSS</a></li>
                             <li><a href="#slots">Slots</a></li>
+                            <li><a href="#css">CSS</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -106,18 +106,23 @@
                     <pre><code class="language-html"><!--<launch-cart url="url" store-id="store_id"></launch-cart>--></code></pre>
                     <p>It's worth calling out that you'll have to replace both the URL and the Store ID with those generated for you by Launch Elements.</p>
 
-                    <div>
+                    <div class="demo">
                         <launch-cart url="url" store-id="store_id"></launch-cart>
                     </div>
                 </li>
                 
                 <li>
                     <h4 class="h5">Enable "Add to Cart"</h4>
-                    <p>And last, you need to be able to add items to your cart. Just copy + paste the <code class="language-html">launch-cart-additem</code> element below.</p>
+                    <p>And last, you need to be able to add items to your cart. Just copy + paste the <code class="language-html">launch-cart-additem</code> element below where you'd like the add to cart button to appear.</p>
                     <pre><code class="language-html" role="code" height="3"><!--<launch-cart-additem price-id="price_id"></launch-cart-additem>--></code></pre>
                     <p>Here you'll have to replace the Price ID with the Price ID from the corresponding product in Stripe.</p>
+
+                    <div class="demo">
+                        <launch-cart-additem price-id="price_id"></launch-cart-additem>
+                    </div>
                 </li>
             </ul>
+            <p>Adding these two lines of code will get you exactly what you see in the examples. Let's talk about customization.</p>
         </section>
     
         <section id="customization">
@@ -126,10 +131,132 @@
 
             <h3 id="slots">Slots</h3>
             <p>What are <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot" target="_blank">slots</a>, you ask? Slots enable you to insert your own markup into the shadow DOM of a web component.</p>
-            <p>With the Launch Elements Cart, there are two available slots. </p>
+            <p>With the Launch Elements Cart, there are two available slots. One to change the cart icon and one to change the add to cart button. Doing so is super simple.</p>
+            
+            <h4>The Cart Icon</h4>
+            <p>To update the cart icon, all you have to do is give the element you want to replace the cart icon the <code class="language-html">slot="icon"</code> attribute and wrap it with the <code class="language-html">launch-cart</code> element like shown.</p>
+            <pre><code class="language-html"><!--<launch-cart url="url" store-id="store_id">
+    <i slot="icon">🍕</i>
+</launch-cart>--></code></pre>
+            <div class="demo">
+                <launch-cart url="url" store-id="store_id">
+                    <i slot="icon">🍕</i>
+                    </launch-cart>
+            </div>
+            <p>As long as the <code class="language-html">slot="icon"</code> attribute is present, the cart icon will be replaced with your markup. You can also give it your own class names and your CSS will be passed in, as well!</p>
 
+            <h4>The Add to Cart Button</h4>
+            <p>Similar to how you replace the cart icon, you wrap your markup with the <code class="language-html">launch-cart-additem</code> elements and it will be replaced with your markup and CSS.</p>
+            <pre><code class="language-html" role="code" height="3"><!--<launch-cart-additem price-id="price_id">
+    <button class="btn">+</button>
+</launch-cart-additem>--></code></pre>
+            <div class="demo">
+                <launch-cart-additem price-id="price_id">
+                    <button class="btn">+</button>
+                </launch-cart-additem>
+            </div>
+            <p>The only caveat is that the element must have a click event—so either a button or a link.</p>
+            
             <h3 id="css">CSS</h3>
-            <p>Because Launch Elements is built with web components, it is fully stylable via CSS. Now, if you know anything about web components, you also know that it introduces the shadow DOM. This may make you hesitate, BUT, we've given you access into the shadow DOM by exposing <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/::part" target="_blank">shadow parts</a> for everything.</p>
+            <p>Because Launch Elements is built with web components, it is also fully stylable via CSS. Now, if you know anything about web components, you also know that it introduces the shadow DOM. This may make you hesitate, BUT, we've given you access into the shadow DOM by exposing <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/::part" target="_blank">component parts</a> for everything.</p>
+            <p>Component Parts offer a way to customize each element within the shadow DOM using purely CSS. All you have to do is use the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/::part" target="_blank">CSS part selector</a>, or <code class="language-html">::part()</code>.</p>
+            <pre><code class="language-html"><!--<launch-cart url="url" store-id="store_id" class="custom-css"></launch-cart>
+<style>
+    .custom-css::part(cart-button) {
+        background-color: lightgreen;
+        border: 2px solid transparent;
+    }
+
+    .custom-css::part(cart-button):hover,
+    .custom-css::part(cart-button):active,
+    .custom-css::part(cart-button):focus {
+        background-color: transparent;
+        border: 2px solid green;
+    }
+
+    .custom-css::part(cart-button):focus-visible {
+        outline: 2px solid darkgreen;
+    }
+
+    .custom-css::part(modal) {
+        background-color: darkslategray;
+        color: white;
+    }
+
+    .custom-css::part(close-modal) {
+        color: white;
+        position: relative;
+        bottom: 0;
+        transition: all .2s ease;
+    }
+
+    .custom-css::part(close-modal):hover {
+        bottom: .25em;
+    }
+</style>--></code></pre>
+
+        <div class="demo">
+            <launch-cart url="url" store-id="store_id" class="custom-css"></launch-cart>
+            <style>
+                .custom-css::part(cart-button) {
+                    background-color: lightgreen;
+                    border: 2px solid transparent;
+                }
+
+                .custom-css::part(cart-button):hover,
+                .custom-css::part(cart-button):active,
+                .custom-css::part(cart-button):focus {
+                    background-color: transparent;
+                    border: 2px solid green;
+                }
+
+                .custom-css::part(cart-button):focus-visible {
+                    outline: 2px solid darkgreen;
+                }
+
+                .custom-css::part(modal) {
+                    background-color: darkslategray;
+                    color: white;
+                }
+
+                .custom-css::part(close-modal) {
+                    color: white;
+                    position: relative;
+                    bottom: 0;
+                    transition: all .2s ease;
+                }
+
+                .custom-css::part(close-modal):hover {
+                    bottom: .25em;
+                }
+            </style>
+        </div>
+        <p>Above is just a sample of the available parts to style. Below is a full list.</p>
+        <ul>
+            <li><code class="language-html">::part(cart-button)</code></li>
+            <li><code class="language-html">::part(cart-icon)</code></li>
+            <li><code class="language-html">::part(cart-count)</code></li>
+            <li><code class="language-html">::part(modal)</code></li>
+            <li><code class="language-html">::part(modal-header)</code></li>
+            <li><code class="language-html">::part(modal-body)</code></li>
+            <li><code class="language-html">::part(close-modal)</code></li>
+            <li><code class="language-html">::part(cart-decrease-qty-button)</code></li>
+            <li><code class="language-html">::part(cart-increase-qty-button)</code></li>
+            <li><code class="language-html">::part(cart-decrease-qty-button)</code></li>
+            <li><code class="language-html">::part(cart-empty-message)</code></li>
+            <li><code class="language-html">::part(cart-thank-you)</code></li>
+            <li><code class="language-html">::part(cart-summary-table)</code></li>
+            <li><code class="language-html">::part(cart-summary-item)</code></li>
+            <li><code class="language-html">::part(cart-summary-qty)</code></li>
+            <li><code class="language-html">::part(cart-summary-price)</code></li>
+            <li><code class="language-html">::part(cart-summary-remove)</code></li>
+            <li><code class="language-html">::part(cart-remove-item-button)</code></li>
+            <li><code class="language-html">::part(checkout-button)</code></li>
+            <li><code class="language-html">::part(add-to-cart-button)</code></li>
+            <li><code class="language-html">::part(spinner)</code></li>
+            <li><code class="language-html">::part(spinner-path)</code></li>
+        </ul>
+
         </section>
     </div>
 </div>

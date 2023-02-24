@@ -1,0 +1,17 @@
+.demo {
+    border: $border;
+    border-radius: $border-radius;
+    margin: $space-md 0 $space-lg;
+    padding: $space-sm $space-xs $space-xs;
+    position: relative;
+
+    &::before {
+        background-color: $gray-lightest;
+        content: "Example";
+        font-size: $font-size-xs;
+        padding: 0 $space-xs;
+        position: absolute;
+            top: -.8em;
+            left: 0;
+    }
+}

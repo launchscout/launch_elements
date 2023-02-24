@@ -53,7 +53,7 @@ h6, .h6 {
 p {
     margin: 0 0 $space-sm 0;
 
-    &:last-child + *:not(p) {
+    + *:not(p) {
         margin-top: $space-lg;
     }
 }

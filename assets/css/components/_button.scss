@@ -45,3 +45,22 @@ a.button {
         padding: $space-xxs $space-sm;
     }
 }
+
+.btn {
+    background-color: transparent;
+    border: 2px solid green;
+    border-radius: 50%;
+    color: green;
+    display: flex;
+        align-items: center;
+        justify-content: center;
+    height: 2rem;
+    padding: 1rem;
+    width: 2rem;
+
+    &:hover,
+        &:active,
+        &:focus {
+            background-color: green;
+        }
+}

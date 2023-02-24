@@ -206,7 +206,7 @@
   width: .75rem;
   height: .75rem;
   
-  [part='path'] {
+  [part='spinner-path'] {
     stroke: hsl(260, 72%, 91%);
     stroke-linecap: round;
     animation: dash 1.5s ease-in-out infinite;

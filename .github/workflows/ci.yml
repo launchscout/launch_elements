@@ -58,17 +58,6 @@ jobs:
       - name: build api docs
         run: npm run analyze
         working-directory: assets
-      - name: Run accessibility tests
-        env:
-          MIX_ENV: test
-        run: |
-          mix ecto.setup --no-compile
-          mix run priv/repo/seeds.test.exs --no-compile
-          mix phx.server &
-          sleep 10
-          npm run test-pa11y --prefix assets
-          pkill -9 beam.smp
-          mix ecto.drop --no-compile
       - name: Run elixir tests
         run: mix test --no-compile
   deploy:

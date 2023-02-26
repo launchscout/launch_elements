@@ -40,7 +40,7 @@ defmodule LaunchCart.Accounts do
   """
   def get_user_by_email_and_password(email, password)
       when is_binary(email) and is_binary(password) do
-    user = Repo.get_by(User, email: email)
+    user = Repo.get_by(User, email: email, active?: true)
     if User.valid_password?(user, password), do: user
   end
 
@@ -75,9 +75,13 @@ defmodule LaunchCart.Accounts do
 
   """
   def register_user(attrs) do
-    %User{}
-    |> User.registration_changeset(attrs)
-    |> Repo.insert()
+    with {:ok, user} <-
+           %User{}
+           |> User.registration_changeset(attrs)
+           |> Repo.insert(),
+         {:ok, _email} <- UserNotifier.deliver_user_signed_up(user) do
+      {:ok, user}
+    end
   end
 
   @doc """

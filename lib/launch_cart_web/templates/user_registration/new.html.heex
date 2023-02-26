@@ -1,6 +1,7 @@
 <div class="card card--contained u-centered u-push__top--xl">
-  <h1>Register</h1>
-  <p>Welcome to Launch Elements! Enter your email address and password below to create an account and get started.</p>
+  <h1>Help us test Launch Elements!</h1>
+  <p>We are currently in beta and looking for folks to help us test out our product. Interested?
+  Enter your email address and some info on what you are hoping to build, and we'll get right back to you!</p>
 
   <.form let={f} for={@changeset} action={Routes.user_registration_path(@conn, :create)}>
     <%= if @changeset.action do %>
@@ -14,16 +15,16 @@
       <%= error_tag f, :email %>
       <%= email_input f, :email, required: true %>
     </div>
-    
+
     <div class="input-group">
-      <%= label f, :password %>
-      <%= error_tag f, :password %>
-      <%= password_input f, :password, required: true %>
+      <%= label f, :notes %>
+      <%= error_tag f, :notes %>
+      <%= textarea f, :notes %>
     </div>
 
 
     <div class="form__actions">
-      <%= submit "Register" %>
+      <%= submit "Sign up" %>
     </div>
   </.form>
 

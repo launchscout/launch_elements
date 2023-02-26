@@ -21,7 +21,8 @@ defmodule LaunchCart.Factory do
   def user_factory() do
     %User{
       email: Internet.email(),
-      hashed_password: Bcrypt.hash_pwd_salt("password")
+      hashed_password: Bcrypt.hash_pwd_salt("password"),
+      active?: true
     }
   end
 

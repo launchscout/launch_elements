@@ -7,7 +7,7 @@ env:
 
 jobs:
   test:
-    name: Build and run tests
+    name: Run tests
     runs-on: ubuntu-20.04
 
     services:
@@ -32,24 +32,25 @@ jobs:
         with:
           otp-version: '25.1' # Define the OTP version [required]
           elixir-version: '1.14.0' # Define the elixir version [required]
-      - name: Restore dependencies cache
-        uses: actions/cache@v2
+      - name: Store/Retrieve dependencies cache
+        uses: actions/cache@v3
+        id: mix-cache # id to use in retrieve action
         with:
-          path: deps
+          path: |
+            deps
+            _build
           key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
-          restore-keys: ${{ runner.os }}-mix-
-      - uses: actions/cache@v1
-        name: Cache build
-        with:
-          path: _build
-          key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-mix-
       - name: Install dependencies
-        run: mix deps.get
-      - name: Install npms
-        run: npm install
-        working-directory: assets
-      - name: build assets
-        run: node build.mjs
+        if: steps.mix-cache.outputs.cache-hit != 'true'
+        run: |
+          mix deps.get
+          mix deps.compile --force
+      - name: setup npms
+        run: |
+          npm install
+          node build.mjs
         working-directory: assets
       - name: Run typescript tests
         run: npm test
@@ -57,8 +58,19 @@ jobs:
       - name: build api docs
         run: npm run analyze
         working-directory: assets
+      - name: Run accessibility tests
+        env:
+          MIX_ENV: test
+        run: |
+          mix ecto.setup --no-compile
+          mix run priv/repo/seeds.test.exs --no-compile
+          mix phx.server &
+          sleep 10
+          npm run test-pa11y --prefix assets
+          pkill -9 beam.smp
+          mix ecto.drop --no-compile
       - name: Run elixir tests
-        run: mix test
+        run: mix test --no-compile
   deploy:
     needs: test
     if: github.ref == 'refs/heads/main'

@@ -13,6 +13,10 @@ defmodule LaunchCartWeb.PageController do
     render(conn, "api_docs.html")
   end
 
+  def usage_docs(conn, _params) do
+    render(conn, "usage_docs.html")
+  end
+
   def fake_store(conn, %{"store_id" => store_id}) do
     store = Stores.get_store!(store_id)
     url = "#{String.replace(Endpoint.url(), "http:", "ws:")}/socket"

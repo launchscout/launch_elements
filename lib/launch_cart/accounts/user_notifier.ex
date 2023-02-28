@@ -8,7 +8,7 @@ defmodule LaunchCart.Accounts.UserNotifier do
     email =
       new()
       |> to(recipient)
-      |> from({"LaunchCart", "contact@example.com"})
+      |> from({"Launch Elements", "elements@launchscout.com"})
       |> subject(subject)
       |> text_body(body)
 

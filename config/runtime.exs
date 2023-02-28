@@ -71,7 +71,7 @@ if config_env() == :prod do
   config :launch_cart, LaunchCart.Mailer,
     adapter: Swoosh.Adapters.Mailgun,
     api_key: System.get_env("MAILGUN_API_KEY"),
-    domain: "mg.gaslight.co"
+    domain: "mg.launchscout.com"
 
   #
   # For this example you need include a HTTP client required by Swoosh API client.

@@ -6,14 +6,16 @@ env:
   FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 
 jobs:
-  test:
-    name: Run tests
+  app-test:
+    name: Run Application Tests
     runs-on: ubuntu-20.04
+    env:
+      MIX_ENV: test
 
     services:
       db:
         image: postgres
-        ports: ['5432:5432']
+        ports: ["5432:5432"]
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
@@ -23,45 +25,53 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-
     steps:
-      - name: Checkout project
+      - name: Checkout Project
         uses: actions/checkout@v3
-      - name: Set up Elixir
-        uses: erlef/setup-beam@v1
-        with:
-          otp-version: '25.1' # Define the OTP version [required]
-          elixir-version: '1.14.0' # Define the elixir version [required]
-      - name: Store/Retrieve dependencies cache
-        uses: actions/cache@v3
-        id: mix-cache # id to use in retrieve action
-        with:
-          path: |
-            deps
-            _build
-          key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-mix-
-      - name: Install dependencies
-        if: steps.mix-cache.outputs.cache-hit != 'true'
-        run: |
-          mix deps.get
-          mix deps.compile --force
-      - name: setup npms
-        run: |
-          npm install
-          node build.mjs
-        working-directory: assets
+      - name: Setup App
+        uses: ./.github/workflows/setup
       - name: Run typescript tests
         run: npm test
         working-directory: assets
-      - name: build api docs
-        run: npm run analyze
-        working-directory: assets
       - name: Run elixir tests
         run: mix test --no-compile
+
+  accessibility-test:
+    name: Run Accessibility Tests
+    runs-on: ubuntu-20.04
+    env:
+      MIX_ENV: test
+
+    services:
+      db:
+        image: postgres
+        ports: ["5432:5432"]
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTRGES_DB: launch_cart_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - name: Checkout Project
+        uses: actions/checkout@v3
+      - name: Setup App
+        uses: ./.github/workflows/setup
+      - name: Run Accessibility Tests
+        run: |
+          mix ecto.setup --no-compile
+          mix run priv/repo/seeds.test.exs --no-compile
+          mix phx.server &
+          sleep 10
+          npm run test-pa11y --prefix assets
+          pkill -9 beam.smp
+          mix ecto.drop --no-compile
+
   deploy:
-    needs: test
+    needs: app-test
     if: github.ref == 'refs/heads/main'
     name: Deploy to Fly.IO
     runs-on: ubuntu-latest

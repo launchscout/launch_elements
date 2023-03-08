@@ -4,7 +4,7 @@ on: push
 
 jobs:
   accessibility-test:
-    name: Run Accessibility Tests
+    name: Run axe-core tests
     runs-on: ubuntu-20.04
     env:
       MIX_ENV: test

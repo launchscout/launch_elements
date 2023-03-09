@@ -1,13 +1,10 @@
-name: CI
+name: Accessibility Tests 
 
 on: push
 
-env:
-  FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
-
 jobs:
-  app-test:
-    name: Run Application Tests
+  accessibility-test:
+    name: Run axe-core tests
     runs-on: ubuntu-20.04
     env:
       MIX_ENV: test
@@ -30,18 +27,12 @@ jobs:
         uses: actions/checkout@v3
       - name: Setup App
         uses: ./.github/workflows/setup
-      - name: Run typescript tests
-        run: npm test
-        working-directory: assets
-      - name: Run elixir tests
-        run: mix test --no-compile
-
-  deploy:
-    needs: app-test
-    if: github.ref == 'refs/heads/main'
-    name: Deploy to Fly.IO
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: superfly/flyctl-actions/setup-flyctl@master
-      - run: flyctl deploy --remote-only
+      - name: Run Accessibility Tests
+        run: |
+          mix ecto.setup --no-compile
+          mix run priv/repo/seeds.test.exs --no-compile
+          mix phx.server &
+          sleep 10
+          npm run test-pa11y --prefix assets
+          pkill -9 beam.smp
+          mix ecto.drop --no-compile

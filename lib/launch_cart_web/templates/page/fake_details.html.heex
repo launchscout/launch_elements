@@ -1,0 +1,14 @@
+<h1>My Store</h1>
+<launch-cart-additem product-id="prod_123">
+  <form>
+    <select name="size">
+      <option value="small">Small</option>
+      <option value="medium">Medium</option>
+      <option value="large">Large</option>
+    </select>
+    <button id="add-product" type="submit">Add</button>
+  </form>
+</launch-cart-additem>
+<div> Here is a cart
+  <launch-cart url={@url} store-id={@store_id}></launch-cart>
+</div>

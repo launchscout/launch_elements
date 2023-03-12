@@ -21,6 +21,7 @@ defmodule LaunchCartWeb.Router do
     pipe_through :browser
 
     get "/fake_stores/:store_id", PageController, :fake_store
+    get "/fake_details/:store_id", PageController, :fake_details
     get "/", PageController, :index
     get "/api_docs", PageController, :api_docs
     get "/usage_docs", PageController, :usage_docs

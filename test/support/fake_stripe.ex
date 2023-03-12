@@ -350,7 +350,7 @@ defmodule LaunchCart.Test.FakeLaunch do
            caption: nil,
            created: 1_664_648_447,
            deactivate_on: nil,
-           default_price: "price_1LoAItKFGxMzGbgkER0DuC94",
+           default_price: "price_345",
            deleted: nil,
            description: "There's a lid and stuff.",
            images: [

@@ -354,4 +354,8 @@ defmodule LaunchCart.Accounts do
       {:error, :user, changeset, _} -> {:error, changeset}
     end
   end
+
+  def activate_user(user) do
+    Ecto.Changeset.change(user, %{active?: true}) |> Repo.update()
+  end
 end

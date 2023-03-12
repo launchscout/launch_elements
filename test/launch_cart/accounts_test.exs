@@ -32,8 +32,7 @@ defmodule LaunchCart.AccountsTest do
     test "returns the user if the email and password are valid" do
       %{id: id} = user = insert(:user)
 
-      assert %User{id: ^id} =
-               Accounts.get_user_by_email_and_password(user.email, "password")
+      assert %User{id: ^id} = Accounts.get_user_by_email_and_password(user.email, "password")
     end
 
     test "does not return the user if they are not active" do
@@ -67,14 +66,23 @@ defmodule LaunchCart.AccountsTest do
     test "creates a disabled user and notifies a Launch Scout" do
       email = unique_user_email()
 
-      {:ok, user} = Accounts.register_user(%{email: email, notes: "I want to build something cool"})
+      {:ok, user} =
+        Accounts.register_user(%{email: email, notes: "I want to build something cool"})
+
       assert user.notes =~ ~r/cool/
       refute user.active?
+
       assert_email_sent(fn %{to: [{_name, email_address}]} ->
         assert email_address =~ ~r/launchscout/
       end)
     end
+  end
 
+  test "activate_user" do
+    email = unique_user_email()
+
+    {:ok, %User{id: user_id} = user} = Accounts.register_user(%{email: email, notes: "I want to build something cool"})
+    assert {:ok, %User{id: ^user_id, active?: true}} = Accounts.activate_user(user)
   end
 
   describe "change_user_registration/2" do
@@ -116,8 +124,7 @@ defmodule LaunchCart.AccountsTest do
     end
 
     test "validates email", %{user: user} do
-      {:error, changeset} =
-        Accounts.apply_user_email(user, "password", %{email: "not valid"})
+      {:error, changeset} = Accounts.apply_user_email(user, "password", %{email: "not valid"})
 
       assert %{email: ["must have the @ sign and no spaces"]} = errors_on(changeset)
     end
@@ -125,8 +132,7 @@ defmodule LaunchCart.AccountsTest do
     test "validates maximum value for email for security", %{user: user} do
       too_long = String.duplicate("db", 100)
 
-      {:error, changeset} =
-        Accounts.apply_user_email(user, "password", %{email: too_long})
+      {:error, changeset} = Accounts.apply_user_email(user, "password", %{email: too_long})
 
       assert "should be at most 160 character(s)" in errors_on(changeset).email
     end
@@ -134,8 +140,7 @@ defmodule LaunchCart.AccountsTest do
     test "validates email uniqueness", %{user: user} do
       %{email: email} = insert(:user)
 
-      {:error, changeset} =
-        Accounts.apply_user_email(user, "password", %{email: email})
+      {:error, changeset} = Accounts.apply_user_email(user, "password", %{email: email})
 
       assert "has already been taken" in errors_on(changeset).email
     end
@@ -257,8 +262,7 @@ defmodule LaunchCart.AccountsTest do
     test "validates maximum values for password for security", %{user: user} do
       too_long = String.duplicate("db", 100)
 
-      {:error, changeset} =
-        Accounts.update_user_password(user, "password", %{password: too_long})
+      {:error, changeset} = Accounts.update_user_password(user, "password", %{password: too_long})
 
       assert "should be at most 72 character(s)" in errors_on(changeset).password
     end

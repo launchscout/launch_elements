@@ -2,6 +2,12 @@ defmodule LaunchCart.ReleaseTasks do
 
   @app :launch_cart
 
+  alias LaunchCart.Repo
+  alias LaunchCart.StripeAccounts.StripeAccount
+  alias LaunchCart.Stores.Store
+  alias LaunchCart.Carts.{Cart, CartItem}
+  alias LaunchCart.Accounts.User
+
   def migrate do
     load_app()
 
@@ -22,4 +28,11 @@ defmodule LaunchCart.ReleaseTasks do
   defp load_app do
     Application.load(@app)
   end
+
+  def wipe_data(i_mean_it: true) do
+    [CartItem, Cart, Store, StripeAccount, User] |> Enum.each(fn schema ->
+      Repo.delete_all(schema)
+    end)
+  end
+
 end

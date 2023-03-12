@@ -7,6 +7,8 @@
 # General application configuration
 import Config
 
+config :launch_cart, env: config_env()
+
 config :launch_cart,
   ecto_repos: [LaunchCart.Repo]
 

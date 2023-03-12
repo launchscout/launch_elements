@@ -10,6 +10,9 @@
     <script phx-track-static type="module" src={Routes.static_path(@conn, "/assets/js/app.js")}></script>
     <!-- Gets typeface -->
     <link rel="stylesheet" href="https://use.typekit.net/jjm1gir.css">
+    <%= if Application.get_env(:launch_cart, :env) == :dev do %>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/checka11y-css@2.3.2/checka11y-errors.css" />
+    <% end %>
     <!-- Material Icon Font -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 

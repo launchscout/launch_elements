@@ -1,8 +1,12 @@
 defmodule LaunchCartWeb.UserRegistrationControllerTest do
+  alias ExDoc.Language
   use LaunchCartWeb.ConnCase, async: true
 
   import LaunchCart.AccountsFixtures
   import LaunchCart.Factory
+
+  require LaunchCartWeb.AxeTest
+  alias LaunchCartWeb.AxeTest
 
   describe "GET /users/register" do
     test "renders registration page", %{conn: conn} do
@@ -11,6 +15,7 @@ defmodule LaunchCartWeb.UserRegistrationControllerTest do
       assert response =~ "Help us test Launch Elements!"
       assert response =~ "Log in</a>"
       assert response =~ "Register</a>"
+      AxeTest.here(conn)
     end
 
     test "redirects if already logged in", %{conn: conn} do
@@ -31,6 +36,7 @@ defmodule LaunchCartWeb.UserRegistrationControllerTest do
 
       response = html_response(conn, 200)
       assert response =~ "Thanks"
+      AxeTest.here(conn)
     end
   end
 end

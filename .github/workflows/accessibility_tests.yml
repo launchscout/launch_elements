@@ -3,8 +3,8 @@ name: Accessibility Tests
 on: push
 
 jobs:
-  accessibility-test:
-    name: Run axe-core tests
+  mix-test:
+    name: Run application tests to generate HTML files
     runs-on: ubuntu-20.04
     env:
       MIX_ENV: test
@@ -22,17 +22,58 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+
     steps:
       - name: Checkout Project
         uses: actions/checkout@v3
       - name: Setup App
         uses: ./.github/workflows/setup
-      - name: Run Accessibility Tests
+      - name: Run Application Tests
+        uses: ./.github/workflows/app_test
+      - uses: actions/upload-artifact@v3
+        with:
+          name: html_files
+          path: test/axe_html/
+
+  axe-test:
+    needs: mix-test
+    name: Run Accessibility Tests
+    runs-on: ubuntu-20.04
+    env:
+      MIX_ENV: test
+
+    services:
+      db:
+        image: postgres
+        ports: ["5432:5432"]
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTRGES_DB: launch_cart_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout Project
+        uses: actions/checkout@v3
+      - name: Download html files from mix test
+        uses: actions/download-artifact@v3
+        with:
+          name: html_files
+          path: test/axe_html/
+      - name: Setup App
+        uses: ./.github/workflows/setup
+      - name: Pa11y Tests
+        working-directory: assets
+        run: npm run run-pa11y
+      - name: Axe-Core Tests
         run: |
           mix ecto.setup --no-compile
           mix run priv/repo/seeds.test.exs --no-compile
           mix phx.server &
           sleep 10
-          npm run test-pa11y --prefix assets
-          pkill -9 beam.smp
-          mix ecto.drop --no-compile
+          npm run pa11y-ci --prefix assets
+

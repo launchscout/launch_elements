@@ -1,9 +1,14 @@
 defmodule LaunchCartWeb.StripeAccountControllerTest do
   use LaunchCartWeb.ConnCase
 
-  import LaunchCart.Factory
+  alias LaunchCartWeb.AxeTest
   alias LaunchCart.Repo
   alias LaunchCart.StripeAccounts.StripeAccount
+
+  import LaunchCart.Factory
+
+  require LaunchCartWeb.AxeTest
+  alias LaunchCartWeb.AxeTest
 
   setup :register_and_log_in_user
 
@@ -15,9 +20,9 @@ defmodule LaunchCartWeb.StripeAccountControllerTest do
     test "lists all stripe_accounts", %{conn: conn} do
       conn = get(conn, Routes.stripe_account_path(conn, :index))
       assert html_response(conn, 200) =~ "Connected Stripe Accounts"
+      AxeTest.here(conn)
     end
   end
-
 
   describe "delete stripe_account" do
     setup [:create_stripe_account]
@@ -30,13 +35,14 @@ defmodule LaunchCartWeb.StripeAccountControllerTest do
 
   describe "connect_account" do
     test "stripe callback with valid code", %{conn: conn, user: user} do
-      conn = get(conn, Routes.stripe_account_path(conn, :connect_account), %{"code" => "ac_valid"})
+      conn =
+        get(conn, Routes.stripe_account_path(conn, :connect_account), %{"code" => "ac_valid"})
+
       assert redirected_to(conn) == Routes.stripe_account_path(conn, :index)
       assert Repo.get_by(StripeAccount, user_id: user.id)
     end
 
     test "with invalid code", %{conn: conn} do
-
     end
   end
 

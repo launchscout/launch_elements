@@ -3,8 +3,12 @@ defmodule LaunchCartWeb.UserConfirmationControllerTest do
 
   alias LaunchCart.Accounts
   alias LaunchCart.Repo
+
   import LaunchCart.AccountsFixtures
   import LaunchCart.Factory
+
+  require LaunchCartWeb.AxeTest
+  alias LaunchCartWeb.AxeTest
 
   setup do
     %{user: insert(:user)}
@@ -15,6 +19,7 @@ defmodule LaunchCartWeb.UserConfirmationControllerTest do
       conn = get(conn, Routes.user_confirmation_path(conn, :new))
       response = html_response(conn, 200)
       assert response =~ "<h1>Resend Confirmation Instructions</h1>"
+      AxeTest.here(conn)
     end
   end
 
@@ -61,6 +66,8 @@ defmodule LaunchCartWeb.UserConfirmationControllerTest do
       conn = get(conn, Routes.user_confirmation_path(conn, :edit, "some-token"))
       response = html_response(conn, 200)
       assert response =~ "<h1>Confirm account</h1>"
+
+      AxeTest.here(conn)
 
       form_action = Routes.user_confirmation_path(conn, :update, "some-token")
       assert response =~ "action=\"#{form_action}\""

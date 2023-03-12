@@ -2,7 +2,11 @@ defmodule LaunchCartWeb.UserSettingsControllerTest do
   use LaunchCartWeb.ConnCase, async: true
 
   alias LaunchCart.Accounts
+
   import LaunchCart.AccountsFixtures
+
+  require LaunchCartWeb.AxeTest
+  alias LaunchCartWeb.AxeTest
 
   setup :register_and_log_in_user
 
@@ -11,6 +15,7 @@ defmodule LaunchCartWeb.UserSettingsControllerTest do
       conn = get(conn, Routes.user_settings_path(conn, :edit))
       response = html_response(conn, 200)
       assert response =~ "<h1>Settings</h1>"
+      AxeTest.here(conn)
     end
 
     test "redirects if user is not logged in" do
@@ -56,6 +61,8 @@ defmodule LaunchCartWeb.UserSettingsControllerTest do
       assert response =~ "is not valid"
 
       assert get_session(old_password_conn, :user_token) == get_session(conn, :user_token)
+
+      AxeTest.here(old_password_conn)
     end
   end
 

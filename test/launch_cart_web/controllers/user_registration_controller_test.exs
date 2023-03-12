@@ -5,9 +5,6 @@ defmodule LaunchCartWeb.UserRegistrationControllerTest do
   import LaunchCart.AccountsFixtures
   import LaunchCart.Factory
 
-  require LaunchCartWeb.AxeTest
-  alias LaunchCartWeb.AxeTest
-
   describe "GET /users/register" do
     test "renders registration page", %{conn: conn} do
       conn = get(conn, Routes.user_registration_path(conn, :new))

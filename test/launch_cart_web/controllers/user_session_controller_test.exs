@@ -4,9 +4,6 @@ defmodule LaunchCartWeb.UserSessionControllerTest do
   import LaunchCart.AccountsFixtures
   import LaunchCart.Factory
 
-  require LaunchCartWeb.AxeTest
-  alias LaunchCartWeb.AxeTest
-
   setup do
     %{user: insert(:user)}
   end

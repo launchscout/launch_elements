@@ -6,8 +6,6 @@ defmodule LaunchCartWeb.UserResetPasswordControllerTest do
   import LaunchCart.AccountsFixtures
   import LaunchCart.Factory
 
-  alias LaunchCartWeb.AxeTest
-
   setup do
     %{user: insert(:user)}
   end

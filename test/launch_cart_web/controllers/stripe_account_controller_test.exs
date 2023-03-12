@@ -7,9 +7,6 @@ defmodule LaunchCartWeb.StripeAccountControllerTest do
 
   import LaunchCart.Factory
 
-  require LaunchCartWeb.AxeTest
-  alias LaunchCartWeb.AxeTest
-
   setup :register_and_log_in_user
 
   @create_attrs %{name: "some name", stripe_id: "some stripe_id"}

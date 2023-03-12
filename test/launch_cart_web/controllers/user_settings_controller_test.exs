@@ -5,9 +5,6 @@ defmodule LaunchCartWeb.UserSettingsControllerTest do
 
   import LaunchCart.AccountsFixtures
 
-  require LaunchCartWeb.AxeTest
-  alias LaunchCartWeb.AxeTest
-
   setup :register_and_log_in_user
 
   describe "GET /users/settings" do

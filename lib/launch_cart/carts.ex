@@ -19,11 +19,11 @@ defmodule LaunchCart.Carts do
 
   alias LaunchCart.Repo
 
-  def get_cart!(cart_id), do: Repo.get!(Cart, cart_id) |> Repo.preload(:items)
+  def get_cart!(cart_id), do: Repo.get!(Cart, cart_id) |> preload_cart()
 
   def get_cart(cart_id) do
     case Ecto.UUID.cast(cart_id) do
-      {:ok, id} -> Repo.get(Cart, id) |> Repo.preload(items: [], store: [:stripe_account])
+      {:ok, id} -> Repo.get(Cart, id) |> preload_cart()
       :error -> nil
     end
   end
@@ -62,7 +62,7 @@ defmodule LaunchCart.Carts do
     |> Repo.insert()
     |> case do
       {:ok, cart} ->
-        {:ok, Repo.preload(cart, items: [], store: [:stripe_account])}
+        {:ok, preload_cart(cart)}
 
       {:error, error} ->
         {:error, error}
@@ -101,7 +101,7 @@ defmodule LaunchCart.Carts do
           cart_item |> CartItem.changeset(%{quantity: quantity + 1}) |> Repo.update()
       end
 
-    Repo.get(Cart, cart_id) |> Repo.preload(:items)
+    get_cart!(cart_id)
   end
 
   def increase_quantity(cart, item_id), do: update_quantity(cart, item_id, &(&1 + 1))
@@ -111,7 +111,7 @@ defmodule LaunchCart.Carts do
     with %CartItem{quantity: quantity} = cart_item <- Repo.get(CartItem, item_id),
          {:ok, _updated_item} <-
            cart_item |> CartItem.changeset(%{quantity: update_fn.(quantity)}) |> Repo.update() do
-      {:ok, Repo.get(Cart, cart.id) |> Repo.preload(:items)}
+      {:ok, get_cart!(cart.id)}
     end
   end
 
@@ -140,7 +140,7 @@ defmodule LaunchCart.Carts do
 
   def remove_item(cart, item_id) do
     with item <- Repo.get(CartItem, item_id), {:ok, _} <- Repo.delete(item) do
-      {:ok, Repo.reload!(cart) |> Repo.preload(items: [], store: [:stripe_account])}
+      {:ok, Repo.reload!(cart) |> preload_cart}
     end
   end
 
@@ -153,4 +153,6 @@ defmodule LaunchCart.Carts do
          stripe_price_id: price
        }),
        do: %{quantity: quantity, price: price}
+
+  defp preload_cart(cart), do: Repo.preload(cart, items: [], store: [:stripe_account])
 end

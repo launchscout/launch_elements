@@ -1,8 +1,7 @@
 defmodule LaunchCart.LaunchCacheWarmer do
   use Cachex.Warmer
 
-  alias Stripe.Price
-  alias Stripe.Product
+  alias LaunchCart.Products
   alias LaunchCart.StripeAccounts
   alias LaunchCart.StripeAccounts.StripeAccount
 
@@ -16,7 +15,7 @@ defmodule LaunchCart.LaunchCacheWarmer do
   end
 
   defp get_products(%StripeAccount{stripe_id: stripe_id}, products) do
-    case StripeAccounts.get_products(stripe_id) do
+    case Products.list_products(stripe_id) do
       {:ok, new_products} -> new_products ++ products
       _ -> products
     end

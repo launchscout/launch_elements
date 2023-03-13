@@ -70,8 +70,8 @@ defmodule LaunchCart.Carts do
 
   def add_item(%Cart{} = cart, price_id) do
     case Cachex.get(:stripe_products, price_id) do
+      {:ok, nil} -> {:error, "Product not found"}
       {:ok, product} -> {:ok, add_product(cart, product)}
-      _ -> {:error, "Product not found"}
     end
   end
 

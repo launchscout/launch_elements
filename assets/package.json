@@ -19,7 +19,6 @@
     "prepublish": "node build.mjs",
     "run-axe": "node run_axe.js",
     "analyze": "cem analyze --litelement --outdir ../priv/static/assets --globs js/*.ts",
-    "run-pa11y": "./run_pa11y.sh",
     "pa11y-ci": "./node_modules/.bin/pa11y-ci"
   },
   "dependencies": {

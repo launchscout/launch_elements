@@ -41,21 +41,6 @@ jobs:
     runs-on: ubuntu-20.04
     env:
       MIX_ENV: test
-
-    services:
-      db:
-        image: postgres
-        ports: ["5432:5432"]
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTRGES_DB: launch_cart_test
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-
     steps:
       - name: Checkout Project
         uses: actions/checkout@v3
@@ -67,13 +52,6 @@ jobs:
       - name: Setup App
         uses: ./.github/workflows/setup
       - name: Pa11y Tests
-        working-directory: assets
-        run: npm run run-pa11y
-      - name: Axe-Core Tests
-        run: |
-          mix ecto.setup --no-compile
-          mix run priv/repo/seeds.test.exs --no-compile
-          mix phx.server &
-          sleep 10
-          npm run pa11y-ci --prefix assets
+        shell: bash
+        run: ./run_pa11y.sh
 

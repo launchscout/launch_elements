@@ -1,6 +1,5 @@
 #!/bin/bash
 
-DIR=/home/runner/work/launch_cart/launch_cart/test/axe_html/
 DIR=test/axe_html/
 STATUS=0
 

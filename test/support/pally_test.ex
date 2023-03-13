@@ -1,35 +1,41 @@
-defmodule LaunchCartWeb.AxeTest do
+defmodule LaunchCartWeb.PallyTest do
   import Phoenix.ConnTest, only: [html_response: 2]
+  alias Plug.Conn
+  alias Wallaby.Session
 
   defmacro __using__(_opts) do
     quote do
-      import LaunchCartWeb.AxeTest
+      require LaunchCartWeb.PallyTest
     end
   end
 
-  defmacro here(conn) do
+  defmacro here(conn_or_session) do
     quote do
-      here(unquote(conn), __ENV__, __MODULE__)
+      LaunchCartWeb.PallyTest.here(unquote(conn_or_session), __ENV__, __MODULE__)
     end
   end
 
-  def here(conn, env, module) do
+  def here(conn_or_session, env, module) do
     filename = get_filename(env, module)
 
-    get_html(conn)
+    get_html(conn_or_session)
     |> write_html(filename)
+  end
+
+  defp get_html(%Conn{} = conn) do
+    html_response(conn, 200)
+    |> Floki.parse_document!()
+    |> Floki.raw_html()
+  end
+
+  defp get_html(%Session{} = session) do
+    Wallaby.Browser.page_source(session)
   end
 
   defp write_html(html, filename) do
     Path.join([File.cwd!(), "/test/axe_html", filename])
     |> File.write(html, [:write])
     |> IO.inspect()
-  end
-
-  defp get_html(conn) do
-    html_response(conn, 200)
-    |> Floki.parse_document!()
-    |> Floki.raw_html()
   end
 
   defp get_filename(env, module) do

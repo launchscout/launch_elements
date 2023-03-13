@@ -1,7 +1,7 @@
 defmodule LaunchCartWeb.StripeAccountControllerTest do
   use LaunchCartWeb.ConnCase
 
-  alias LaunchCartWeb.AxeTest
+  alias LaunchCartWeb.PallyTest
   alias LaunchCart.Repo
   alias LaunchCart.StripeAccounts.StripeAccount
 
@@ -17,7 +17,7 @@ defmodule LaunchCartWeb.StripeAccountControllerTest do
     test "lists all stripe_accounts", %{conn: conn} do
       conn = get(conn, Routes.stripe_account_path(conn, :index))
       assert html_response(conn, 200) =~ "Connected Stripe Accounts"
-      AxeTest.here(conn)
+      PallyTest.here(conn)
     end
   end
 

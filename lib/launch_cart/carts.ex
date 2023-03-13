@@ -1,4 +1,5 @@
 defmodule LaunchCart.Carts do
+  alias LaunchCart.Products
   alias LaunchCart.Carts.{Cart, CartItem}
   alias LaunchCart.Stores.Store
   alias LaunchCart.Stores
@@ -68,10 +69,15 @@ defmodule LaunchCart.Carts do
     end
   end
 
-  def add_item(%Cart{} = cart, price_id) do
-    case Cachex.get(:stripe_products, price_id) do
-      {:ok, nil} -> {:error, "Product not found"}
+  def add_item(
+        %Cart{
+          store: %Store{stripe_account: %StripeAccount{stripe_id: stripe_id}}
+        } = cart,
+        price_id
+      ) do
+    case Products.get_product(price_id, stripe_id) do
       {:ok, product} -> {:ok, add_product(cart, product)}
+      {:error, error} -> {:error, error}
     end
   end
 

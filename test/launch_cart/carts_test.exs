@@ -67,6 +67,11 @@ defmodule LaunchCart.CartTest do
     test "adding unknown product returns an error", %{cart: cart} do
       assert {:error, _} = Carts.add_item(cart, "garbage")
     end
+
+    test "an uncached product", %{cart: cart} do
+      assert {:ok, %Cart{items: [%CartItem{quantity: 1, stripe_price_id: "price_789"}]}} =
+        Carts.add_item(cart, "price_789")
+    end
   end
 
   test "alter quantity" do

@@ -35,7 +35,7 @@ defmodule LaunchCart.ProductsTest do
     end
 
     test "with no-existent product" do
-      assert {:error, _} = Products.get_product("garbage", "acc_valid_account")
+      assert {:error, "Product not found"} = Products.get_product("garbage", "acc_valid_account")
     end
   end
 end

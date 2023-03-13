@@ -39,7 +39,7 @@ defmodule LaunchCart.Products do
         cached_product = %{id: price_id, amount: cents, product: product}
         Cachex.put(:stripe_products, price_id, cached_product)
         {:ok, cached_product}
-      {:error, error} -> {:error, error}
+      {:error, _error} -> {:error, "Product not found"}
     end
   end
 

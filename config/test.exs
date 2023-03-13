@@ -33,6 +33,7 @@ config :launch_cart,
   list_stripe_products: &LaunchCart.Test.FakeLaunch.list_products/2,
   list_stripe_prices: &LaunchCart.Test.FakeLaunch.list_prices/2,
   get_checkout_session: &LaunchCart.Test.FakeLaunch.get_session/2,
+  get_stripe_price: &LaunchCart.Test.FakeLaunch.get_price/2,
   supervised_processes: [{Cachex, name: :stripe_products}]
 
 # Print only warnings and errors during test

@@ -4,7 +4,7 @@ mix assets.deploy
 cp -r priv/static/assets/js/ test/axe_html/assets
 cp -r priv/static/assets/css/ test/axe_html/assets
 
-DIR=./test/axe_html/
+DIR=/home/runner/work/launch_cart/launch_cart/test/axe_html/
 
 for f in $(find $DIR -iname "*.html"); do
 	if [ ! -d "$f" ]; then

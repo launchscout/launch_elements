@@ -2,12 +2,13 @@ defmodule LaunchCartWeb.StoreLive.FormComponent do
   use LaunchCartWeb, :live_component
 
   alias LaunchCart.StripeAccounts
+  alias LaunchCart.StripeAccounts.StripeAccount
   alias LaunchCart.Stores
 
   @impl true
   def update(%{store: store, user_id: user_id} = assigns, socket) do
     changeset = Stores.change_store(store)
-    stripe_accounts = StripeAccounts.list_stripe_accounts(user_id) |> Enum.map(& {&1.name, &1.id})
+    stripe_accounts = StripeAccounts.list_stripe_accounts(user_id) |> Enum.map(&option_for/1)
 
     {:ok,
      socket
@@ -15,6 +16,10 @@ defmodule LaunchCartWeb.StoreLive.FormComponent do
      |> assign(:changeset, changeset)
      |> assign(:stripe_accounts, stripe_accounts)}
   end
+
+  defp option_for(%StripeAccount{id: id, name: "", stripe_id: stripe_id}), do: {stripe_id, id}
+  defp option_for(%StripeAccount{id: id, name: nil, stripe_id: stripe_id}), do: {stripe_id, id}
+  defp option_for(%StripeAccount{id: id, name: name}), do: {name, id}
 
   @impl true
   def handle_event("validate", %{"store" => store_params}, socket) do

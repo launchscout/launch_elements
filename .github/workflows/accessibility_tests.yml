@@ -49,6 +49,8 @@ jobs:
         with:
           name: html_files
           path: test/axe_html/
+      - name: Setup App
+        uses: ./.github/workflows/setup
       - name: Pa11y Tests
         shell: bash
         run: ./run_pa11y.sh

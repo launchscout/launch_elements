@@ -4,6 +4,7 @@ defmodule LaunchCart.Stores do
   """
 
   import Ecto.Query, warn: false
+  alias LaunchCart.Products
   alias LaunchCart.Repo
 
   alias LaunchCart.Stores.Store
@@ -126,7 +127,7 @@ defmodule LaunchCart.Stores do
 
   def load_products(%Store{stripe_account: %StripeAccount{stripe_id: connected_account}})
       when not is_nil(connected_account) do
-    case StripeAccounts.get_products(connected_account) do
+    case Products.list_products(connected_account) do
       {:ok, products} -> Cachex.put_many!(:stripe_products, products)
       _ -> nil
     end

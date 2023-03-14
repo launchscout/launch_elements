@@ -616,4 +616,79 @@ defmodule LaunchCart.Test.FakeLaunch do
        url: nil
      }}
   end
+
+  def get_price("price_789", connect_account: "acc_valid_account", expand: ["product"]) do
+    {:ok,
+     %Stripe.Price{
+       id: "price_789",
+       object: "price",
+       active: true,
+       billing_scheme: "per_unit",
+       created: 1_675_448_075,
+       currency: "usd",
+       livemode: false,
+       lookup_key: nil,
+       metadata: %{},
+       nickname: nil,
+       product: %Stripe.Product{
+         id: "prod_NI3uWJAbmr03eA",
+         object: "product",
+         active: true,
+         attributes: [],
+         caption: nil,
+         created: 1_675_448_074,
+         deactivate_on: nil,
+         default_price: "price_1MXTmRCOWcOFl6axhVFX7Bab",
+         deleted: nil,
+         description: "Can't believe My New House",
+         images: [
+           "https://files.stripe.com/links/MDB8YWNjdF8xTVZKdXNDT1djT0ZsNmF4fGZsX3Rlc3RfSkxhTmR6S0U2ZThob0VRbDJlRTBLdWdv00q6tLiBlW"
+         ],
+         livemode: false,
+         metadata: %{},
+         name: "My New House",
+         package_dimensions: nil,
+         shippable: nil,
+         statement_descriptor: nil,
+         type: "service",
+         unit_label: nil,
+         updated: 1_675_539_096,
+         url: nil
+       },
+       recurring: nil,
+       tax_behavior: "unspecified",
+       tiers: nil,
+       tiers_mode: nil,
+       transform_lookup_key: nil,
+       transform_quantity: nil,
+       type: "one_time",
+       unit_amount: 10_000_000,
+       unit_amount_decimal: "10000000"
+     }}
+  end
+
+  def get_price(_, connect_account: "acc_valid_account", expand: ["product"]) do
+    {:error,
+     %Stripe.Error{
+       source: :stripe,
+       code: :invalid_request_error,
+       request_id: {"Request-Id", "req_x7PiwYlt9Kt1cn"},
+       extra: %{
+         card_code: :resource_missing,
+         http_status: 404,
+         param: :price,
+         raw_error: %{
+           "code" => "resource_missing",
+           "doc_url" => "https://stripe.com/docs/error-codes/resource-missing",
+           "message" => "No such price: 'price_garbage'",
+           "param" => "price",
+           "request_log_url" =>
+             "https://dashboard.stripe.com/acct_1MVJusCOWcOFl6ax/test/logs/req_x7PiwYlt9Kt1cn?t=1678734859",
+           "type" => "invalid_request_error"
+         }
+       },
+       message: "No such price: 'price_garbage'",
+       user_message: nil
+     }}
+  end
 end

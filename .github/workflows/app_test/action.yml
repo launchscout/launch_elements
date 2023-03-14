@@ -1,0 +1,13 @@
+name: App Tests
+description: "Run Elixir and Typescript Tests"
+runs:
+  using: "composite"
+  steps:
+    - name: Run typescript tests
+      shell: bash
+      run: npm test
+      working-directory: assets
+    - name: Run elixir tests
+      shell: bash
+      run: |
+        mix test --no-compile

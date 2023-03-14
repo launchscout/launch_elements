@@ -30,11 +30,8 @@ jobs:
         uses: actions/checkout@v3
       - name: Setup App
         uses: ./.github/workflows/setup
-      - name: Run typescript tests
-        run: npm test
-        working-directory: assets
-      - name: Run elixir tests
-        run: mix test --no-compile
+      - name: Run Application Tests
+        uses: ./.github/workflows/app_test
 
   deploy:
     needs: app-test

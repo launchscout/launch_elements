@@ -20,12 +20,16 @@ defmodule LaunchCartWeb.ConnCase do
 
   using do
     quote do
+      # Use Axe Test module
+      use LaunchCartWeb.PallyTest
+
       # Import conveniences for testing with connections
       import Plug.Conn
       import Phoenix.ConnTest
       import LaunchCartWeb.ConnCase
 
       alias LaunchCartWeb.Router.Helpers, as: Routes
+      alias LaunchCartWeb.PallyTest
 
       # The default endpoint for testing
       @endpoint LaunchCartWeb.Endpoint

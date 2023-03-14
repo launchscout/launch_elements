@@ -15,6 +15,7 @@ defmodule LaunchCartWeb.UserResetPasswordControllerTest do
       conn = get(conn, Routes.user_reset_password_path(conn, :new))
       response = html_response(conn, 200)
       assert response =~ "<h1>Forgot your password?</h1>"
+      PallyTest.here(conn)
     end
   end
 
@@ -56,6 +57,7 @@ defmodule LaunchCartWeb.UserResetPasswordControllerTest do
     test "renders reset password", %{conn: conn, token: token} do
       conn = get(conn, Routes.user_reset_password_path(conn, :edit, token))
       assert html_response(conn, 200) =~ "<h1>Reset password</h1>"
+      PallyTest.here(conn)
     end
 
     test "does not render reset password with invalid token", %{conn: conn} do
@@ -103,6 +105,7 @@ defmodule LaunchCartWeb.UserResetPasswordControllerTest do
       assert response =~ "<h1>Reset password</h1>"
       assert response =~ "should be at least 12 character(s)"
       assert response =~ "does not match password"
+      PallyTest.here(conn)
     end
 
     test "does not reset password with invalid token", %{conn: conn} do

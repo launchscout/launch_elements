@@ -2,7 +2,6 @@ defmodule LaunchCartWeb.UserSessionControllerTest do
   use LaunchCartWeb.ConnCase, async: true
 
   import LaunchCart.AccountsFixtures
-
   import LaunchCart.Factory
 
   setup do
@@ -16,6 +15,7 @@ defmodule LaunchCartWeb.UserSessionControllerTest do
       assert response =~ "<h1>Log in</h1>"
       assert response =~ "Register</a>"
       assert response =~ "Forgot your password?</a>"
+      PallyTest.here(conn)
     end
 
     test "redirects if already logged in", %{conn: conn, user: user} do
@@ -40,6 +40,7 @@ defmodule LaunchCartWeb.UserSessionControllerTest do
       assert response =~ user.email
       assert response =~ "settings</i>"
       assert response =~ "Log out</a>"
+      PallyTest.here(conn)
     end
 
     test "logs the user in with remember me", %{conn: conn, user: user} do
@@ -79,6 +80,7 @@ defmodule LaunchCartWeb.UserSessionControllerTest do
       response = html_response(conn, 200)
       assert response =~ "<h1>Log in</h1>"
       assert response =~ "Invalid email or password"
+      PallyTest.here(conn)
     end
   end
 

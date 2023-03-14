@@ -1,4 +1,5 @@
 defmodule LaunchCartWeb.UserRegistrationControllerTest do
+  alias ExDoc.Language
   use LaunchCartWeb.ConnCase, async: true
 
   import LaunchCart.AccountsFixtures
@@ -11,6 +12,7 @@ defmodule LaunchCartWeb.UserRegistrationControllerTest do
       assert response =~ "Help us test Launch Elements!"
       assert response =~ "Log in</a>"
       assert response =~ "Register</a>"
+      PallyTest.here(conn)
     end
 
     test "redirects if already logged in", %{conn: conn} do
@@ -31,6 +33,7 @@ defmodule LaunchCartWeb.UserRegistrationControllerTest do
 
       response = html_response(conn, 200)
       assert response =~ "Thanks"
+      PallyTest.here(conn)
     end
   end
 end

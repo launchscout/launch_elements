@@ -26,7 +26,7 @@ erl_crash.dump
 launch_cart-*.tar
 
 # Ignore assets that are produced by build tools.
-/priv/static/assets/
+/priv/static/*
 
 assets/dist
 
@@ -38,3 +38,8 @@ npm-debug.log
 /assets/node_modules/
 
 *.secret.exs
+
+# Axe test html fiels
+/test/axe_html/*.html
+/test/axe_html/assets/**/*.css*
+/test/axe_html/assets/**/*.js*

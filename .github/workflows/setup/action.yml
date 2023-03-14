@@ -32,7 +32,7 @@ runs:
         mix clean
       shell: sh
     - name: Install Elixir Dependencies
-      if: steps.mix-cache.outputs.cache-hit != 'true'
+      if: steps.mix-cache.outputs.cache-hit != 'true' || github.run_attempt != '1'
       run: |
         mix deps.get
         mix deps.compile

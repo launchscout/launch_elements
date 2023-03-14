@@ -11,4 +11,3 @@ runs:
       shell: bash
       run: |
         mix test --no-compile
-        mix ecto.drop --no-compile

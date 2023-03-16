@@ -4,7 +4,6 @@ import { liveState, liveStateConfig } from 'phx-live-state';
 
 @customElement('launch-form')
 @liveState({
-  url: 'ws://localhost:4000/socket',
   topic: 'launch_form:all',
   properties: ['complete'],
   provide: {
@@ -16,6 +15,10 @@ import { liveState, liveStateConfig } from 'phx-live-state';
   }
 })
 export class LaunchFormElement extends LitElement {
+
+  @property()
+  @liveStateConfig('url')
+  url: string = '';
 
   @state()
   complete: boolean = false;

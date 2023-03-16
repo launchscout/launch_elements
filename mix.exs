@@ -58,8 +58,8 @@ defmodule LaunchCart.MixProject do
       {:swoosh, "~> 1.3"},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
-      {:wallaby, "~> 0.29.1",
-       git: "https://github.com/launchscout/wallaby.git", runtime: false, only: :test}
+      {:wallaby, "~> 0.30.2",
+       git: "https://github.com/launchscout/wallaby.git", branch: "shadow-dom", runtime: false, only: :test}
     ]
   end
 

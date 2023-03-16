@@ -9,6 +9,7 @@ defmodule LaunchCart.Factory do
   alias LaunchCart.Carts.Cart
   alias LaunchCart.Carts.CartItem
   alias LaunchCart.StripeAccounts.StripeAccount
+  alias LaunchCart.Forms.Form
 
   def store_factory() do
     %Store{
@@ -50,4 +51,9 @@ defmodule LaunchCart.Factory do
     }
   end
 
+  def form_factory() do
+    %Form{
+      name: "Formy McFormFace"
+    }
+  end
 end

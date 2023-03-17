@@ -40,6 +40,6 @@ npm-debug.log
 *.secret.exs
 
 # Axe test html fiels
-/test/axe_html/*.html
-/test/axe_html/assets/**/*.css*
-/test/axe_html/assets/**/*.js*
+/test/excessibility/*.html
+/test/excessibility/assets/**/*.css*
+/test/excessibility/assets/**/*.js*

@@ -138,7 +138,7 @@ export class LaunchCartElement extends LitElement {
       <div part="modal-header">
         <button @click=${this.closeThanks} part="close-modal" aria-label="Close Modal">✕</button>
       </div>
-      <div part="modal-body">
+      <div style="color:white!important"part="modal-body">
         <p part="cart-thank-you">Thanks for purchasing!</p>
       </div>
     </dialog>

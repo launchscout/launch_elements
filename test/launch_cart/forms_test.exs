@@ -16,6 +16,13 @@ defmodule LaunchCart.FormsTest do
       assert Forms.list_forms() |> Enum.map(& &1.id) == [form.id]
     end
 
+    test "list_forms/1 returns all forms for specific user" do
+      user = insert(:user)
+      form = insert(:form, user: user)
+      other_form = insert(:form)
+      assert Forms.list_forms(user) |> Enum.map(& &1.id) == [form.id]
+    end
+
     test "get_form!/1 returns the form with given id" do
       form = insert(:form)
       assert Forms.get_form!(form.id)

@@ -7,6 +7,7 @@ defmodule LaunchCart.Forms do
   alias LaunchCart.Repo
 
   alias LaunchCart.Forms.Form
+  alias LaunchCart.Accounts.User
 
   @doc """
   Returns the list of forms.
@@ -19,6 +20,10 @@ defmodule LaunchCart.Forms do
   """
   def list_forms do
     Repo.all(Form)
+  end
+
+  def list_forms(%User{id: user_id}) do
+    Repo.all(from form in Form, where: form.user_id == ^user_id)
   end
 
   @doc """

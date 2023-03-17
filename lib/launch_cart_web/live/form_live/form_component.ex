@@ -4,7 +4,7 @@ defmodule LaunchCartWeb.FormLive.FormComponent do
   alias LaunchCart.Forms
 
   @impl true
-  def update(%{form: form} = assigns, socket) do
+  def update(%{form: form, user_id: user_id} = assigns, socket) do
     changeset = Forms.change_form(form)
 
     {:ok,
@@ -40,8 +40,8 @@ defmodule LaunchCartWeb.FormLive.FormComponent do
     end
   end
 
-  defp save_form(socket, :new, form_params) do
-    case Forms.create_form(form_params) do
+  defp save_form(%{assigns: %{user_id: user_id}} = socket, :new, form_params) do
+    case Forms.create_form(form_params |> Map.put("user_id", user_id)) do
       {:ok, _form} ->
         {:noreply,
          socket

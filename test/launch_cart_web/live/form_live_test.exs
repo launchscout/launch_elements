@@ -2,25 +2,33 @@ defmodule LaunchCartWeb.FormLiveTest do
   use LaunchCartWeb.ConnCase
 
   import Phoenix.LiveViewTest
-  import LaunchCart.FormsFixtures
+  import LaunchCart.Factory
 
   @create_attrs %{name: "some name"}
   @update_attrs %{name: "some updated name"}
   @invalid_attrs %{name: nil}
 
-  defp create_form(_) do
-    form = form_fixture()
+  setup(%{conn: conn}) do
+    user = insert(:user)
+    conn = log_in_user(conn, user)
+    %{user: user, conn: conn}
+  end
+
+  defp create_form(%{user: user}) do
+    form = insert(:form, user: user)
     %{form: form}
   end
 
   describe "Index" do
     setup [:create_form]
 
-    test "lists all forms", %{conn: conn, form: form} do
+    test "lists all forms for current user", %{conn: conn, form: form} do
+      other_form = insert(:form, name: "Other form")
       {:ok, _index_live, html} = live(conn, Routes.form_index_path(conn, :index))
 
       assert html =~ "Listing Forms"
       assert html =~ form.name
+      refute html =~ other_form.name
     end
 
     test "saves new form", %{conn: conn} do

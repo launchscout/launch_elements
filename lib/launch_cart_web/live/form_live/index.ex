@@ -5,8 +5,8 @@ defmodule LaunchCartWeb.FormLive.Index do
   alias LaunchCart.Forms.Form
 
   @impl true
-  def mount(_params, _session, socket) do
-    {:ok, assign(socket, :forms, list_forms())}
+  def mount(_params, _session, %{assigns: %{current_user: user}} = socket) do
+    {:ok, assign(socket, :forms, list_forms(user))}
   end
 
   @impl true
@@ -33,14 +33,14 @@ defmodule LaunchCartWeb.FormLive.Index do
   end
 
   @impl true
-  def handle_event("delete", %{"id" => id}, socket) do
+  def handle_event("delete", %{"id" => id}, %{assigns: %{current_user: user}} = socket) do
     form = Forms.get_form!(id)
     {:ok, _} = Forms.delete_form(form)
 
-    {:noreply, assign(socket, :forms, list_forms())}
+    {:noreply, assign(socket, :forms, list_forms(user))}
   end
 
-  defp list_forms do
-    Forms.list_forms()
+  defp list_forms(user) do
+    Forms.list_forms(user)
   end
 end

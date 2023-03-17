@@ -9,7 +9,7 @@ defmodule LaunchCart.Factory do
   alias LaunchCart.Carts.Cart
   alias LaunchCart.Carts.CartItem
   alias LaunchCart.StripeAccounts.StripeAccount
-  alias LaunchCart.Forms.Form
+  alias LaunchCart.Forms.{Form, FormResponse}
 
   def store_factory() do
     %Store{
@@ -55,6 +55,13 @@ defmodule LaunchCart.Factory do
     %Form{
       name: "Formy McFormFace",
       user: build(:user)
+    }
+  end
+
+  def form_response_factory() do
+    %FormResponse{
+      form: build(:form),
+      response: %{name: "Bob", thoughts: "I think therefore I am"}
     }
   end
 end

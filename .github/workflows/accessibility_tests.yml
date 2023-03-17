@@ -33,7 +33,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: html_files
-          path: test/axe_html/
+          path: test/excessibility/html_snapshots
 
   axe-test:
     needs: mix-test
@@ -50,7 +50,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: html_files
-          path: test/axe_html/
+          path: test/excessibility/html_snapshots
       - name: Pa11y Tests
         run: mix excessibility
 

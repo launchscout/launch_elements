@@ -39,9 +39,11 @@ defmodule LaunchCart.MixProject do
       {:dart_sass, "~> 0.5", runtime: Mix.env() == :dev},
       {:ecto_sql, "~> 3.6"},
       {:esbuild, "~> 0.4", runtime: Mix.env() == :dev},
+      {:excessibility, "~> 0.1.0",
+       only: [:dev, :test], git: "https://github.com/launchscout/excessibility.git"},
       {:ex_machina, "~> 2.7.0"},
       {:faker, ">= 0.0.0"},
-      {:floki, ">= 0.30.0", only: :test},
+      {:floki, ">= 0.30.0", only: [:dev, :test]},
       {:gettext, "~> 0.18"},
       {:jason, "~> 1.2"},
       {:live_state, "~> 0.6.0"},
@@ -59,7 +61,11 @@ defmodule LaunchCart.MixProject do
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
       {:wallaby, "~> 0.30.2",
-       git: "https://github.com/launchscout/wallaby.git", branch: "shadow-dom", runtime: false, only: :test}
+       git: "https://github.com/launchscout/wallaby.git",
+       branch: "shadow-dom",
+       override: true,
+       runtime: false,
+       only: :test}
     ]
   end
 

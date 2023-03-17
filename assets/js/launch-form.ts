@@ -4,7 +4,6 @@ import { liveState, liveStateConfig } from 'phx-live-state';
 
 @customElement('launch-form')
 @liveState({
-  topic: 'launch_form:all',
   properties: ['complete'],
   provide: {
     scope: window,
@@ -22,6 +21,12 @@ export class LaunchFormElement extends LitElement {
 
   @state()
   complete: boolean = false;
+
+  @property({attribute: 'form-id'})
+  formId: string = '';
+
+  @liveStateConfig('topic')
+  get topic() {return `launch_form:${this.formId}`;}
 
   constructor() {
     super();

@@ -1,0 +1,26 @@
+<h1>Show Form</h1>
+
+<%= if @live_action in [:edit] do %>
+  <.modal return_to={Routes.form_show_path(@socket, :show, @form)}>
+    <.live_component
+      module={LaunchCartWeb.FormLive.FormComponent}
+      id={@form.id}
+      title={@page_title}
+      action={@live_action}
+      form={@form}
+      return_to={Routes.form_show_path(@socket, :show, @form)}
+    />
+  </.modal>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @form.name %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.form_show_path(@socket, :edit, @form), class: "button" %></span> |
+<span><%= live_redirect "Back", to: Routes.form_index_path(@socket, :index) %></span>

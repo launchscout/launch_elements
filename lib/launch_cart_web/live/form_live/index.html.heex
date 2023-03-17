@@ -1,0 +1,39 @@
+<h1>Listing Forms</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <.modal return_to={Routes.form_index_path(@socket, :index)}>
+    <.live_component
+      module={LaunchCartWeb.FormLive.FormComponent}
+      id={@form.id || :new}
+      title={@page_title}
+      action={@live_action}
+      form={@form}
+      return_to={Routes.form_index_path(@socket, :index)}
+    />
+  </.modal>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="forms">
+    <%= for form <- @forms do %>
+      <tr id={"form-#{form.id}"}>
+        <td><%= form.name %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.form_show_path(@socket, :show, form) %></span>
+          <span><%= live_patch "Edit", to: Routes.form_index_path(@socket, :edit, form) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: form.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Form", to: Routes.form_index_path(@socket, :new) %></span>

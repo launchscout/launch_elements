@@ -53,7 +53,8 @@ defmodule LaunchCart.Factory do
 
   def form_factory() do
     %Form{
-      name: "Formy McFormFace"
+      name: "Formy McFormFace",
+      user: build(:user)
     }
   end
 end

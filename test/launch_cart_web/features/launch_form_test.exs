@@ -8,7 +8,14 @@ defmodule LaunchCartWeb.Features.LaunchFormTest do
   import LaunchCart.Factory
 
   setup do
+    bypass = Bypass.open()
     form = insert(:form)
+    web_hook = insert(:web_hook, form: form, url: "http://localhost:#{bypass.port}/hook")
+
+    Bypass.expect_once(bypass, "POST", "/hook", fn conn ->
+      Plug.Conn.resp(conn, 200, "")
+    end)
+
     {:ok, %{form: form}}
   end
 

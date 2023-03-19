@@ -1,6 +1,7 @@
 defmodule LaunchCart.FormsTest do
   use LaunchCart.DataCase
 
+  alias LaunchCart.Forms.{Form, FormResponse}
   alias LaunchCart.Forms
   import LaunchCart.Factory
 
@@ -65,6 +66,23 @@ defmodule LaunchCart.FormsTest do
     end
   end
 
+  describe "submit_response" do
+    test "creates response and sends web hook" do
+      bypass = Bypass.open()
+      form = insert(:form)
+      web_hook = insert(:web_hook, form: form, url: "http://localhost:#{bypass.port}/hook")
+
+      Bypass.expect_once(bypass, "POST", "/hook", fn conn ->
+        {:ok, body, _conn} = Plug.Conn.read_body(conn)
+        assert body =~ "foo"
+        Plug.Conn.resp(conn, 200, "")
+      end)
+
+      assert {:ok, %FormResponse{response: %{foo: "bar"}}} =
+               Forms.submit_response(form, %{foo: "bar"})
+    end
+  end
+
   describe "form_responses" do
     alias LaunchCart.Forms.FormResponse
 
@@ -98,13 +116,17 @@ defmodule LaunchCart.FormsTest do
       form_response = insert(:form_response)
       update_attrs = %{response: %{}}
 
-      assert {:ok, %FormResponse{} = form_response} = Forms.update_form_response(form_response, update_attrs)
+      assert {:ok, %FormResponse{} = form_response} =
+               Forms.update_form_response(form_response, update_attrs)
+
       assert form_response.response == %{}
     end
 
     test "update_form_response/2 with invalid data returns error changeset" do
       form_response = insert(:form_response)
-      assert {:error, %Ecto.Changeset{}} = Forms.update_form_response(form_response, @invalid_attrs)
+
+      assert {:error, %Ecto.Changeset{}} =
+               Forms.update_form_response(form_response, @invalid_attrs)
     end
 
     test "delete_form_response/1 deletes the form_response" do

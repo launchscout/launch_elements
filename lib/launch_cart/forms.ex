@@ -8,6 +8,7 @@ defmodule LaunchCart.Forms do
 
   alias LaunchCart.Forms.Form
   alias LaunchCart.Accounts.User
+  alias LaunchCart.WebHooks.WebHook
 
   @doc """
   Returns the list of forms.
@@ -40,7 +41,7 @@ defmodule LaunchCart.Forms do
       ** (Ecto.NoResultsError)
 
   """
-  def get_form!(id), do: Repo.get!(Form, id) |> Repo.preload(:responses)
+  def get_form!(id), do: Repo.get!(Form, id) |> Repo.preload([:responses, :web_hooks])
 
   @doc """
   Creates a form.
@@ -201,5 +202,24 @@ defmodule LaunchCart.Forms do
   """
   def change_form_response(%FormResponse{} = form_response, attrs \\ %{}) do
     FormResponse.changeset(form_response, attrs)
+  end
+
+  def submit_response(%Form{web_hooks: %Ecto.Association.NotLoaded{}} = form, response) do
+    Repo.preload(form, :web_hooks) |> submit_response(response)
+  end
+
+  def submit_response(%Form{id: form_id, web_hooks: web_hooks}, response) do
+    with {:ok, form_response} <- create_form_response(%{form_id: form_id, response: response}) do
+      send_web_hooks(web_hooks, response)
+      {:ok, form_response}
+    end
+  end
+
+  defp send_web_hooks(web_hooks, response) do
+    web_hooks |> Enum.map(&send_web_hook(&1, response))
+  end
+
+  defp send_web_hook(%WebHook{url: url}, response) do
+    HTTPoison.post! url, Jason.encode!(response), [{"Content-Type", "application/json"}]
   end
 end

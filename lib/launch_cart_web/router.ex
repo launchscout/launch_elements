@@ -107,6 +107,13 @@ defmodule LaunchCartWeb.Router do
 
       live "/forms/:id", FormLive.Show, :show
       live "/forms/:id/show/edit", FormLive.Show, :edit
+
+      live "/web_hooks", WebHookLive.Index, :index
+      live "/web_hooks/new", WebHookLive.Index, :new
+      live "/web_hooks/:id/edit", WebHookLive.Index, :edit
+
+      live "/web_hooks/:id", WebHookLive.Show, :show
+      live "/web_hooks/:id/show/edit", WebHookLive.Show, :edit
     end
   end
 

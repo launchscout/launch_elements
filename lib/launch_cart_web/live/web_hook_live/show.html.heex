@@ -1,0 +1,36 @@
+<h1>Show Web hook</h1>
+
+<%= if @live_action in [:edit] do %>
+  <.modal return_to={Routes.web_hook_show_path(@socket, :show, @web_hook)}>
+    <.live_component
+      module={LaunchCartWeb.WebHookLive.FormComponent}
+      id={@web_hook.id}
+      title={@page_title}
+      action={@live_action}
+      web_hook={@web_hook}
+      return_to={Routes.web_hook_show_path(@socket, :show, @web_hook)}
+    />
+  </.modal>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @web_hook.description %>
+  </li>
+
+  <li>
+    <strong>Url:</strong>
+    <%= @web_hook.url %>
+  </li>
+
+  <li>
+    <strong>Headers:</strong>
+    <%= @web_hook.headers %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.web_hook_show_path(@socket, :edit, @web_hook), class: "button" %></span> |
+<span><%= live_redirect "Back", to: Routes.web_hook_index_path(@socket, :index) %></span>

@@ -12,10 +12,8 @@ defmodule LaunchCartWeb.LaunchFormChannel do
         form_data,
         %{form_id: form_id}
       ) do
-    IO.inspect(form_data)
-
-    with {:ok, _form_response} <-
-           Forms.create_form_response(%{form_id: form_id, response: form_data}) do
+    with form <- Forms.get_form!(form_id),
+         {:ok, _response} <- Forms.submit_response(form, form_data) do
       {:noreply, %{complete: true}}
     end
   end

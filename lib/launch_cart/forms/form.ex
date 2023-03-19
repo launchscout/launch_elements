@@ -4,6 +4,7 @@ defmodule LaunchCart.Forms.Form do
 
   alias LaunchCart.Accounts.User
   alias LaunchCart.Forms.FormResponse
+  alias LaunchCart.WebHooks.WebHook
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
@@ -11,6 +12,7 @@ defmodule LaunchCart.Forms.Form do
     field :name, :string
     belongs_to :user, User
     has_many :responses, FormResponse
+    has_many :web_hooks, WebHook
 
     timestamps()
   end

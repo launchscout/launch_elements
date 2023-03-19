@@ -10,6 +10,7 @@ defmodule LaunchCart.Factory do
   alias LaunchCart.Carts.CartItem
   alias LaunchCart.StripeAccounts.StripeAccount
   alias LaunchCart.Forms.{Form, FormResponse}
+  alias LaunchCart.WebHooks.WebHook
 
   def store_factory() do
     %Store{
@@ -62,6 +63,15 @@ defmodule LaunchCart.Factory do
     %FormResponse{
       form: build(:form),
       response: %{name: "Bob", thoughts: "I think therefore I am"}
+    }
+  end
+
+  def web_hook_factory() do
+    %WebHook{
+      form: build(:form),
+      url: "https://launchscout.com",
+      description: "Tell Launch Scout whats up",
+      headers: %{}
     }
   end
 end

@@ -34,6 +34,7 @@ defmodule LaunchCart.MixProject do
   defp deps do
     [
       {:bcrypt_elixir, "~> 3.0"},
+      {:bypass, ">= 0.0.0", only: [:test]},
       {:cachex, "~> 3.4.0"},
       {:cors_plug, "~> 3.0"},
       {:dart_sass, "~> 0.5", runtime: Mix.env() == :dev},
@@ -58,6 +59,7 @@ defmodule LaunchCart.MixProject do
       {:swoosh, "~> 1.3"},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
+      {:httpoison, ">= 0.0.0"},
       {:wallaby, "~> 0.30.2",
        git: "https://github.com/launchscout/wallaby.git", branch: "shadow-dom", runtime: false, only: :test}
     ]

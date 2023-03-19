@@ -49,10 +49,11 @@ defmodule LaunchCart.MixProject do
       {:mix_test_watch, "~> 1.0", only: [:dev, :test], runtime: false},
       {:phoenix, "~> 1.6.12"},
       {:phoenix_ecto, "~> 4.4"},
-      {:phoenix_html, "~> 3.0"},
-      {:phoenix_live_dashboard, "~> 0.6"},
+      {:phoenix_html, "~> 3.3"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:phoenix_live_view, "~> 0.17.5"},
+      {:phoenix_view, "~> 2.0"},
+      {:phoenix_live_view, "~> 0.18.18"},
+      {:phoenix_live_dashboard, "~> 0.7.2"},
       {:plug_cowboy, "~> 2.5"},
       {:postgrex, ">= 0.0.0"},
       {:stripity_stripe, "~> 2.17.1"},
@@ -61,7 +62,10 @@ defmodule LaunchCart.MixProject do
       {:telemetry_poller, "~> 1.0"},
       {:httpoison, ">= 0.0.0"},
       {:wallaby, "~> 0.30.2",
-       git: "https://github.com/launchscout/wallaby.git", branch: "shadow-dom", runtime: false, only: :test}
+       git: "https://github.com/launchscout/wallaby.git",
+       branch: "shadow-dom",
+       runtime: false,
+       only: :test}
     ]
   end
 

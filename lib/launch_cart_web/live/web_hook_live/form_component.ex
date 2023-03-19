@@ -24,7 +24,7 @@ defmodule LaunchCartWeb.WebHookLive.FormComponent do
   end
 
   def handle_event("save", %{"web_hook" => web_hook_params}, socket) do
-    save_web_hook(socket, web_hook_params)
+    save_web_hook(socket, :new, web_hook_params)
   end
 
   defp save_web_hook(socket, :edit, web_hook_params) do

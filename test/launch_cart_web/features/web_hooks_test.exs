@@ -1,4 +1,4 @@
-defmodule LaunchCartWeb.Features.LaunchFormTest do
+defmodule LaunchCartWeb.Features.WebHooksTest do
   use ExUnit.Case, async: false
   use Wallaby.Feature
 

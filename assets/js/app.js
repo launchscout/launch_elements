@@ -22,26 +22,26 @@
 // Include phoenix_html to handle method=PUT/DELETE in forms and buttons.
 import "phoenix_html"
 // Establish Phoenix Socket and LiveView configuration.
-import {Socket} from "phoenix"
-import {LiveSocket} from "phoenix_live_view"
+import { Socket } from "phoenix"
+import { LiveSocket } from "phoenix_live_view"
 import topbar from "../vendor/topbar"
 import 'api-viewer-element';
 import './nav-toggle';
 import Prism from "./prism"
 
-const Hooks = {
-  Prism: {
-    mounted() { this.highlight() },
-    reconnected() { this.highlight() },
-    highlight() { Prism.highlightAll() }
-  }
-}
+const PrismHook = {
+  mounted() { this.highlight() },
+  reconnected() { this.highlight() },
+  highlight() { Prism.highlightAll() }
+};
+
+import PhoenixCustomEventHook from 'phoenix-custom-event-hook';
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
-let liveSocket = new LiveSocket("/live", Socket, {hooks: Hooks, params: {_csrf_token: csrfToken}})
+let liveSocket = new LiveSocket("/live", Socket, { params: { _csrf_token: csrfToken }, hooks: { PhoenixCustomEventHook, Prism: PrismHook } })
 
 // Show progress bar on live navigation and form submits
-topbar.config({barColors: {0: "#29d"}, shadowColor: "rgba(0, 0, 0, .3)"})
+topbar.config({ barColors: { 0: "#29d" }, shadowColor: "rgba(0, 0, 0, .3)" })
 window.addEventListener("phx:page-loading-start", info => topbar.show())
 window.addEventListener("phx:page-loading-stop", info => topbar.hide())
 
@@ -57,3 +57,4 @@ window.liveSocket = liveSocket
 import './launch-cart-additem';
 import './launch-cart';
 import './launch-form';
+import './web-hooks';

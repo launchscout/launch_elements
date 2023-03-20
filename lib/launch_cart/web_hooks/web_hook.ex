@@ -2,6 +2,8 @@ defmodule LaunchCart.WebHooks.WebHook do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @derive {Jason.Encoder, except: [:__meta__, :form]}
+
   alias LaunchCart.Forms.Form
 
   @foreign_key_type :binary_id

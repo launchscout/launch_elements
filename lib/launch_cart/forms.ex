@@ -6,7 +6,7 @@ defmodule LaunchCart.Forms do
   import Ecto.Query, warn: false
   alias LaunchCart.Repo
 
-  alias LaunchCart.Forms.Form
+  alias LaunchCart.Forms.{Form, FormEmail, FormMailer}
   alias LaunchCart.Accounts.User
   alias LaunchCart.WebHooks.WebHook
 
@@ -205,12 +205,17 @@ defmodule LaunchCart.Forms do
   end
 
   def submit_response(%Form{web_hooks: %Ecto.Association.NotLoaded{}} = form, response) do
-    Repo.preload(form, :web_hooks) |> submit_response(response)
+    form |> preload() |> submit_response(response)
   end
 
-  def submit_response(%Form{id: form_id, web_hooks: web_hooks}, response) do
+  def submit_response(%Form{form_emails: %Ecto.Association.NotLoaded{}} = form, response) do
+    form |> preload() |> submit_response(response)
+  end
+
+  def submit_response(%Form{id: form_id, web_hooks: web_hooks, form_emails: form_emails}, response) do
     with {:ok, form_response} <- create_form_response(%{form_id: form_id, response: response}) do
       send_web_hooks(web_hooks, response)
+      send_emails(form_emails, response)
       {:ok, form_response}
     end
   end
@@ -221,5 +226,105 @@ defmodule LaunchCart.Forms do
 
   defp send_web_hook(%WebHook{url: url}, response) do
     HTTPoison.post! url, Jason.encode!(response), [{"Content-Type", "application/json"}]
+  end
+
+  defp send_emails(form_emails, response) do
+    form_emails |> Enum.map(&FormMailer.send_response_email(&1, response))
+  end
+
+  defp preload(%Form{} = form), do: Repo.preload(form, [:web_hooks, :form_emails])
+
+  @doc """
+  Returns the list of form_emails.
+
+  ## Examples
+
+      iex> list_form_emails()
+      [%FormEmail{}, ...]
+
+  """
+  def list_form_emails do
+    Repo.all(FormEmail)
+  end
+
+  @doc """
+  Gets a single form_email.
+
+  Raises `Ecto.NoResultsError` if the Form email does not exist.
+
+  ## Examples
+
+      iex> get_form_email!(123)
+      %FormEmail{}
+
+      iex> get_form_email!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_form_email!(id), do: Repo.get!(FormEmail, id)
+
+  @doc """
+  Creates a form_email.
+
+  ## Examples
+
+      iex> create_form_email(%{field: value})
+      {:ok, %FormEmail{}}
+
+      iex> create_form_email(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_form_email(attrs \\ %{}) do
+    %FormEmail{}
+    |> FormEmail.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a form_email.
+
+  ## Examples
+
+      iex> update_form_email(form_email, %{field: new_value})
+      {:ok, %FormEmail{}}
+
+      iex> update_form_email(form_email, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_form_email(%FormEmail{} = form_email, attrs) do
+    form_email
+    |> FormEmail.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a form_email.
+
+  ## Examples
+
+      iex> delete_form_email(form_email)
+      {:ok, %FormEmail{}}
+
+      iex> delete_form_email(form_email)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_form_email(%FormEmail{} = form_email) do
+    Repo.delete(form_email)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking form_email changes.
+
+  ## Examples
+
+      iex> change_form_email(form_email)
+      %Ecto.Changeset{data: %FormEmail{}}
+
+  """
+  def change_form_email(%FormEmail{} = form_email, attrs \\ %{}) do
+    FormEmail.changeset(form_email, attrs)
   end
 end

@@ -5,6 +5,8 @@ defmodule LaunchCart.FormsTest do
   alias LaunchCart.Forms
   import LaunchCart.Factory
 
+  import Swoosh.TestAssertions
+
   describe "forms" do
     alias LaunchCart.Forms.Form
 
@@ -81,6 +83,16 @@ defmodule LaunchCart.FormsTest do
       assert {:ok, %FormResponse{response: %{foo: "bar"}}} =
                Forms.submit_response(form, %{foo: "bar"})
     end
+
+    test "sends emails" do
+      form = insert(:form)
+      form_email = insert(:form_email, form: form, email: "foo@bar.com", subject: "Nice to meet ya")
+
+      assert {:ok, %FormResponse{response: %{foo: "bar"}}} =
+        Forms.submit_response(form, %{foo: "bar"})
+
+      assert_email_sent(subject: "Nice to meet ya", to: [{"foo@bar.com", "foo@bar.com"}])
+    end
   end
 
   describe "form_responses" do
@@ -138,6 +150,64 @@ defmodule LaunchCart.FormsTest do
     test "change_form_response/1 returns a form_response changeset" do
       form_response = insert(:form_response)
       assert %Ecto.Changeset{} = Forms.change_form_response(form_response)
+    end
+  end
+
+  describe "form_emails" do
+    alias LaunchCart.Forms.FormEmail
+
+    import LaunchCart.FormsFixtures
+
+    @invalid_attrs %{content: nil, email: nil, subject: nil}
+
+    test "list_form_emails/0 returns all form_emails" do
+      form_email = form_email_fixture()
+      assert Forms.list_form_emails() == [form_email]
+    end
+
+    test "get_form_email!/1 returns the form_email with given id" do
+      form_email = form_email_fixture()
+      assert Forms.get_form_email!(form_email.id) == form_email
+    end
+
+    test "create_form_email/1 with valid data creates a form_email" do
+      valid_attrs = %{content: "some content", email: "some email", subject: "some subject"}
+
+      assert {:ok, %FormEmail{} = form_email} = Forms.create_form_email(valid_attrs)
+      assert form_email.content == "some content"
+      assert form_email.email == "some email"
+      assert form_email.subject == "some subject"
+    end
+
+    test "create_form_email/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Forms.create_form_email(@invalid_attrs)
+    end
+
+    test "update_form_email/2 with valid data updates the form_email" do
+      form_email = form_email_fixture()
+      update_attrs = %{content: "some updated content", email: "some updated email", subject: "some updated subject"}
+
+      assert {:ok, %FormEmail{} = form_email} = Forms.update_form_email(form_email, update_attrs)
+      assert form_email.content == "some updated content"
+      assert form_email.email == "some updated email"
+      assert form_email.subject == "some updated subject"
+    end
+
+    test "update_form_email/2 with invalid data returns error changeset" do
+      form_email = form_email_fixture()
+      assert {:error, %Ecto.Changeset{}} = Forms.update_form_email(form_email, @invalid_attrs)
+      assert form_email == Forms.get_form_email!(form_email.id)
+    end
+
+    test "delete_form_email/1 deletes the form_email" do
+      form_email = form_email_fixture()
+      assert {:ok, %FormEmail{}} = Forms.delete_form_email(form_email)
+      assert_raise Ecto.NoResultsError, fn -> Forms.get_form_email!(form_email.id) end
+    end
+
+    test "change_form_email/1 returns a form_email changeset" do
+      form_email = form_email_fixture()
+      assert %Ecto.Changeset{} = Forms.change_form_email(form_email)
     end
   end
 end

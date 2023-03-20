@@ -1,5 +1,6 @@
 defmodule LaunchCart.Factory do
 
+  alias Faker.Lorem
   alias Faker.Internet
 
   use ExMachina.Ecto, repo: LaunchCart.Repo
@@ -9,7 +10,7 @@ defmodule LaunchCart.Factory do
   alias LaunchCart.Carts.Cart
   alias LaunchCart.Carts.CartItem
   alias LaunchCart.StripeAccounts.StripeAccount
-  alias LaunchCart.Forms.{Form, FormResponse}
+  alias LaunchCart.Forms.{Form, FormResponse, FormEmail}
   alias LaunchCart.WebHooks.WebHook
 
   def store_factory() do
@@ -72,6 +73,14 @@ defmodule LaunchCart.Factory do
       url: "https://launchscout.com",
       description: "Tell Launch Scout whats up",
       headers: %{}
+    }
+  end
+
+  def form_email_factory() do
+    %FormEmail{
+      form: build(:form),
+      email: Internet.email(),
+      subject: Lorem.words(2..4)
     }
   end
 end

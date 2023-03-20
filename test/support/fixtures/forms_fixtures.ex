@@ -31,4 +31,20 @@ defmodule LaunchCart.FormsFixtures do
 
     form_response
   end
+
+  @doc """
+  Generate a form_email.
+  """
+  def form_email_fixture(attrs \\ %{}) do
+    {:ok, form_email} =
+      attrs
+      |> Enum.into(%{
+        content: "some content",
+        email: "some email",
+        subject: "some subject"
+      })
+      |> LaunchCart.Forms.create_form_email()
+
+    form_email
+  end
 end

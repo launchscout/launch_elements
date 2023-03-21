@@ -41,7 +41,7 @@ defmodule LaunchCart.Forms do
       ** (Ecto.NoResultsError)
 
   """
-  def get_form!(id), do: Repo.get!(Form, id) |> Repo.preload([:responses, :web_hooks])
+  def get_form!(id), do: Repo.get!(Form, id) |> Repo.preload([:responses, :web_hooks, :form_emails])
 
   @doc """
   Creates a form.

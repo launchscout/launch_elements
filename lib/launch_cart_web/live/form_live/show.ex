@@ -9,6 +9,7 @@ defmodule LaunchCartWeb.FormLive.Show do
   use LiveElements.CustomElementsHelpers
 
   custom_element :web_hooks, events: ["save-web-hook"]
+  custom_element :form_emails, events: ["save-form-email"]
 
   @impl true
   def mount(_params, _session, socket) do
@@ -43,6 +44,26 @@ defmodule LaunchCartWeb.FormLive.Show do
 
       {:noreply, socket
         |> push_event("saved-web-hook", webhook)
+        |> assign(:form, Forms.get_form!(form_id))}
+    end
+  end
+
+  def handle_event("save-form-email", %{"id" => form_email_id} = attrs, %{assigns: %{form: %Form{id: form_id}}} = socket) do
+    with webhook <- Forms.get_form_email!(form_email_id),
+      {:ok, _saved_form_email} <- Forms.update_form_email(webhook, attrs) do
+
+      {:noreply, socket
+        |> push_event("saved-form-email", webhook)
+        |> assign(:form, Forms.get_form!(form_id))}
+    end
+  end
+
+  @impl true
+  def handle_event("save-form-email", attrs, %{assigns: %{form: %Form{id: form_id}}} = socket) do
+    with {:ok, webhook} <- Forms.create_form_email(attrs |> Map.put("form_id", form_id)) do
+
+      {:noreply, socket
+        |> push_event("saved-form-email", webhook)
         |> assign(:form, Forms.get_form!(form_id))}
     end
   end

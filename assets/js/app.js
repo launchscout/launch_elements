@@ -58,3 +58,4 @@ import './launch-cart-additem';
 import './launch-cart';
 import './launch-form';
 import './web-hooks';
+import './form-emails';

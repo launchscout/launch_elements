@@ -1,0 +1,16 @@
+<h1>My Form</h1>
+
+<launch-form url={@url} form-id={@form_id}>
+  <form>
+    <div>
+      <label for="first_name">First Name</label>
+      <input name="first_name" required />
+    </div>
+    <div>
+      <label for="larst_name">Last Name</label>
+      <input name="last_name" />
+    </div>
+    <button type="submit">Send it!</button>
+  </form>
+  <div slot="success">It totally worked</div>
+</launch-form>

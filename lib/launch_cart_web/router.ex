@@ -21,6 +21,7 @@ defmodule LaunchCartWeb.Router do
     pipe_through :browser
 
     get "/fake_stores/:store_id", PageController, :fake_store
+    get "/fake_form/:form_id", PageController, :fake_form
     get "/", PageController, :index
     get "/api_docs", PageController, :api_docs
     get "/usage_docs", PageController, :usage_docs
@@ -99,6 +100,20 @@ defmodule LaunchCartWeb.Router do
 
       live "/stores/:id", StoreLive.Show, :show
       live "/stores/:id/show/edit", StoreLive.Show, :edit
+
+      live "/forms", FormLive.Index, :index
+      live "/forms/new", FormLive.Index, :new
+      live "/forms/:id/edit", FormLive.Index, :edit
+
+      live "/forms/:id", FormLive.Show, :show
+      live "/forms/:id/show/edit", FormLive.Show, :edit
+
+      live "/web_hooks", WebHookLive.Index, :index
+      live "/web_hooks/new", WebHookLive.Index, :new
+      live "/web_hooks/:id/edit", WebHookLive.Index, :edit
+
+      live "/web_hooks/:id", WebHookLive.Show, :show
+      live "/web_hooks/:id/show/edit", WebHookLive.Show, :edit
     end
   end
 

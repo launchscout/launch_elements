@@ -34,6 +34,7 @@ defmodule LaunchCart.MixProject do
   defp deps do
     [
       {:bcrypt_elixir, "~> 3.0"},
+      {:bypass, ">= 0.0.0", only: [:test]},
       {:cachex, "~> 3.4.0"},
       {:cors_plug, "~> 3.0"},
       {:dart_sass, "~> 0.5", runtime: Mix.env() == :dev},
@@ -46,20 +47,26 @@ defmodule LaunchCart.MixProject do
       {:jason, "~> 1.2"},
       {:live_state, "~> 0.6.0"},
       {:mix_test_watch, "~> 1.0", only: [:dev, :test], runtime: false},
-      {:phoenix, "~> 1.6.12"},
+      {:phoenix, "~> 1.7.1"},
       {:phoenix_ecto, "~> 4.4"},
-      {:phoenix_html, "~> 3.0"},
-      {:phoenix_live_dashboard, "~> 0.6"},
+      {:phoenix_html, "~> 3.3"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:phoenix_live_view, "~> 0.17.5"},
+      {:phoenix_view, "~> 2.0"},
+      {:phoenix_live_view, "~> 0.18.18"},
+      {:phoenix_live_dashboard, "~> 0.7.2"},
       {:plug_cowboy, "~> 2.5"},
       {:postgrex, ">= 0.0.0"},
       {:stripity_stripe, "~> 2.17.1"},
       {:swoosh, "~> 1.3"},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
+      {:httpoison, ">= 0.0.0"},
+      {:live_elements, ">= 0.0.0"},
       {:wallaby, "~> 0.30.2",
-       git: "https://github.com/launchscout/wallaby.git", branch: "shadow-dom", runtime: false, only: :test}
+       git: "https://github.com/launchscout/wallaby.git",
+       branch: "shadow-dom",
+       runtime: false,
+       only: :test}
     ]
   end
 

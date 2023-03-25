@@ -1,0 +1,43 @@
+<h1>Listing Web hooks</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <.modal return_to={Routes.web_hook_index_path(@socket, :index)}>
+    <.live_component
+      module={LaunchCartWeb.WebHookLive.FormComponent}
+      id={@web_hook.id || :new}
+      title={@page_title}
+      action={@live_action}
+      web_hook={@web_hook}
+      return_to={Routes.web_hook_index_path(@socket, :index)}
+    />
+  </.modal>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>Url</th>
+      <th>Headers</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="web_hooks">
+    <%= for web_hook <- @web_hooks do %>
+      <tr id={"web_hook-#{web_hook.id}"}>
+        <td><%= web_hook.description %></td>
+        <td><%= web_hook.url %></td>
+        <td><%= web_hook.headers %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.web_hook_show_path(@socket, :show, web_hook) %></span>
+          <span><%= live_patch "Edit", to: Routes.web_hook_index_path(@socket, :edit, web_hook) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: web_hook.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Web hook", to: Routes.web_hook_index_path(@socket, :new) %></span>

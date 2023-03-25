@@ -1,7 +1,7 @@
 defmodule LaunchCartWeb.AssignCurrentUser do
 
   alias LaunchCart.Accounts
-  import Phoenix.LiveView
+  import Phoenix.Component
 
   def on_mount(:default, _params, %{"user_token" => user_token}, socket) do
     {:cont, assign(socket, :current_user, Accounts.get_user_by_session_token(user_token))}

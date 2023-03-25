@@ -22,4 +22,10 @@ defmodule LaunchCartWeb.PageController do
     url = "#{String.replace(Endpoint.url(), "http:", "ws:")}/socket"
     render(conn, "fake_store.html", products: Carts.list_products(), url: url, store: store)
   end
+
+  def fake_form(conn, %{"form_id" => form_id}) do
+    url = "#{String.replace(Endpoint.url(), "http:", "ws:")}/socket"
+    render(conn, "fake_form.html", url: url, form_id: form_id)
+  end
+
 end

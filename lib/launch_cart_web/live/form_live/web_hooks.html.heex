@@ -1,0 +1,62 @@
+<div>
+<h1>Web hooks</h1>
+
+  <dialog open={@edit_web_hook}>
+<div>
+  <h2>Edit Web Hook</h2>
+
+  <.form
+    let={f}
+    for={@changeset}
+    id="web_hook-form"
+    phx-target={@myself}
+    phx-change="validate"
+    phx-submit="save">
+
+    <%= label f, :description %>
+    <%= text_input f, :description %>
+    <%= error_tag f, :description %>
+
+    <%= label f, :url %>
+    <%= text_input f, :url %>
+    <%= error_tag f, :url %>
+
+    <%= label f, :headers %>
+    <%= text_input f, :headers %>
+    <%= error_tag f, :headers %>
+
+    <div>
+      <%= submit "Save", phx_disable_with: "Saving..." %>
+    </div>
+  </.form>
+</div>
+
+  </dialog>
+<table>
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>Url</th>
+      <th>Headers</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="web_hooks">
+    <%= for web_hook <- @web_hooks do %>
+      <tr id={"web_hook-#{web_hook.id}"}>
+        <td><%= web_hook.description %></td>
+        <td><%= web_hook.url %></td>
+        <td><%= web_hook.headers %></td>
+
+        <td>
+          <span><%= live_patch "Edit", to: Routes.web_hook_index_path(@socket, :edit, web_hook) %></span>
+          <span><%= link "Delete", to: "#", phx_target: @myself, phx_click: "delete", phx_value_id: web_hook.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<a phx-click="new" phx-target={@myself}>New Web Hook</a>
+
+</div>

@@ -14,19 +14,8 @@
   </.modal>
 <% end %>
 
-<ul>
-  <li>
-    <strong>ID:</strong>
-    <%= @form.id %>
-  </li>
-  <li>
-    <strong>Name:</strong>
-    <%= @form.name %>
-  </li>
-</ul>
-
 <p>
-  Below are the details you'll need to incorporate your Launch Elements store into your codebase.
+  Below are the details you'll need
 </p>
 
 <dl >
@@ -38,21 +27,49 @@
     <dd><%= @url %></dd>
 </dl>
 
+
+<p>Form responses will be sent to these end points:</p>
+
+<.web_hooks id="web-hooks" web-hooks={@form.web_hooks}></.web_hooks>
+
+<p>Form responses will be sent to these email addresses:</p>
+
+<.form_emails id="form-emails" form-emails={@form.form_emails}></.form_emails>
+
+
 <h2 class="u-push__top--xl">Usage:</h2>
-<p>Using your Launch Elements is easy! Follow the steps below to incorporate Launch Elements into your site now.</p>
+<p>Using your Launch Form is easy! </p>
 <ol id="include-instructions" phx-hook="Prism">
   <li>
     <h3 class="h5">Include Launch Elements in your project</h3>
     <p>First, you'll need to add the <code class="language-html">launch-cart</code> custom elements library to your page. Copy + Paste this script tag into your <code class="language-html">head</code> block:</p>
     <pre><code class="language-html"><!--<script type="module" src="https://cdn.jsdelivr.net/npm/launch-cart"></script>--></code></pre>
   </li>
-
   <li>
-    <h3 class="h5">Place your form</h3>
+    <h3 class="h5">Place your launch form</h3>
     <p>
       Next, you'll need to add the <code class="language-html">launch-form</code> to your site. Copy + Paste this line of code wherever you'd like the cart icon to display:
     </p>
-      <pre><code class="language-html"><!--<launch-cart url="<%= @url %>" store-id="<%= @form.id %>"></launch-cart>--></code></pre>
+      <pre><code class="language-html"><!--<launch-form url="<%= @url %>" form-id="<%= @form.id %>"></launch-form>--></code></pre>
+  </li>
+
+  <li>
+    <h3 class="h5">Create a form</h3>
+    <p>Add standard html form element inside the <code class="language-html">launch-form</code>. Add any input elements you need, but be sure to choose
+      names that will be easy for you to identify in your form responses. <code class="language-html">launch-form</code>
+      will take care of sending all the form responses to the correct place.
+    </p>
+    <pre><code class="language-html"><!--
+      <launch-form url="<%= @url %>" form-id="<%= @form.id %>">
+        <form>
+          <label>First Name</label>
+          <input type="text" name="first_name" placeholder="First Name">
+          <label>Last Name</label>
+          <input type="text" name="last_name" placeholder="Last Name">
+          <input type="submit" value="Submit">
+        </form>
+      </launch-form>
+    --></code></pre>
   </li>
 
   <li>
@@ -67,9 +84,6 @@
   </li>
 </ol>
 
-
-<.web_hooks id="web-hooks" web-hooks={@form.web_hooks}></.web_hooks>
-<.form_emails id="form-emails" form-emails={@form.form_emails}></.form_emails>
 
 <div>
   <span>

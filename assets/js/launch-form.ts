@@ -39,6 +39,6 @@ export class LaunchFormElement extends LitElement {
   }
 
   render() {
-    return this.complete ? html`<slot name="success"></slot>` : html`<slot></slot>`;
+    return this.complete ? html`<slot name="success">Thanks for your submission!</slot>` : html`<slot></slot>`;
   }
 }

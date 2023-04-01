@@ -6,7 +6,7 @@ defmodule LaunchCart.Forms do
   import Ecto.Query, warn: false
   alias LaunchCart.Repo
 
-  alias LaunchCart.Forms.{Form, FormEmail, FormMailer}
+  alias LaunchCart.Forms.{Form, FormEmail, FormMailer, FormResponse}
   alias LaunchCart.Accounts.User
   alias LaunchCart.WebHooks.WebHook
 
@@ -41,7 +41,11 @@ defmodule LaunchCart.Forms do
       ** (Ecto.NoResultsError)
 
   """
-  def get_form!(id), do: Repo.get!(Form, id) |> Repo.preload([:responses, :web_hooks, :form_emails])
+  def get_form!(id), do: Repo.get!(Form, id) |> Repo.preload([:web_hooks, :form_emails])
+
+  def get_form_responses!(id) do
+    Repo.all(from form_response in FormResponse, where: form_response.form_id == ^id)
+  end
 
   @doc """
   Creates a form.

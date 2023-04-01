@@ -2,6 +2,7 @@ defmodule LaunchCartWeb.Features.LaunchFormTest do
   use ExUnit.Case, async: false
   use Wallaby.Feature
 
+  alias LaunchCart.Repo
   alias LaunchCart.Forms
 
   import Wallaby.Query
@@ -29,6 +30,6 @@ defmodule LaunchCartWeb.Features.LaunchFormTest do
     |> assert_text("It totally worked")
 
     assert %{responses: [%{response: %{"first_name" => "Bob", "last_name" => "Jones"}}]} =
-             Forms.get_form!(form.id)
+             Forms.get_form!(form.id) |> Repo.preload(:responses)
   end
 end

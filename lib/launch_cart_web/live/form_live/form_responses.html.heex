@@ -1,0 +1,24 @@
+<h1>Listing Form Responses</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Time</th>
+      <th>Response</th>
+    </tr>
+  </thead>
+  <tbody id="form_responses">
+    <%= for form_response <- @form_responses do %>
+      <tr id={"form-response-#{form_response.id}"}>
+        <td><%= form_response.inserted_at %></td>
+        <td>
+          <ul>
+            <%= for key <- Map.keys(form_response.response) do %>
+            <li><%= key %>: <%= Map.get(form_response.response, key) %></li>
+            <% end %>
+          </ul>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

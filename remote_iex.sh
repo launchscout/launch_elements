@@ -1,0 +1,1 @@
+fly ssh console -C "app/bin/launch_cart remote"

@@ -1,5 +1,5 @@
 {
-  "name": "launch-cart",
+  "name": "launch-elements",
   "description": "A set of custom elements to add an interactive shopping cart to your website",
   "version": "0.0.8",
   "main": "dist/index.js",

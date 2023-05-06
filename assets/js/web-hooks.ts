@@ -32,7 +32,7 @@ class WebHooksElement extends LitElement {
   render() {
     return html`
     <h2>Web hooks</h2>
-      <dialog>
+      <dialog @click=${this.closeDialog}>
         <form @submit=${this.saveWebHook}>
           <div>
             <label for="description">Description</label>
@@ -59,6 +59,7 @@ class WebHooksElement extends LitElement {
               <td>${webHook.description}</td>
               <td>${webHook.url}</td>
               <td><button @click=${this.editWebHook} data-web-hook-id=${webHook.id}>Edit</button></td>
+              <td><button @click=${this.deleteWebHook} data-web-hook-id=${webHook.id}>Delete</button></td>
             </tr>
           `)}
         </tbody>
@@ -70,13 +71,13 @@ class WebHooksElement extends LitElement {
   newWebHook(_event) {
     this.webHook = {description: '', url: ''};
     this.form.reset();
-    this.dialog.show();
+    this.dialog.showModal();
   }
 
   editWebHook(event) {
     this.webHook = this.webHooks.find((webHook) => webHook.id == event.target.dataset.webHookId);
     this.form.reset();
-    this.dialog.show();
+    this.dialog.showModal();
   }
  
   saveWebHook(event) {
@@ -84,4 +85,17 @@ class WebHooksElement extends LitElement {
     const formData = Object.fromEntries(new FormData(event.target as HTMLFormElement));
     this.dispatchEvent(new CustomEvent('save-web-hook', {detail: {id: this.webHook.id, ...formData}}));
   }
+
+  deleteWebHook(event) {
+    event.preventDefault();
+    this.dispatchEvent(new CustomEvent('delete-web-hook', {detail: {id: event.target.dataset.webHookId}}));
+  }
+
+  closeDialog(event) {
+    console.log(event);
+    if (event.target == this.dialog) {
+      this.dialog.close();
+    }
+  }
+
 }

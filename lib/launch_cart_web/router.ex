@@ -23,6 +23,8 @@ defmodule LaunchCartWeb.Router do
     get "/fake_stores/:store_id", PageController, :fake_store
     get "/fake_form/:form_id", PageController, :fake_form
     get "/", PageController, :index
+    get "/cart", PageController, :cart
+    get "/form", PageController, :form
     get "/api_docs", PageController, :api_docs
     get "/usage_docs", PageController, :usage_docs
   end

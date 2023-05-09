@@ -9,6 +9,10 @@ defmodule LaunchCartWeb.PageController do
     render(conn, "index.html")
   end
 
+  def cart(conn, _params) do
+    render(conn, "cart.html")
+  end
+
   def api_docs(conn, _params) do
     render(conn, "api_docs.html")
   end
@@ -21,6 +25,10 @@ defmodule LaunchCartWeb.PageController do
     store = Stores.get_store!(store_id)
     url = "#{String.replace(Endpoint.url(), "http:", "ws:")}/socket"
     render(conn, "fake_store.html", products: Carts.list_products(), url: url, store: store)
+  end
+
+  def form(conn, _params) do
+    render(conn, "form.html")
   end
 
   def fake_form(conn, %{"form_id" => form_id}) do

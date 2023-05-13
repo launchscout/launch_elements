@@ -28,4 +28,9 @@ defmodule LaunchCartWeb.PageController do
     render(conn, "fake_form.html", url: url, form_id: form_id)
   end
 
+  def fake_form_recaptcha(conn, %{"form_id" => form_id}) do
+    url = "#{String.replace(Endpoint.url(), "http:", "ws:")}/socket"
+    render(conn, "fake_form_recaptcha.html", url: url, form_id: form_id)
+  end
+
 end

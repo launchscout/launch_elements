@@ -59,3 +59,4 @@ import './launch-cart';
 import './launch-form';
 import './web-hooks';
 import './form-emails';
+import './launch-recaptcha';

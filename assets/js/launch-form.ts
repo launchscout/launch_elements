@@ -22,19 +22,21 @@ export class LaunchFormElement extends LitElement {
   @state()
   complete: boolean = false;
 
-  @property({attribute: 'form-id'})
+  @property({ attribute: 'form-id' })
   formId: string = '';
 
   @liveStateConfig('topic')
-  get topic() {return `launch_form:${this.formId}`;}
+  get topic() { return `launch_form:${this.formId}`; }
 
   constructor() {
     super();
     this.addEventListener('submit', (ev: SubmitEvent) => {
       ev.preventDefault();
-      const formData = Object.fromEntries(new FormData(ev.target as HTMLFormElement)) ;
+      const formData = Object.fromEntries(new FormData(ev.target as HTMLFormElement));
+      if (formData['g-recaptcha-response'] === undefined || formData['g-recaptcha-response'] !== '') {
+        this.dispatchEvent(new CustomEvent('launch-form-submit', { detail: formData }));
+      }
       console.log(formData);
-      this.dispatchEvent(new CustomEvent('launch-form-submit', { detail: formData}));
     });
   }
 

@@ -34,6 +34,7 @@ export class LaunchFormElement extends LitElement {
       ev.preventDefault();
       const formData = Object.fromEntries(new FormData(ev.target as HTMLFormElement));
       if (formData['g-recaptcha-response'] === undefined || formData['g-recaptcha-response'] !== '') {
+        delete formData['g-recaptcha-response'];
         this.dispatchEvent(new CustomEvent('launch-form-submit', { detail: formData }));
       }
       console.log(formData);

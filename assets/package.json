@@ -1,7 +1,7 @@
 {
   "name": "launch-elements",
   "description": "A set of custom elements to add an interactive shopping cart to your website",
-  "version": "0.0.9",
+  "version": "0.1.1",
   "main": "dist/index.js",
   "author": {
     "email": "chris@launchscout.com",

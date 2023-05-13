@@ -1,4 +1,4 @@
-class LaunchRecaptchaElement extends HTMLElement {
+export class LaunchRecaptchaElement extends HTMLElement {
   
   connectedCallback() {
     if (!document.querySelector('#recaptcha-script')) {

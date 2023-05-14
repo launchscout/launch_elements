@@ -17,6 +17,11 @@ defmodule LaunchCartWeb.PageController do
     render(conn, "usage_docs.html")
   end
 
+  def launch_bot(conn, _params) do
+    url = "#{String.replace(Endpoint.url(), "http:", "ws:")}/socket"
+    render(conn, "launch_bot.html", url: url)
+  end
+
   def fake_store(conn, %{"store_id" => store_id}) do
     store = Stores.get_store!(store_id)
     url = "#{String.replace(Endpoint.url(), "http:", "ws:")}/socket"

@@ -26,6 +26,7 @@ defmodule LaunchCartWeb.Router do
     get "/", PageController, :index
     get "/api_docs", PageController, :api_docs
     get "/usage_docs", PageController, :usage_docs
+    get "/launch_bot", PageController, :launch_bot
   end
 
   # Other scopes may use custom stacks.

@@ -184,14 +184,14 @@
     &:hover,
     &:active,
     &:focus {
-        background-color: #2c1760;   
+        background-color: #2c1760;
     }
   }
 
   &:hover,
   &:active,
   &:focus {
-      background-color: #6042BC;   
+      background-color: #6042BC;
   }
 
   &:focus-visible {
@@ -205,14 +205,28 @@
   z-index: 2;
   width: .75rem;
   height: .75rem;
-  
+
   [part='spinner-path'] {
     stroke: hsl(260, 72%, 91%);
     stroke-linecap: round;
     animation: dash 1.5s ease-in-out infinite;
   }
-  
+
 }
+
+[part='message']{
+  [part='messaage-tag']{
+    font-weight: bold;
+    color: #007BFF;
+    font-size: 0.9em;
+  }
+
+  [part='message-content'] {
+    margin-left: 20px;
+    font-size: 0.8em;
+  }
+}
+
 
 @keyframes rotate {
   100% {

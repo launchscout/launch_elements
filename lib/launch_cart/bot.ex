@@ -20,26 +20,93 @@ example_message = {:ok,
     "total_tokens" => 44
   }
 }}
+
+
 defmodule LaunchCart.Bot do
   require HTTPoison
+  require Logger
 
-  @api_url "https://api.openai.com/v1/chat/completions"
+  def stream(messages) do
+    url = "https://api.openai.com/v1/chat/completions"
+    body = Jason.encode!(body(messages, true))
+    headers = headers()
 
-  def api_key do
-    System.get_env("OPENAI_API_KEY")
+    Stream.resource(
+      fn -> HTTPoison.post!(url, body, headers, stream_to: self(), async: :once) end,
+      &handle_async_response/1,
+      &close_async_response/1
+    )
   end
 
-  def chat_with_openai(state, message) do
+  defp close_async_response(resp) do
+    :hackney.stop_async(resp)
   end
 
-  def transform_state(state, current_string) do
-    state
-    |> Enum.map(fn comment ->
-      %{
-        "role" => (comment.author == "assistant" && "assistant") || "user",
-        "content" => comment.text
-      }
-    end)
-    |> List.insert_at(-1, %{"role" => "user", "content" => current_string})
+  defp handle_async_response({:done, resp}) do
+    {:halt, resp}
+  end
+
+  defp handle_async_response(%HTTPoison.AsyncResponse{id: id} = resp) do
+    receive do
+      %HTTPoison.AsyncStatus{id: ^id, code: code} ->
+        Logger.info("openai,request,status,#{inspect(code)}")
+        HTTPoison.stream_next(resp)
+        {[], resp}
+
+      %HTTPoison.AsyncHeaders{id: ^id, headers: headers} ->
+        Logger.info("openai,request,headers,#{inspect(headers)}")
+        HTTPoison.stream_next(resp)
+        {[], resp}
+
+      %HTTPoison.AsyncChunk{id: ^id, chunk: chunk} ->
+        HTTPoison.stream_next(resp)
+        parse_chunk(chunk, resp)
+
+      %HTTPoison.AsyncEnd{id: ^id} ->
+        {:halt, resp}
+    end
+  end
+
+  defp parse_chunk(chunk, resp) do
+    {chunk, done?} =
+      chunk
+      |> String.split("data:")
+      |> Enum.map(&String.trim/1)
+      |> Enum.reject(&(&1 == ""))
+      |> Enum.reduce({"", false}, fn trimmed, {chunk, is_done?} ->
+        case Jason.decode(trimmed) do
+          {:ok, res} ->
+            IO.inspect(res, label: "openai,response")
+            delta = List.first(res["choices"])["delta"]
+            content = Map.get(delta, "content") || ""
+            {chunk <> content, is_done? or false}
+
+          {:error, %{data: "[DONE]"}} ->
+            {chunk, is_done? or true}
+        end
+      end)
+
+    if done? do
+      {[chunk], {:done, resp}}
+    else
+      {[chunk], resp}
+    end
+  end
+
+  defp headers() do
+    [
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: "Bearer #{System.get_env("OPENAI_API_KEY")}"
+    ]
+  end
+
+  defp body(messages, streaming?) do
+    %{
+      model: "gpt-3.5-turbo",
+      messages: messages,
+      stream: streaming?,
+      max_tokens: 1024
+    }
   end
 end

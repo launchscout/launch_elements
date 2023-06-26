@@ -1,6 +1,13 @@
 import { html, LitElement, css } from 'lit'
 import { customElement, property, query, state } from 'lit/decorators.js'
 import { liveState, liveStateConfig } from 'phx-live-state';
+import cartStyles from '../css/cart.lit.scss';
+
+
+interface Message {
+  role: string;
+  content: string;
+}
 
 @customElement('launch-bot')
 @liveState({
@@ -9,14 +16,17 @@ import { liveState, liveStateConfig } from 'phx-live-state';
     send: ['add_message']
   }
 })
+
+
 export class LaunchFormElement extends LitElement {
+  static styles = cartStyles;
 
   @property()
   @liveStateConfig('url')
   url: string = '';
 
   @state()
-  conversation: Array<any> = [];
+  conversation: Array<Message> = [];
 
   @property({attribute: 'bot-id'})
   botId: string = '';
@@ -29,6 +39,7 @@ export class LaunchFormElement extends LitElement {
 
   sendMessage(ev: Event) {
     ev.preventDefault();
+    console.log(this.conversation)
     this.dispatchEvent(new CustomEvent('add_message', { detail: {text: this.messageText?.value}}));
     this.messageText!.value = '';
   }
@@ -36,9 +47,11 @@ export class LaunchFormElement extends LitElement {
   render() {
     return html `
       <ul>
-        ${this.conversation && this.conversation.map((message: any) => html`
-          <li>${message.role}</li>
-          <li>${message.content}</li>
+        ${this.conversation && this.conversation.map((message: Message) => html`
+          <li part="message">
+            <span part="message-tag">${message.role}</span>
+            <div part="message-content">${message.content}</div>
+          </li>
         `)}
       </ul>
       <form>
@@ -47,4 +60,5 @@ export class LaunchFormElement extends LitElement {
       </form>
     `;
   }
+
 }

@@ -60,13 +60,15 @@ defmodule LaunchCart.MixProject do
       {:swoosh, "~> 1.3"},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
-      {:httpoison, ">= 0.0.0"},
+      {:httpoison, "~> 2.0"},
+      {:poison, "~> 5.0"},
       {:live_elements, ">= 0.0.0"},
       {:wallaby, "~> 0.30.2",
        git: "https://github.com/launchscout/wallaby.git",
        branch: "shadow-dom",
        runtime: false,
-       only: :test}
+       only: :test},
+      {:openai, "~> 0.5.2"}
     ]
   end
 

@@ -17,9 +17,11 @@ defmodule LaunchCart.Application do
         # Start the PubSub system
         {Phoenix.PubSub, name: LaunchCart.PubSub},
         # Start the Endpoint (http/https)
-        LaunchCartWeb.Endpoint
+        LaunchCartWeb.Endpoint,
         # Start a worker by calling: LaunchCart.Worker.start_link(arg)
         # {LaunchCart.Worker, arg}
+
+        {Task.Supervisor, name: LaunchCart.TaskSupervisor} #no idea what this does tbh Thanks ChatGPT :D
       ] ++
         Application.get_env(:launch_cart, :supervised_processes, [
           {Cachex,

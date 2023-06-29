@@ -11,6 +11,7 @@ defmodule LaunchCart.Factory do
   alias LaunchCart.Carts.CartItem
   alias LaunchCart.StripeAccounts.StripeAccount
   alias LaunchCart.CommentSites.CommentSite
+  alias LaunchCart.Comments.Comment
   alias LaunchCart.Forms.{Form, FormResponse, FormEmail}
   alias LaunchCart.WebHooks.WebHook
 
@@ -90,6 +91,14 @@ defmodule LaunchCart.Factory do
       user: build(:user),
       name: "My Comment Site",
       url: "https://launchscout.com"
+    }
+  end
+
+  def comment_factory() do
+    %Comment{
+      comment_site: build(:comment_site),
+      author: "Bob",
+      comment: "I think therefore I am"
     }
   end
 end

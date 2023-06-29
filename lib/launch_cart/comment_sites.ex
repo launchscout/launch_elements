@@ -40,7 +40,7 @@ defmodule LaunchCart.CommentSites do
       ** (Ecto.NoResultsError)
 
   """
-  def get_comment_site!(id), do: Repo.get!(CommentSite, id)
+  def get_comment_site!(id), do: Repo.get!(CommentSite, id) |> Repo.preload([:comments])
 
   @doc """
   Creates a comment_site.

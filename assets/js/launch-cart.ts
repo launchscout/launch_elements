@@ -34,7 +34,7 @@ const formatPrice = (price) => {
   },
   events: {
     send: ['checkout', 'remove_cart_item', 'increase_quantity', 'decrease_quantity'],
-    receive: ['checkout_redirect', 'cart_created', 'checkout_complete']
+    receive: ['checkout_redirect', 'livestate-error', 'cart_created', 'checkout_complete']
   }
 })
 export class LaunchCartElement extends LitElement {
@@ -89,6 +89,9 @@ export class LaunchCartElement extends LitElement {
     this.addEventListener('cart_created', (e: CustomEvent<{ cart_id: string }>) => {
       console.log('cart created')
       window.localStorage.setItem('cart_id', e.detail.cart_id);
+    });
+    this.addEventListener('livestate-error', (e: CustomEvent<{ error: string }>) => {
+      console.error(e);
     });
   }
 

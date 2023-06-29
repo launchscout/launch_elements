@@ -12,6 +12,8 @@ defmodule LaunchCartWeb.UserSocket do
 
   channel "launch_form:*", LaunchCartWeb.LaunchFormChannel
 
+  channel "launch_comments:*", LaunchCartWeb.CommentsChannel
+
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After
   # verification, you can put default assigns into

@@ -1,0 +1,40 @@
+<h1>Listing Comment Sites</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <.modal return_to={Routes.comment_site_index_path(@socket, :index)}>
+    <.live_component
+      module={LaunchCartWeb.CommentSiteLive.FormComponent}
+      id={@comment_site.id || :new}
+      user_id={@current_user.id}
+      title={@page_title}
+      action={@live_action}
+      comment_site={@comment_site}
+      return_to={Routes.comment_site_index_path(@socket, :index)}
+    />
+  </.modal>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="comment_sites">
+    <%= for comment_site <- @comment_sites do %>
+      <tr id={"comment_site-#{comment_site.id}"}>
+        <td><%= comment_site.name %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.comment_site_show_path(@socket, :show, comment_site) %></span>
+          <span><%= live_patch "Edit", to: Routes.comment_site_index_path(@socket, :edit, comment_site) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: comment_site.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Form", to: Routes.comment_site_index_path(@socket, :new) %></span>

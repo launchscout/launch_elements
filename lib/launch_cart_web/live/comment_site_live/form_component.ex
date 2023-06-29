@@ -42,8 +42,8 @@ defmodule LaunchCartWeb.CommentSiteLive.FormComponent do
     end
   end
 
-  defp save_comment_site(socket, :new, comment_site_params) do
-    case CommentSites.create_comment_site(comment_site_params) do
+  defp save_comment_site(%{assigns: %{user_id: user_id}} = socket, :new, comment_site_params) do
+    case CommentSites.create_comment_site(comment_site_params |> Map.put("user_id", user_id)) do
       {:ok, comment_site} ->
 
         {:noreply,

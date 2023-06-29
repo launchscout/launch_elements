@@ -16,7 +16,7 @@ defmodule LaunchCart.CommentSites.CommentSite do
   @doc false
   def changeset(comment_site, attrs) do
     comment_site
-    |> cast(attrs, [:name, :url])
+    |> cast(attrs, [:name, :url, :user_id])
     |> validate_required([:name, :url])
   end
 end

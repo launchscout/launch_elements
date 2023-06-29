@@ -7,6 +7,7 @@ defmodule LaunchCart.CommentSites do
   alias LaunchCart.Repo
 
   alias LaunchCart.CommentSites.CommentSite
+  alias LaunchCart.Accounts.User
 
   @doc """
   Returns the list of comment_sites.
@@ -19,6 +20,10 @@ defmodule LaunchCart.CommentSites do
   """
   def list_comment_sites do
     Repo.all(CommentSite)
+  end
+
+  def list_comment_sites(%User{id: user_id}) do
+    Repo.all(from comment_site in CommentSite, where: comment_site.user_id == ^user_id)
   end
 
   @doc """

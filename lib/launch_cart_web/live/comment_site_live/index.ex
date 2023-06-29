@@ -6,8 +6,8 @@ defmodule LaunchCartWeb.CommentSiteLive.Index do
 
 
   @impl true
-  def mount(_params, _session, socket) do
-    {:ok, assign(socket, :comment_sites, CommentSites.list_comment_sites())}
+  def mount(_params, _session, %{assigns: %{current_user: user}} = socket) do
+    {:ok, assign(socket, :comment_sites, CommentSites.list_comment_sites(user))}
   end
 
   @impl true

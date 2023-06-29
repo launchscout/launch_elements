@@ -15,8 +15,8 @@ defmodule LaunchCartWeb.CommentSiteLiveTest do
     %{user: user, conn: conn}
   end
 
-  defp create_comment_site(_) do
-    comment_site = comment_site_fixture()
+  defp create_comment_site(%{user: user}) do
+    comment_site = insert(:comment_site, user: user)
     %{comment_site: comment_site}
   end
 
@@ -24,64 +24,87 @@ defmodule LaunchCartWeb.CommentSiteLiveTest do
     setup [:create_comment_site]
 
     test "lists all comment_sites", %{conn: conn, comment_site: comment_site} do
+      other_comment_site = insert(:comment_site, name: "Other comment_site")
       {:ok, _index_live, html} = live(conn, Routes.comment_site_index_path(conn, :index))
 
       assert html =~ "Listing Comment sites"
       assert html =~ comment_site.name
+      refute html =~ other_comment_site.name
     end
 
-  #   test "saves new comment_site", %{conn: conn} do
-  #     {:ok, index_live, _html} = live(conn, Routes.comment_site_index_path(conn, :index))
+    # test "saves new form", %{conn: conn} do
+    #   {:ok, index_live, _html} = live(conn, Routes.comment_site_index_path(conn, :index))
 
-  #     assert index_live |> element("a", "New Comment site") |> render_click() =~
-  #              "New Comment site"
+    #   assert index_live |> element("a", "New Form") |> render_click() =~
+    #            "New Form"
 
-  #     assert_patch(index_live, ~p"/comment_sites/new")
+    #   assert_patch(index_live, Routes.form_index_path(conn, :new))
 
-  #     assert index_live
-  #            |> form("#comment_site-form", comment_site: @invalid_attrs)
-  #            |> render_change() =~ "can&#39;t be blank"
+    #   assert index_live
+    #          |> form("#form-form", form: @invalid_attrs)
+    #          |> render_change() =~ "can&#39;t be blank"
 
-  #     assert index_live
-  #            |> form("#comment_site-form", comment_site: @create_attrs)
-  #            |> render_submit()
+    #   {:ok, _, html} =
+    #     index_live
+    #     |> form("#form-form", form: @create_attrs)
+    #     |> render_submit()
+    #     |> follow_redirect(conn, Routes.form_index_path(conn, :index))
 
-  #     assert_patch(index_live, ~p"/comment_sites")
+    #   assert html =~ "Form created successfully"
+    #   assert html =~ "some name"
+    # end
 
-  #     html = render(index_live)
-  #     assert html =~ "Comment site created successfully"
-  #     assert html =~ "some name"
-  #   end
+    test "saves new comment_site", %{conn: conn} do
+      {:ok, index_live, _html} = live(conn, Routes.comment_site_index_path(conn, :index))
 
-  #   test "updates comment_site in listing", %{conn: conn, comment_site: comment_site} do
-  #     {:ok, index_live, _html} = live(conn, ~p"/comment_sites")
+      assert index_live |> element("a", "New Comment Site") |> render_click() =~
+               "New Comment site"
 
-  #     assert index_live |> element("#comment_sites-#{comment_site.id} a", "Edit") |> render_click() =~
-  #              "Edit Comment site"
+      assert_patch(index_live, Routes.comment_site_index_path(conn, :new))
 
-  #     assert_patch(index_live, ~p"/comment_sites/#{comment_site}/edit")
+      assert index_live
+             |> form("#comment_site-form", comment_site: @invalid_attrs)
+             |> render_change() =~ "can&#39;t be blank"
 
-  #     assert index_live
-  #            |> form("#comment_site-form", comment_site: @invalid_attrs)
-  #            |> render_change() =~ "can&#39;t be blank"
+      {:ok, _, html} =
+        index_live
+        |> form("#comment_site-form", comment_site: @create_attrs)
+        |> render_submit()
+        |> follow_redirect(conn, Routes.comment_site_index_path(conn, :index))
 
-  #     assert index_live
-  #            |> form("#comment_site-form", comment_site: @update_attrs)
-  #            |> render_submit()
+      assert html =~ "Comment site created successfully"
+      assert html =~ "some name"
+    end
 
-  #     assert_patch(index_live, ~p"/comment_sites")
+    #   test "updates comment_site in listing", %{conn: conn, comment_site: comment_site} do
+    #     {:ok, index_live, _html} = live(conn, ~p"/comment_sites")
 
-  #     html = render(index_live)
-  #     assert html =~ "Comment site updated successfully"
-  #     assert html =~ "some updated name"
-  #   end
+    #     assert index_live |> element("#comment_sites-#{comment_site.id} a", "Edit") |> render_click() =~
+    #              "Edit Comment site"
 
-  #   test "deletes comment_site in listing", %{conn: conn, comment_site: comment_site} do
-  #     {:ok, index_live, _html} = live(conn, ~p"/comment_sites")
+    #     assert_patch(index_live, ~p"/comment_sites/#{comment_site}/edit")
 
-  #     assert index_live |> element("#comment_sites-#{comment_site.id} a", "Delete") |> render_click()
-  #     refute has_element?(index_live, "#comment_sites-#{comment_site.id}")
-  #   end
+    #     assert index_live
+    #            |> form("#comment_site-form", comment_site: @invalid_attrs)
+    #            |> render_change() =~ "can&#39;t be blank"
+
+    #     assert index_live
+    #            |> form("#comment_site-form", comment_site: @update_attrs)
+    #            |> render_submit()
+
+    #     assert_patch(index_live, ~p"/comment_sites")
+
+    #     html = render(index_live)
+    #     assert html =~ "Comment site updated successfully"
+    #     assert html =~ "some updated name"
+    #   end
+
+    #   test "deletes comment_site in listing", %{conn: conn, comment_site: comment_site} do
+    #     {:ok, index_live, _html} = live(conn, ~p"/comment_sites")
+
+    #     assert index_live |> element("#comment_sites-#{comment_site.id} a", "Delete") |> render_click()
+    #     refute has_element?(index_live, "#comment_sites-#{comment_site.id}")
+    #   end
   end
 
   # describe "Show" do

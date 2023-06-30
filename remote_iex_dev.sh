@@ -1,0 +1,1 @@
+fly ssh console --pty -a launch-cart-dev -C "/app/bin/launch_cart remote"

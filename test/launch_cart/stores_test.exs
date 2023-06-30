@@ -75,6 +75,12 @@ defmodule LaunchCart.StoresTest do
       store = insert(:store)
       assert %Ecto.Changeset{} = Stores.change_store(store)
     end
+
+    test "delete_store cascades deleting" do
+      store = insert(:store)
+      cart = insert(:cart, store: store)
+      assert {:ok, %Store{}} = Stores.delete_store(store)
+    end
   end
 
 end

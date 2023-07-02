@@ -5,5 +5,7 @@
 </launch-cart-additem>
 <% end %>
 <div> Here is a cart
-  <launch-cart url={@url} store-id={@store.id}></launch-cart>
+  <launch-cart url={@url} store-id={@store.id}>
+    <div slot="checkout-complete">OMG Thanks so much!!!</div>
+  </launch-cart>
 </div>

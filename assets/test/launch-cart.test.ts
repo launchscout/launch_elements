@@ -51,4 +51,14 @@ describe('launch-cart test', async () => {
     await launchCart.updateComplete;
     expect(launchCart.shadowRoot.querySelector("#checkout-spinner")).to.exist;
   });
+  it('shows completion message after checkout', async () => {
+    const launchCart: LaunchCartElement = await fixture(`
+      <launch-cart url="wss://foo.bar"></launch-cart>
+    `);
+    launchCart.cart =  cart;
+    await launchCart.updateComplete;
+    launchCart.dispatchEvent(new CustomEvent('checkout_complete', { detail: { message: 'hi' }}));
+    await launchCart.updateComplete;
+    expect(launchCart.shadowRoot.querySelector("#thank-you")).to.exist;
+  });
 })

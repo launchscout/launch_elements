@@ -32,9 +32,12 @@ body {
 }
 
 section + section {
-    margin-top: calc(3 * $space-xl);
+    margin-top: calc(2 * $space-xl);
 }
 
+section h1 {
+  margin-bottom: $space-lg;
+}
 .usage-layout {
     display: grid;
         grid-template-columns: 1fr minmax(0, 2.5fr);

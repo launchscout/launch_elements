@@ -6,7 +6,7 @@ Launch Elements is a set of Custom Elements that make it easy to add dynamic fea
 
 The `<launch-cart>` element lets you easily add interactive ecommerce to a static html website. Currently it uses Stripe for the back end payment and product data. Other backends will be supported in the future.
 
-![Launch Cart Tutorial](https://www.loom.com/share/90d2f739bdac4fc0bee53aa2c59cb9aa)
+[![Launch Cart Tutorial](https://cdn.loom.com/sessions/thumbnails/90d2f739bdac4fc0bee53aa2c59cb9aa-with-play.gif)](https://www.loom.com/share/90d2f739bdac4fc0bee53aa2c59cb9aa)
 
 ## Using Launch Elements
 

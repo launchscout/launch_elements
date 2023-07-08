@@ -70,7 +70,7 @@ defmodule LaunchCart.CartTest do
 
     test "an uncached product", %{cart: cart} do
       assert {:ok, %Cart{items: [%CartItem{quantity: 1, stripe_price_id: "price_789"}]}} =
-        Carts.add_item(cart, "price_789")
+               Carts.add_item(cart, "price_789")
     end
   end
 
@@ -81,6 +81,12 @@ defmodule LaunchCart.CartTest do
              Carts.increase_quantity(cart, item_id)
 
     assert {:ok, %Cart{items: [%CartItem{quantity: 1, id: ^item_id}]}} =
+             Carts.decrease_quantity(cart, item_id)
+
+    assert {:ok, %Cart{items: [%CartItem{quantity: 0, id: ^item_id}]}} =
+             Carts.decrease_quantity(cart, item_id)
+
+    assert {:ok, %Cart{items: [%CartItem{quantity: 0, id: ^item_id}]}} =
              Carts.decrease_quantity(cart, item_id)
   end
 

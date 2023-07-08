@@ -104,8 +104,11 @@ defmodule LaunchCart.Carts do
     get_cart!(cart_id)
   end
 
-  def increase_quantity(cart, item_id), do: update_quantity(cart, item_id, &(&1 + 1))
-  def decrease_quantity(cart, item_id), do: update_quantity(cart, item_id, &(&1 - 1))
+  def increase_quantity(cart, item_id), do: update_quantity(cart, item_id, &increment/1)
+  def decrease_quantity(cart, item_id), do: update_quantity(cart, item_id, &decrement/1)
+
+  def increment(quantity), do: quantity + 1
+  def decrement(quantity), do: max(0, quantity - 1)
 
   def update_quantity(cart, item_id, update_fn) do
     with %CartItem{quantity: quantity} = cart_item <- Repo.get(CartItem, item_id),

@@ -34,7 +34,7 @@ const formatPrice = (price) => {
   },
   events: {
     send: ['checkout', 'remove_cart_item', 'increase_quantity', 'decrease_quantity'],
-    receive: ['checkout_redirect', 'cart_created', 'checkout_complete']
+    receive: ['checkout_redirect', 'cart_created', 'checkout_complete', 'livestate-error']
   }
 })
 export class LaunchCartElement extends LitElement {

@@ -1,1 +1,1 @@
-fly ssh console --pty -C "app/bin/launch_cart remote"
+fly ssh console --pty -C "/app/bin/launch_cart remote"

@@ -33,4 +33,7 @@ defmodule LaunchCartWeb.CommentsChannel do
   def handle_message({:comment_created, comment}, state) do
     {:noreply, state |> Map.put(:comments, Comments.list_comments(comment.comment_site_id))}
   end
+
+  @impl true
+  def handle_message(_message, state), do: {:noreply, state}
 end

@@ -6,7 +6,9 @@ defmodule LaunchCart.Comments do
   import Ecto.Query, warn: false
   alias LaunchCart.Repo
 
-  alias LaunchCart.Comments.Comment
+  alias LaunchCart.Comments.{Comment, CommentEmail}
+
+  alias LaunchCart.Mailer
 
   @doc """
   Returns the list of comments.
@@ -62,8 +64,7 @@ defmodule LaunchCart.Comments do
           {:comment_created, comment}
         )
 
-        # what do here?
-        # comment |> CommentEmail.comment_added() |> Mailer.deliver() |> IO.inspect()
+        comment |> CommentEmail.comment_added() |> Mailer.deliver() |> IO.inspect()
         {:ok, comment}
 
       {:error, changeset} ->

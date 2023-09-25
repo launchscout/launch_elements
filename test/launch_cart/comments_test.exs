@@ -12,7 +12,7 @@ defmodule LaunchCart.CommentsTest do
 
     test "list_comments/1 returns all comments for site" do
       comment = insert(:comment)
-      assert Comments.list_comments() |> Enum.map(& &1.id) == [comment.id]
+      assert Comments.list_comments(comment.comment_site_id) |> Enum.map(& &1.id) == [comment.id]
     end
 
     test "get_comment!/1 returns the comment with given id" do

@@ -17,8 +17,9 @@ defmodule LaunchCart.Comments do
       [%Comment{}, ...]
 
   """
-  def list_comments do
-    Repo.all(Comment)
+  def list_comments(site_id) do
+    from(c in Comment, where: c.comment_site_id == ^site_id, order_by: {:desc, c.inserted_at})
+    |> Repo.all()
   end
 
   @doc """
@@ -53,6 +54,21 @@ defmodule LaunchCart.Comments do
     %Comment{}
     |> Comment.changeset(attrs)
     |> Repo.insert()
+    |> case do
+      {:ok, comment} ->
+        Phoenix.PubSub.broadcast(
+          LaunchCart.PubSub,
+          "comments:#{comment.comment_site_id}",
+          {:comment_created, comment}
+        )
+
+        # what do here?
+        # comment |> CommentEmail.comment_added() |> Mailer.deliver() |> IO.inspect()
+        {:ok, comment}
+
+      {:error, changeset} ->
+        {:error, changeset}
+    end
   end
 
   @doc """

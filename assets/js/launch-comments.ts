@@ -48,7 +48,8 @@ export class LaunchCommentsElement extends LitElement {
       detail: {
         author: this.author?.value,
         comment: this.comment?.value,
-        url: window.location.href
+        url: window.location.href,
+        comment_site_id: this.siteId
       }
     }));
     e.preventDefault();

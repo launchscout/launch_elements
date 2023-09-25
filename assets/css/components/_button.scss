@@ -5,9 +5,10 @@ a.button {
     border-radius: $border-radius;
     color: $white;
     cursor: pointer;
+    display: inline-block;
     font-weight: $font-weight-bold;
-    margin: 0;
     padding: $space-xs $space-md;
+    text-decoration: none;
     transition: $transition;
 
     i.material-icons {
@@ -19,7 +20,6 @@ a.button {
     &:focus {
         background-color: $color-primary;
         color: $white;
-        margin: 0;
     }
 
     &:active {

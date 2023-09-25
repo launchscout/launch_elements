@@ -72,14 +72,22 @@ defmodule LaunchCartWeb.LaunchCartChannelTest do
       })
     end
 
-    test "increase_quanitty", %{cart: %{id: cart_id, items: [%{id: item_id}]}, socket: socket} do
+    test "increase and decrease quantity", %{cart: %{id: cart_id, items: [%{id: item_id}]}, socket: socket} do
       push(socket, "lvs_evt:increase_quantity", %{"item_id" => item_id})
 
       assert_push("state:change", %{
         state: %{cart: %{id: cart_id, items: [%{stripe_price_id: "price_123", quantity: 2}]}},
         version: 1
       })
+
+      push(socket, "lvs_evt:decrease_quantity", %{"item_id" => item_id})
+
+      assert_push("state:change", %{
+        state: %{cart: %{id: cart_id, items: [%{stripe_price_id: "price_123", quantity: 1}]}},
+        version: 2
+      })
     end
+
 
     test "checking out", %{cart: %{id: cart_id}, socket: socket} do
       push(socket, "lvs_evt:checkout", %{"return_url" => "http://foo.bar"})

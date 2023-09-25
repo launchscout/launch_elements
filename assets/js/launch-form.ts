@@ -10,7 +10,8 @@ import { liveState, liveStateConfig } from 'phx-live-state';
     name: 'launchFormState'
   },
   events: {
-    send: ['launch-form-submit']
+    send: ['launch-form-submit'],
+    receive: ['livestate-error']
   }
 })
 export class LaunchFormElement extends LitElement {

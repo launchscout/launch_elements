@@ -142,7 +142,7 @@ export class LaunchCartElement extends LitElement {
         <button @click=${this.closeThanks} part="close-modal" aria-label="Close Modal">✕</button>
       </div>
       <div part="modal-body">
-        <p part="cart-thank-you">Thanks for purchasing!</p>
+        <slot name="checkout-complete"><p part="cart-thank-you">Thanks for purchasing!</p></slot>
       </div>
     </dialog>
     <dialog @click=${this.closeCart} part="modal" id="cart-details">

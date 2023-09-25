@@ -38,7 +38,7 @@ defmodule LaunchCart.MixProject do
       {:cachex, "~> 3.4.0"},
       {:cors_plug, "~> 3.0"},
       {:dart_sass, "~> 0.5", runtime: Mix.env() == :dev},
-      {:ecto_sql, "~> 3.6"},
+      {:ecto_sql, "~> 3.10.2"},
       {:esbuild, "~> 0.4", runtime: Mix.env() == :dev},
       {:ex_machina, "~> 2.7.0"},
       {:faker, ">= 0.0.0"},

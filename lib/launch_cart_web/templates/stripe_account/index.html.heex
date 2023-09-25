@@ -51,6 +51,7 @@
 
             <td class="table__actions">
               <span><%= link "Show", to: Routes.stripe_account_path(@conn, :show, stripe_account) %></span>
+              <span><%= link "Disconnect", method: "delete", data: [confirm: "Disconnect this Stripe Account from Launch Elements?"], to: Routes.stripe_account_path(@conn, :delete, stripe_account) %></span>
             </td>
           </tr>
       <% end %>

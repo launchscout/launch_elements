@@ -5,24 +5,28 @@
 </nav-toggle>
 
 <nav class="nav" title="Site Navigation">
-    <%= if @current_user do %>
-      <div>
-        <%= link "Stripe Accounts", to: Routes.stripe_account_path(@conn, :index) %>
-        <%= link "Stores", to: Routes.store_index_path(@conn, :index) %>
-      </div>
+  <%= if @current_user do %>
+    <div>
+      <%= link("Documentation", to: Routes.page_path(@conn, :usage_docs)) %>
+      <%= link("Stripe Accounts", to: Routes.stripe_account_path(@conn, :index)) %>
+      <%= link("Stores", to: Routes.store_index_path(@conn, :index)) %>
+    </div>
 
-      <div>
-        <%= @current_user.email %>
-        <%= link to: Routes.user_settings_path(@conn, :edit) do %>
-          <i class="material-icons">settings</i> <span class="u-show--tablet">Settings</span>
-        <% end %>
-        <%= link "Log out", to: Routes.user_session_path(@conn, :delete), method: :delete %>
-      </div>
-    <% else %>
-      <span></span>
-      <div>
-        <%= link "Register", to: Routes.user_registration_path(@conn, :new) %> or 
-        <%= link "Log in", to: Routes.user_session_path(@conn, :new) %>
-      </div>
-    <% end %>
+    <div>
+      <%= @current_user.email %>
+      <%= link to: Routes.user_settings_path(@conn, :edit) do %>
+        <i class="material-icons">settings</i> <span class="u-show--tablet">Settings</span>
+      <% end %>
+      <%= link("Log out", to: Routes.user_session_path(@conn, :delete), method: :delete) %>
+    </div>
+  <% else %>
+    <span></span>
+    <div>
+      <%= link("Documentation", to: Routes.page_path(@conn, :usage_docs)) %>
+      <%= link("Register", to: Routes.user_registration_path(@conn, :new)) %> or <%= link(
+        "Log in",
+        to: Routes.user_session_path(@conn, :new)
+      ) %>
+    </div>
+  <% end %>
 </nav>

@@ -59,15 +59,17 @@ p {
 }
 
 a, .text-link {
-    border-color: $color-primary-light;
-    border-style: solid;
-    border-width: 0 0 2px 0;
+    // border-color: $color-primary-light;
+    // border-style: solid;
+    // border-width: 0 0 2px 0;
     color: $black;
     display: inline-block;
     font-weight: $font-weight-bold;
-    margin-bottom: 2px;
-    text-decoration: none;
-    transition: $transition;
+    text-decoration-color: $color-primary-light;
+    text-decoration-line: underline;
+    text-decoration-thickness: 2px;
+
+    transition: text-decoration 300ms ease;
 
     &:visited {
         color: $color-primary;
@@ -76,8 +78,8 @@ a, .text-link {
     &:hover,
     &:active,
     &:focus {
-        border-width: 0 0 4px 0;
-        margin-bottom: 0;
+        text-decoration-thickness: 4px;
+        text-decoration-color: $color-primary;
     }
 
     @include focus-visible;

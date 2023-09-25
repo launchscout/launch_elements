@@ -85,7 +85,7 @@ defmodule LaunchCartWeb.Features.LaunchCartTest do
     |> assert_text("My Store")
     |> find(css("launch-cart"))
     |> shadow_root()
-    |> assert_has(css("dialog"))
+    |> assert_has(css("dialog", text: "OMG Thanks"))
 
     PallyTest.here(session)
   end

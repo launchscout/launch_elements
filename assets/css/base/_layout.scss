@@ -32,7 +32,11 @@ body {
 }
 
 section + section {
-    margin-top: calc(3 * $space-xl);
+    margin-top: calc(2 * $space-xl);
+}
+
+section h1 {
+  margin-bottom: $space-lg;
 }
 
 .usage-layout {

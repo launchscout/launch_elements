@@ -1,56 +1,29 @@
 .hero {
-    background: radial-gradient($color-primary-tint, $gray-lightest 70%);
-    display: grid;
-        gap: $space-xl;
-        align-items: stretch;
-        grid-template-columns: 1fr 1.75fr;
-     height: clamp(400px, 60vh, 700px);
+    // background-image:   linear-gradient(190deg, transparentize($gray-lightest, .8), transparentize($gray-lightest, 0) 70.71%),
+    //                     linear-gradient(127deg, transparentize($color-primary-light, .9), transparentize($color-primary-light, .4), $gray-lightest 70.71%),
+    //                     linear-gradient(336deg, transparentize($color-primary-tint, .8), transparentize($color-primary-tint, 0) 70.71%);   
+    // background-size: 100% 30%;
+    // background-repeat: no-repeat;
     padding: $space-xl 0;
-    position: relative;
-
-    @media screen and (max-width: $screen-tablet) {
-        grid-template-columns: 1fr;
-        height: unset;
-    }
+    text-align: center;
 
     h1 {
         font-size: clamp(2rem, 6vmin, 3rem);
+        max-width: 40rem;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: $space-sm;
     }
 
     p {
         font-size: $font-size-lg;
-    }
-    > div {
-        margin: auto 0;
-    }
-
-    &__images {
-        position: relative;
+        max-width: 45rem;
+        margin-left: auto;
+        margin-right: auto;
     }
 
-    &__image {
-        position: relative;
-
-        img {
-            width: 100%;
-        }
-
-        &:nth-child(1) {
-            top: 30px;
-            width: 35%;
-        }
-
-        &:nth-child(2) {
-            position: absolute;
-            top: -30px;
-            right: 0;
-            width: 60%;
-        }
-
-        &:nth-child(3) {
-            top: 50px;
-            left: 15%;
-            width: 45%;
-        }
+    .video {
+        box-shadow: 0 0 60px transparentize($color-primary-light, .2);
+        margin: $space-lg 0;
     }
 }

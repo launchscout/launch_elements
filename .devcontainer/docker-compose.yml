@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  elixir:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # Elixir Version: 1.9, 1.10, 1.10.4, ...
+        VARIANT: '1.15.4'
+        # Phoenix Version: 1.4.17, 1.5.4, ...
+        PHOENIX_VERSION: '1.7.6'
+        # Node Version: 10, 11, ...
+        INSTALL_NODE: 'true'
+        NODE_VERSION: '20.5.1'
+
+    volumes:
+      - ..:/workspace:cached
+    # Runs app on the same network as the database container, allows "forwardPorts" in devcontainer.json function.
+    network_mode: service:db
+    environment:
+      DATABASE_HOSTNAME: db
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: postgres
+
+    # Overrides default command so things don't shut down after the process ends.
+    command: sleep infinity
+
+  db:
+    image: kartoza/postgis:latest
+    restart: unless-stopped
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: launch_cart_dev
+
+volumes:
+  postgres-data:

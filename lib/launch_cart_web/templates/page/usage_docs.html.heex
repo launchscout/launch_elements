@@ -129,7 +129,8 @@
             <p>With the Launch Elements Cart, there are two available slots. One to change the cart icon and one to change the add to cart button. Doing so is super simple.</p>
 
             <h4>The Cart Icon</h4>
-            <p>To update the cart icon, all you have to do is give the element you want to replace the cart icon the <code class="language-html">slot="icon"</code> attribute and wrap it with the <code class="language-html">launch-cart</code> element like shown.</p>
+            <p>To update the cart icon, all you have to do is give the element you want to replace the cart icon 
+            the <code class="language-html">slot="icon"</code> attribute and wrap it with the <code class="language-html">launch-cart</code> element like shown.</p>
             <pre><code class="language-html"><!--<launch-cart url="url" store-id="store_id">
     <i slot="icon">🍕</i>
 </launch-cart>--></code></pre>
@@ -152,6 +153,14 @@
             </div>
             <p>The only caveat is that the element must have a click event—so either a button or a link.</p>
 
+            <h4>Customizing the Checkout Completion modal</h4>
+            <p>When a user completes their checkout, a modal will appear to thank them for their purchase. 
+            You can replace the default content of this modal by adding your own markup inside the <code class="language-html">launch-cart</code> element.</p>
+            Add the <code class="language-html">slot="checkout-complete"</code> attribute to the element you want to replace the default content with as shown below.
+            
+            <pre><code class="language-html"><!--<launch-cart url="url" store-id="store_id">
+    <div slot="checkout-comlete">OMG!! You bought a thing and we love you sooo much!!</div>
+</launch-cart>--></code></pre>
             <h3 id="css">CSS</h3>
             <p>Because Launch Elements are custom HTML elements, they are stylable via CSS. To give you the CSS control you need, we expose <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/::part" target="_blank">component parts</a> for everything you might want to style.</p>
             <p>Component Parts offer a way to customize each element within the shadow DOM of our elements using purely CSS. All you have to do is use the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/::part" target="_blank">CSS part selector</a>, or <code class="language-html">::part()</code>.</p>

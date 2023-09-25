@@ -67,7 +67,7 @@ defmodule LaunchCartWeb.StripeAccountController do
     {:ok, _stripe_account} = StripeAccounts.delete_stripe_account(stripe_account)
 
     conn
-    |> put_flash(:info, "Launch account deleted successfully.")
+    |> put_flash(:info, "Stripe account disconnected successfully.")
     |> redirect(to: Routes.stripe_account_path(conn, :index))
   end
 end

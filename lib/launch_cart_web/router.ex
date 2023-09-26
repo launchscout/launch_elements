@@ -22,6 +22,7 @@ defmodule LaunchCartWeb.Router do
 
     get "/fake_stores/:store_id", PageController, :fake_store
     get "/fake_form/:form_id", PageController, :fake_form
+    get "/fake_comment_site/:comment_site_id", PageController, :fake_comment_site
     get "/fake_form_recaptcha/:form_id", PageController, :fake_form_recaptcha
     get "/", PageController, :index
     get "/api_docs", PageController, :api_docs
@@ -117,6 +118,13 @@ defmodule LaunchCartWeb.Router do
 
       live "/web_hooks/:id", WebHookLive.Show, :show
       live "/web_hooks/:id/show/edit", WebHookLive.Show, :edit
+
+      live "/comment_sites", CommentSiteLive.Index, :index
+      live "/comment_sites/new", CommentSiteLive.Index, :new
+      live "/comment_sites/:id/edit", CommentSiteLive.Index, :edit
+
+      live "/comment_sites/:id", CommentSiteLive.Show, :show
+      live "/comment_sites/:id/show/edit", CommentSiteLive.Show, :edit
     end
   end
 

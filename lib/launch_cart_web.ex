@@ -62,6 +62,7 @@ defmodule LaunchCartWeb do
   def component do
     quote do
       use Phoenix.Component
+      import LaunchCartWeb.CoreComponents
 
       unquote(view_helpers())
     end

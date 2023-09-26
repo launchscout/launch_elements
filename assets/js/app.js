@@ -57,6 +57,7 @@ window.liveSocket = liveSocket
 import './launch-cart-additem';
 import './launch-cart';
 import './launch-form';
+import './launch-comments';
 import './web-hooks';
 import './form-emails';
 import './launch-recaptcha';

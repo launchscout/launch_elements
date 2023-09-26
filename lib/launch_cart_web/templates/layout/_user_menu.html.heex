@@ -10,6 +10,8 @@
       <%= link("Documentation", to: Routes.page_path(@conn, :usage_docs)) %>
       <%= link("Stripe Accounts", to: Routes.stripe_account_path(@conn, :index)) %>
       <%= link("Stores", to: Routes.store_index_path(@conn, :index)) %>
+      <%= link("Comments", to: Routes.comment_site_index_path(@conn, :index)) %>
+      <%= link("Forms", to: Routes.form_index_path(@conn, :index)) %>
     </div>
 
     <div>

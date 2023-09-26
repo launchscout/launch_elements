@@ -2,6 +2,7 @@ defmodule LaunchCartWeb.CommentSiteLive.Show do
   use LaunchCartWeb, :live_view
 
   alias LaunchCart.CommentSites
+  alias LaunchCartWeb.Endpoint
 
   @impl true
   def mount(_params, _session, socket) do
@@ -10,8 +11,10 @@ defmodule LaunchCartWeb.CommentSiteLive.Show do
 
   @impl true
   def handle_params(%{"id" => id}, _, socket) do
+    wsurl = Endpoint.url() |> String.replace("http:", "ws:") |> String.replace("https:", "wss:")
     {:noreply,
      socket
+     |> assign(:url, "#{wsurl}/socket")
      |> assign(:page_title, page_title(socket.assigns.live_action))
      |> assign(:comment_site, CommentSites.get_comment_site!(id))}
   end

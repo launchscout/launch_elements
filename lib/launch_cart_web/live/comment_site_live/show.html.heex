@@ -1,1 +1,54 @@
-<h1>Stuff goes here</h1>
+<h1>Adding comments to your website</h1>
+
+<%= if @live_action in [:edit] do %>
+  <.modal return_to={Routes.form_show_path(@socket, :show, @comment_site)}>
+    <.live_component
+      module={LaunchCartWeb.FormLive.FormComponent}
+      id={@comment_site.id}
+      title={@page_title}
+      action={@live_action}
+      user_id={@current_user.id}
+      form={@comment_site}
+      return_to={Routes.form_show_path(@socket, :show, @comment_site)}
+    />
+  </.modal>
+<% end %>
+
+<p>
+  Below are the details you'll need
+</p>
+
+<dl >
+    <dt>Name:</dt>
+    <dd><%= @comment_site.name %></dd>
+    <dt>Site ID:</dt>
+    <dd><%= @comment_site.id %></dd>
+    <dt>URL:</dt>
+    <dd><%= @url %></dd>
+</dl>
+
+<h2 class="u-push__top--xl">Usage:</h2>
+<p>Using Launch Comments is easy! </p>
+<ol id="include-instructions" phx-hook="Prism">
+  <li>
+    <h3 class="h5">Include Launch Elements in your project</h3>
+    <p>First, you'll need to add the <code class="language-html">Launch Elements</code> custom elements library to your page. Copy + Paste this script tag into your <code class="language-html">head</code> block:</p>
+    <pre><code class="language-html"><!--<script type="module" src="https://cdn.jsdelivr.net/npm/launch-elements"></script>--></code></pre>
+  </li>
+  <li>
+    <h3 class="h5">Place your comments section</h3>
+    <p>
+      Next, you'll need to add the <code class="language-html">launch-comments</code> to your site. Copy + Paste this line of code wherever you'd like the comments section to appear:
+    </p>
+      <pre><code class="language-html"><!--<launch-comments url="<%= @url %>" site-id="<%= @comment_site.id %>"></launch-comments>--></code></pre>
+  </li>
+
+</ol>
+
+
+<div>
+  <span>
+    <%= live_patch("Edit", to: Routes.form_show_path(@socket, :edit, @comment_site), class: "button") %>
+  </span>
+  | <span><%= live_redirect "Back", to: Routes.form_index_path(@socket, :index) %></span>
+</div>

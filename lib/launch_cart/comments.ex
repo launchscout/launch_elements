@@ -19,8 +19,12 @@ defmodule LaunchCart.Comments do
       [%Comment{}, ...]
 
   """
-  def list_comments(site_id) do
-    from(c in Comment, where: c.comment_site_id == ^site_id, order_by: {:desc, c.inserted_at})
+  def list_comments(site_id, url) do
+    from(c in Comment,
+      where: c.comment_site_id == ^site_id,
+      where: c.url == ^url,
+      order_by: {:desc, c.inserted_at}
+    )
     |> Repo.all()
   end
 

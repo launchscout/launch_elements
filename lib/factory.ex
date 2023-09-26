@@ -1,5 +1,6 @@
 defmodule LaunchCart.Factory do
 
+  alias Faker.Person
   alias Faker.Lorem
   alias Faker.Internet
 
@@ -97,7 +98,8 @@ defmodule LaunchCart.Factory do
   def comment_factory() do
     %Comment{
       comment_site: build(:comment_site),
-      author: "Bob",
+      author: Person.name,
+      url: Internet.url(),
       comment: "I think therefore I am"
     }
   end

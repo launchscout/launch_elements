@@ -35,6 +35,9 @@ export class LaunchCommentsElement extends LitElement {
   @liveStateConfig('topic')
   get topic() { return `launch_comments:${this.siteId}`; }
 
+  @liveStateConfig('params.url')
+  get pageUrl() { return window.location.href; }
+
   @query('input[name="author"]')
   author: HTMLInputElement | undefined;
 

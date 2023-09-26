@@ -5,6 +5,8 @@ defmodule LaunchCartWeb.Features.LaunchCommentsTest do
   alias LaunchCart.Repo
   alias LaunchCart.CommentSites
   alias LaunchCart.Comments
+  alias LaunchCartWeb.Endpoint
+  alias LaunchCartWeb.Router.Helpers, as: Routes
 
   import Wallaby.Query
   import LaunchCart.Factory
@@ -29,13 +31,14 @@ defmodule LaunchCartWeb.Features.LaunchCommentsTest do
   end
 
   feature "sees new comments as they are created", %{session: session, comment_site: comment_site} do
-    session = session
-    |> visit("/fake_comment_site/#{comment_site.id}")
+    session =
+      session
+      |> visit("/fake_comment_site/#{comment_site.id}")
 
     {:ok, _comment} =
       Comments.create_comment(%{
         comment_site_id: comment_site.id,
-        url: "http://foo.bar",
+        url: Routes.page_url(Endpoint, :fake_comment_site, comment_site.id),
         author: "Yo Mamma",
         comment: "is so great that you are lucky to have her."
       })
@@ -44,5 +47,36 @@ defmodule LaunchCartWeb.Features.LaunchCommentsTest do
     |> find(css("launch-comments"))
     |> shadow_root()
     |> assert_has(css("div[part='comment-text']", text: "is so great"))
+  end
+
+  feature "sees comments for current page url only", %{
+    session: session,
+    comment_site: comment_site
+  } do
+    session =
+      session
+      |> visit("/fake_comment_site/#{comment_site.id}")
+
+    {:ok, _comment} =
+      Comments.create_comment(%{
+        comment_site_id: comment_site.id,
+        url: Routes.page_url(Endpoint, :fake_comment_site, comment_site.id),
+        author: "Yo Mamma",
+        comment: "is so great that you are lucky to have her."
+      })
+
+    {:ok, _comment} =
+      Comments.create_comment(%{
+        comment_site_id: comment_site.id,
+        url: "http://foo.bar/dad",
+        author: "Yo Daddy",
+        comment: "is pretty good."
+      })
+
+    session
+    |> find(css("launch-comments"))
+    |> shadow_root()
+    |> assert_has(css("div[part='comment-text']", text: "is so great"))
+    |> refute_has(css("div[part='comment-text']", text: "is pretty good"))
   end
 end

@@ -12,7 +12,9 @@ defmodule LaunchCart.CommentsTest do
 
     test "list_comments/1 returns all comments for site" do
       comment = insert(:comment)
-      assert Comments.list_comments(comment.comment_site_id) |> Enum.map(& &1.id) == [comment.id]
+
+      assert Comments.list_comments(comment.comment_site_id, comment.url) |> Enum.map(& &1.id) ==
+               [comment.id]
     end
 
     test "get_comment!/1 returns the comment with given id" do
@@ -35,7 +37,12 @@ defmodule LaunchCart.CommentsTest do
 
     test "update_comment/2 with valid data updates the comment" do
       comment = insert(:comment)
-      update_attrs = %{author: "some updated author", comment: "some updated comment", url: "some updated url"}
+
+      update_attrs = %{
+        author: "some updated author",
+        comment: "some updated comment",
+        url: "some updated url"
+      }
 
       assert {:ok, %Comment{} = comment} = Comments.update_comment(comment, update_attrs)
       assert comment.author == "some updated author"

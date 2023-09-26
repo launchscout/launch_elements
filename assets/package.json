@@ -1,7 +1,7 @@
 {
   "name": "launch-elements",
   "description": "A set of custom elements to add an interactive functionality to your website",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "main": "dist/index.js",
   "author": {
     "email": "chris@launchscout.com",

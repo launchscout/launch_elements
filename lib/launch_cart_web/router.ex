@@ -125,6 +125,7 @@ defmodule LaunchCartWeb.Router do
 
       live "/comment_sites/:id", CommentSiteLive.Show, :show
       live "/comment_sites/:id/show/edit", CommentSiteLive.Show, :edit
+      live "/comment_sites/:id/comments", CommentSiteLive.Comments, :index
     end
   end
 

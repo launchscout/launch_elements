@@ -5,7 +5,8 @@ defmodule LaunchCartWeb.CommentSiteLive.Show do
   alias LaunchCartWeb.Endpoint
 
   @impl true
-  def mount(_params, _session, socket) do
+  def mount(params, _session, socket) do
+    IO.inspect(params)
     {:ok, socket}
   end
 

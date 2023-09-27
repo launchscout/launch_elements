@@ -36,6 +36,7 @@ defmodule LaunchCartWeb.Features.LaunchCommentsTest do
     |> visit("/fake_comment_site/#{comment_site.id}")
     |> find(css("launch-comments"))
     |> shadow_root()
+    |> assert_has(css("div", text: "Your comments will appear after approval"))
     |> fill_in(css("#author"), with: "Bob")
     |> fill_in(css("#comment"), with: "Has sumpin to say")
     |> click(css("button"))

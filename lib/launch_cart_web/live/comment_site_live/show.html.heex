@@ -1,15 +1,15 @@
 <h1>Adding comments to your website</h1>
 
 <%= if @live_action in [:edit] do %>
-  <.modal return_to={Routes.form_show_path(@socket, :show, @comment_site)}>
+  <.modal return_to={Routes.comment_site_show_path(@socket, :show, @comment_site)}>
     <.live_component
-      module={LaunchCartWeb.FormLive.FormComponent}
+      module={LaunchCartWeb.CommentSiteLive.FormComponent}
       id={@comment_site.id}
       title={@page_title}
       action={@live_action}
       user_id={@current_user.id}
-      form={@comment_site}
-      return_to={Routes.form_show_path(@socket, :show, @comment_site)}
+      comment_site={@comment_site}
+      return_to={Routes.comment_site_show_path(@socket, :show, @comment_site)}
     />
   </.modal>
 <% end %>
@@ -25,8 +25,11 @@
     <dd><%= @comment_site.id %></dd>
     <dt>URL:</dt>
     <dd><%= @url %></dd>
+    <dt>Comments Require Approval:</dt>
+    <dd><%= @comment_site.requires_approval %></dd>
 </dl>
 
+<.link navigate={Routes.comment_site_comments_path(@socket, :index, @comment_site)}>View Comments</.link>
 <h2 class="u-push__top--xl">Usage:</h2>
 <p>Using Launch Comments is easy! </p>
 <ol id="include-instructions" phx-hook="Prism">
@@ -48,7 +51,7 @@
 
 <div>
   <span>
-    <%= live_patch("Edit", to: Routes.form_show_path(@socket, :edit, @comment_site), class: "button") %>
+    <%= live_patch("Edit", to: Routes.comment_site_show_path(@socket, :edit, @comment_site), class: "button") %>
   </span>
-  | <span><%= live_redirect "Back", to: Routes.form_index_path(@socket, :index) %></span>
+  | <span><%= live_redirect "Back", to: Routes.comment_site_index_path(@socket, :index) %></span>
 </div>

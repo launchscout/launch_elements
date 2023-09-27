@@ -100,6 +100,7 @@ defmodule LaunchCart.Factory do
       comment_site: build(:comment_site),
       author: Person.name,
       url: Internet.url(),
+      approved: true,
       comment: "I think therefore I am"
     }
   end

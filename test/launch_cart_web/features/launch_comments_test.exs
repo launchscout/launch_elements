@@ -12,7 +12,7 @@ defmodule LaunchCartWeb.Features.LaunchCommentsTest do
   import LaunchCart.Factory
 
   setup do
-    comment_site = insert(:comment_site)
+    comment_site = insert(:comment_site, requires_approval: false)
     {:ok, %{comment_site: comment_site}}
   end
 
@@ -28,6 +28,39 @@ defmodule LaunchCartWeb.Features.LaunchCommentsTest do
 
     assert %{comments: [%{comment: "Has sumpin to say", author: "Bob"}]} =
              CommentSites.get_comment_site!(comment_site.id) |> Repo.preload(:comments)
+  end
+
+  feature "comments can require approval", %{session: session} do
+    comment_site = insert(:comment_site, requires_approval: true)
+    session
+    |> visit("/fake_comment_site/#{comment_site.id}")
+    |> find(css("launch-comments"))
+    |> shadow_root()
+    |> fill_in(css("#author"), with: "Bob")
+    |> fill_in(css("#comment"), with: "Has sumpin to say")
+    |> click(css("button"))
+    |> refute_has(css("div[part='comment-text']", text: "Has sumpin to say"))
+
+    assert %{comments: [%{comment: "Has sumpin to say", author: "Bob", approved: false}]} =
+             CommentSites.get_comment_site!(comment_site.id) |> Repo.preload(:comments)
+  end
+
+  feature "comments appear as they are approved", %{session: session} do
+    comment_site = insert(:comment_site, requires_approval: true)
+    session = session
+    |> visit("/fake_comment_site/#{comment_site.id}")
+    |> find(css("launch-comments"))
+    |> shadow_root()
+    |> fill_in(css("#author"), with: "Bob")
+    |> fill_in(css("#comment"), with: "Has sumpin to say")
+    |> click(css("button"))
+    |> refute_has(css("div[part='comment-text']", text: "Has sumpin to say"))
+
+    %{comments: [comment]} =
+      CommentSites.get_comment_site!(comment_site.id) |> Repo.preload(:comments)
+    {:ok, _} = Comments.update_comment(comment, %{approved: true})
+
+    session |> assert_has(css("div[part='comment-text']", text: "Has sumpin to say"))
   end
 
   feature "sees new comments as they are created", %{session: session, comment_site: comment_site} do

@@ -19,16 +19,20 @@ defmodule LaunchCartWeb.CommentsChannel do
   end
 
   @impl true
-  def handle_event("add_comment", comment_params, %{comments: comments} = state) do
+  def handle_event("add_comment", comment_params, state) do
     case Comments.create_comment(comment_params) do
-      {:ok, comment} ->
-        new_state = Map.put(state, :comments, comments ++ [comment])
-        {:reply, [%Event{name: "comment_added", detail: comment}], new_state}
+      {:ok, comment} -> {:reply, [%Event{name: "comment_added", detail: comment}], state}
     end
   end
 
   @impl true
   def handle_message({:comment_created, comment}, %{url: url} = state) do
+    {:noreply,
+     state |> Map.put(:comments, Comments.list_comments(comment.comment_site_id, url))}
+  end
+
+  @impl true
+  def handle_message({:comment_updated, comment}, %{url: url} = state) do
     {:noreply,
      state |> Map.put(:comments, Comments.list_comments(comment.comment_site_id, url))}
   end

@@ -20,7 +20,13 @@
       <%= error_tag f, :url %>
       <%= text_input f, :url %>
     </div>
-    
+
+    <div class="input-group">
+      <%= label f, :requires_approval %>
+      <%= error_tag f, :requires_approval %>
+      <%= checkbox f, :requires_approval %>
+    </div>
+
     <div class="form__actions">
       <%= submit "Save", phx_disable_with: "Saving..." %>
     </div>

@@ -4,6 +4,8 @@ defmodule LaunchCartWeb.CommentSiteLiveTest do
   import Phoenix.LiveViewTest
   import LaunchCart.CommentSitesFixtures
   import LaunchCart.Factory
+  alias LaunchCart.Comments
+  alias LaunchCart.Comments.Comment
 
   @create_attrs %{name: "some name", url: "some url"}
   @update_attrs %{name: "some updated name", url: "some updated url"}
@@ -107,15 +109,29 @@ defmodule LaunchCartWeb.CommentSiteLiveTest do
     #   end
   end
 
-  # describe "Show" do
-  #   setup [:create_comment_site]
+  describe "View Comments" do
+    setup [:create_comment_site]
 
-  #   test "displays comment_site", %{conn: conn, comment_site: comment_site} do
-  #     {:ok, _show_live, html} = live(conn, ~p"/comment_sites/#{comment_site}")
+    test "can approve comments", %{conn: conn, comment_site: comment_site} do
+      comment1 = insert(:comment, comment_site: comment_site, approved: false)
+      comment2 = insert(:comment, comment_site: comment_site, approved: false)
+      {:ok, show_live, html} = live(conn, Routes.comment_site_comments_path(conn, :index, comment_site))
+      assert html =~ comment1.comment
+      assert html =~ comment2.comment
 
-  #     assert html =~ "Show Comment site"
-  #     assert html =~ comment_site.name
-  #   end
+      show_live |> element("#approve-comment-#{comment1.id}") |> render_click()
+
+      assert %Comment{approved: true} = Comments.get_comment!(comment1.id)
+    end
+  end
+  describe "Show" do
+    setup [:create_comment_site]
+
+    test "displays comment_site", %{conn: conn, comment_site: comment_site} do
+      {:ok, _show_live, html} = live(conn, Routes.comment_site_show_path(conn, :show, comment_site))
+
+      assert html =~ comment_site.name
+    end
 
   #   test "updates comment_site within modal", %{conn: conn, comment_site: comment_site} do
   #     {:ok, show_live, _html} = live(conn, ~p"/comment_sites/#{comment_site}")
@@ -139,5 +155,5 @@ defmodule LaunchCartWeb.CommentSiteLiveTest do
   #     assert html =~ "Comment site updated successfully"
   #     assert html =~ "some updated name"
   #   end
-  # end
+  end
 end

@@ -4,6 +4,8 @@ defmodule LaunchCart.Comments do
   """
 
   import Ecto.Query, warn: false
+  alias LaunchCart.CommentSites
+  alias LaunchCart.CommentSites.CommentSite
   alias LaunchCart.Repo
 
   alias LaunchCart.Comments.{Comment, CommentEmail}
@@ -21,8 +23,15 @@ defmodule LaunchCart.Comments do
   """
   def list_comments(site_id, url) do
     from(c in Comment,
+      where: c.comment_site_id == ^site_id and c.url == ^url and c.approved == true,
+      order_by: {:desc, c.inserted_at}
+    )
+    |> Repo.all()
+  end
+
+  def list_comments(site_id) do
+    from(c in Comment,
       where: c.comment_site_id == ^site_id,
-      where: c.url == ^url,
       order_by: {:desc, c.inserted_at}
     )
     |> Repo.all()
@@ -58,7 +67,7 @@ defmodule LaunchCart.Comments do
   """
   def create_comment(attrs \\ %{}) do
     %Comment{}
-    |> Comment.changeset(attrs)
+    |> Comment.changeset(attrs |> maybe_approve_comment())
     |> Repo.insert()
     |> case do
       {:ok, comment} ->
@@ -92,6 +101,18 @@ defmodule LaunchCart.Comments do
     comment
     |> Comment.changeset(attrs)
     |> Repo.update()
+    |> case do
+      {:ok, comment} ->
+        Phoenix.PubSub.broadcast(
+          LaunchCart.PubSub,
+          "comments:#{comment.comment_site_id}",
+          {:comment_updated, comment}
+        )
+        {:ok, comment}
+
+      {:error, changeset} ->
+        {:error, changeset}
+    end
   end
 
   @doc """
@@ -121,5 +142,20 @@ defmodule LaunchCart.Comments do
   """
   def change_comment(%Comment{} = comment, attrs \\ %{}) do
     Comment.changeset(comment, attrs)
+  end
+
+  defp maybe_approve_comment(%{"comment_site_id" => comment_site_id} = attrs),
+    do: Map.put(attrs, "approved", approved?(comment_site_id))
+
+  defp maybe_approve_comment(%{comment_site_id: comment_site_id} = attrs),
+    do: Map.put(attrs, :approved, approved?(comment_site_id))
+
+  defp maybe_approve_comment(attrs), do: attrs
+
+  defp approved?(comment_site_id) do
+    case CommentSites.get_comment_site!(comment_site_id) do
+      %CommentSite{requires_approval: false} -> true
+      _ -> false
+    end
   end
 end

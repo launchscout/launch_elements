@@ -1,6 +1,6 @@
 import { html, LitElement, css } from 'lit'
 import { customElement, property, query, state } from 'lit/decorators.js'
-import { liveState, liveStateConfig } from 'phx-live-state';
+import { liveState, liveStateConfig, liveStateProperty } from 'phx-live-state';
 
 type Comment = {
   author: string;
@@ -37,6 +37,10 @@ export class LaunchCommentsElement extends LitElement {
 
   @liveStateConfig('params.url')
   get pageUrl() { return window.location.href; }
+
+  @state()
+  @liveStateProperty('/requires_approval')
+  approvalRequired: boolean = false;
 
   @query('input[name="author"]')
   author: HTMLInputElement | undefined;
@@ -91,6 +95,7 @@ export class LaunchCommentsElement extends LitElement {
         `)}
       </div>
       <div part="new-comment">
+        ${this.approvalRequired ? html`<slot name="approval-notice"><div>Your comments will appear after approval by the moderator</div></slog>` : ``}
         <form part="form" @submit=${this.addComment}>
           <div part="comment-field-author">
             <label part="author-label" for="author">Author</label>

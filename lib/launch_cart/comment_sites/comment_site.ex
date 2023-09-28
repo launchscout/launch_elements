@@ -9,6 +9,7 @@ defmodule LaunchCart.CommentSites.CommentSite do
   schema "comment_sites" do
     field :name, :string
     field :url, :string
+    field :requires_approval, :boolean, default: false
     belongs_to :user, User
     has_many :comments, Comment
 
@@ -18,7 +19,7 @@ defmodule LaunchCart.CommentSites.CommentSite do
   @doc false
   def changeset(comment_site, attrs) do
     comment_site
-    |> cast(attrs, [:name, :url, :user_id])
+    |> cast(attrs, [:name, :url, :user_id, :requires_approval])
     |> validate_required([:name, :url])
   end
 end

@@ -28,7 +28,7 @@
     "phoenix_html": "file:../deps/phoenix_html",
     "phoenix_live_view": "file:../deps/phoenix_live_view",
     "phoenix-custom-event-hook": "^0.0.6",
-    "phx-live-state": "0.10.2"
+    "phx-live-state": "0.10.3"
   },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.6.8",

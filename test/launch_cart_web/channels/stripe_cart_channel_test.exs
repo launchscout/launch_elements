@@ -48,6 +48,12 @@ defmodule LaunchCartWeb.LaunchCartChannelTest do
 
       assert %{store_id: ^store_id} = Carts.get_cart!(cart_id)
     end
+
+    test "add non existent item", %{socket: socket, store: %{id: store_id}} do
+      push(socket, "lvs_evt:add_cart_item", %{"stripe_price" => "garbage"})
+
+      assert_push("error", %{message: "Product not found"})
+    end
   end
 
   describe "joining with existing cart" do
@@ -72,7 +78,10 @@ defmodule LaunchCartWeb.LaunchCartChannelTest do
       })
     end
 
-    test "increase and decrease quantity", %{cart: %{id: cart_id, items: [%{id: item_id}]}, socket: socket} do
+    test "increase and decrease quantity", %{
+      cart: %{id: cart_id, items: [%{id: item_id}]},
+      socket: socket
+    } do
       push(socket, "lvs_evt:increase_quantity", %{"item_id" => item_id})
 
       assert_push("state:change", %{
@@ -87,7 +96,6 @@ defmodule LaunchCartWeb.LaunchCartChannelTest do
         version: 2
       })
     end
-
 
     test "checking out", %{cart: %{id: cart_id}, socket: socket} do
       push(socket, "lvs_evt:checkout", %{"return_url" => "http://foo.bar"})
@@ -128,5 +136,20 @@ defmodule LaunchCartWeb.LaunchCartChannelTest do
 
     assert_push("state:change", %{state: %{}})
     assert_push("checkout_complete", %{})
+  end
+
+  test "joining non existant store" do
+    {:ok, _, socket} =
+      LaunchCartWeb.UserSocket
+      |> socket("my_socket", %{})
+      |> subscribe_and_join(
+        LaunchCartWeb.LaunchCartChannel,
+        "launch_cart:#{Ecto.UUID.generate()}",
+        %{
+          "cart_id" => ""
+        }
+      )
+
+    assert_push("error", %{message: "Store not found"})
   end
 end

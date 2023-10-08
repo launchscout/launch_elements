@@ -30,20 +30,23 @@ defmodule LaunchCart.Stores do
   end
 
   @doc """
-  Gets a single store.
-
-  Raises `Ecto.NoResultsError` if the Store does not exist.
+  Gets a single store. Returns nil if store does not exists
 
   ## Examples
 
-      iex> get_store!(123)
+      iex> get_store(123)
       %Store{}
 
-      iex> get_store!(456)
-      ** (Ecto.NoResultsError)
+      iex> get_store(456)
+      nil
 
   """
-  def get_store!(id), do: Repo.get!(Store, id) |> Repo.preload(:stripe_account)
+  def get_store(id) do
+    case Ecto.UUID.cast(id) do
+      {:ok, id} -> Repo.get(Store, id) |> Repo.preload(:stripe_account)
+      _ -> nil
+    end
+  end
 
   @doc """
   Creates a store.

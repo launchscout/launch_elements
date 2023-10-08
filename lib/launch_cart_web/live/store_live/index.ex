@@ -17,7 +17,7 @@ defmodule LaunchCartWeb.StoreLive.Index do
   defp apply_action(socket, :edit, %{"id" => id}) do
     socket
     |> assign(:page_title, "Edit Store")
-    |> assign(:store, Stores.get_store!(id))
+    |> assign(:store, Stores.get_store(id))
   end
 
   defp apply_action(socket, :new, _params) do
@@ -34,7 +34,7 @@ defmodule LaunchCartWeb.StoreLive.Index do
 
   @impl true
   def handle_event("delete", %{"id" => id},  %{assigns: %{current_user: user}} = socket) do
-    store = Stores.get_store!(id)
+    store = Stores.get_store(id)
     {:ok, _} = Stores.delete_store(store)
 
     {:noreply, assign(socket, :stores, list_stores(user))}

@@ -119,7 +119,7 @@ defmodule LaunchCart.Carts do
   end
 
   def checkout(return_url, %Cart{items: items, store_id: store_id} = cart) do
-    %Store{stripe_account: %StripeAccount{stripe_id: stripe_id}} = Stores.get_store!(store_id)
+    %Store{stripe_account: %StripeAccount{stripe_id: stripe_id}} = Stores.get_store(store_id)
 
     case @create_checkout_session.(
            %{

@@ -45,7 +45,7 @@ defmodule LaunchCart.MixProject do
       {:floki, ">= 0.30.0", only: :test},
       {:gettext, "~> 0.18"},
       {:jason, "~> 1.2"},
-      {:live_state, "~> 0.6.0"},
+      {:live_state, "~> 0.7.2"},
       {:mix_test_watch, "~> 1.0", only: [:dev, :test], runtime: false},
       {:phoenix, "~> 1.7.1"},
       {:phoenix_ecto, "~> 4.4"},

@@ -16,7 +16,7 @@ defmodule LaunchCartWeb.StoreLive.Show do
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))
      |> assign(:url, "#{wsurl}/socket")
-     |> assign(:store, Stores.get_store!(id))}
+     |> assign(:store, Stores.get_store(id))}
   end
 
   defp page_title(:show), do: "Show Store"

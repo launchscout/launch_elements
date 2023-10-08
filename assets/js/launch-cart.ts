@@ -90,8 +90,8 @@ export class LaunchCartElement extends LitElement {
       console.log('cart created')
       window.localStorage.setItem('cart_id', e.detail.cart_id);
     });
-    this.addEventListener('livestate-error', (e: CustomEvent<{ error: string }>) => {
-      console.error(e);
+    this.addEventListener('livestate-error', (e: CustomEvent<{ message: string }>) => {
+      console.error(e.detail);
     });
   }
 

@@ -40,7 +40,12 @@ defmodule LaunchCartWeb.LaunchCartChannel do
         socket
       ) do
     case Carts.add_item(cart, stripe_price) do
-      {:ok, cart} -> {:noreply, Map.put(state, :cart, cart)}
+      {:ok, cart} ->
+        {:noreply, Map.put(state, :cart, cart)}
+
+      {:error, error} ->
+        push(socket, "error", %{message: error})
+        {:noreply, state}
     end
   end
 

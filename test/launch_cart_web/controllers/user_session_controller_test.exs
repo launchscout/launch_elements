@@ -82,6 +82,19 @@ defmodule LaunchCartWeb.UserSessionControllerTest do
       assert response =~ "Invalid email or password"
       PallyTest.here(conn)
     end
+
+    test "Gives confirmation reminder for unconfirmed user", %{conn: conn} do
+      unconfirmed_user = insert(:user, confirmed_at: nil)
+      conn =
+        post(conn, Routes.user_session_path(conn, :create), %{
+          "user" => %{"email" => unconfirmed_user.email, "password" => "password"}
+        })
+
+      response = html_response(conn, 200)
+      assert response =~ "<h1>Log in</h1>"
+      assert response =~ "Please check your email for confirmation instructions."
+      PallyTest.here(conn)
+    end
   end
 
   describe "DELETE /users/log_out" do

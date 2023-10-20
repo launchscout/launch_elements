@@ -34,8 +34,10 @@ defmodule LaunchCart.Accounts.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :notes])
+    |> cast(attrs, [:email, :notes, :password])
     |> validate_email()
+    |> validate_confirmation(:password, message: "does not match password")
+    |> validate_password(opts)
   end
 
   defp validate_email(changeset) do

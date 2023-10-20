@@ -31,6 +31,7 @@
   </.form>
 
   <p class="u-push__top--lg">
-    Don't have an account yet? <%= link "Register", to: Routes.user_registration_path(@conn, :new) %> for one now!
+    Don't have an account yet? <%= link "Register", to: Routes.user_registration_path(@conn, :new) %> for one now! <br/>
+    Need to confirm your email? <%= link "Resend confirmation instructions", to: Routes.user_confirmation_path(@conn, :new) %> 
   </p>
 </div>

@@ -28,7 +28,14 @@ defmodule LaunchCart.Factory do
     %User{
       email: Internet.email(),
       hashed_password: Bcrypt.hash_pwd_salt("password"),
-      active?: true
+      confirmed_at: DateTime.utc_now()
+    }
+  end
+
+  def unconfirmed_user_factory() do
+    %User{
+      email: Internet.email(),
+      hashed_password: Bcrypt.hash_pwd_salt("password")
     }
   end
 

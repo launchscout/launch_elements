@@ -8,7 +8,7 @@ defmodule LaunchCartWeb.UserConfirmationControllerTest do
   import LaunchCart.Factory
 
   setup do
-    %{user: insert(:user)}
+    %{user: insert(:unconfirmed_user)}
   end
 
   describe "GET /users/confirm" do

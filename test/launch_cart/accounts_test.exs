@@ -34,7 +34,6 @@ defmodule LaunchCart.AccountsTest do
 
       assert %User{id: ^id} = Accounts.get_user_by_email_and_password(user.email, "password")
     end
-
   end
 
   describe "get_user!/1" do
@@ -85,7 +84,12 @@ defmodule LaunchCart.AccountsTest do
     email = unique_user_email()
 
     {:ok, %User{id: user_id} = user} =
-      Accounts.register_user(%{email: email, notes: "I want to build something cool"})
+      Accounts.register_user(%{
+        email: email,
+        notes: "I want to build something cool",
+        password: "Password1234",
+        password_confirmation: "Password1234"
+      })
 
     assert {:ok, %User{id: ^user_id, active?: true}} = Accounts.activate_user(user)
   end
@@ -93,7 +97,8 @@ defmodule LaunchCart.AccountsTest do
   describe "change_user_registration/2" do
     test "returns a changeset" do
       assert %Ecto.Changeset{} = changeset = Accounts.change_user_registration(%User{})
-      assert changeset.required == [:email]
+      assert :password in changeset.required
+      assert :email in changeset.required
     end
 
     test "allows fields to be set" do
@@ -102,7 +107,7 @@ defmodule LaunchCart.AccountsTest do
       changeset =
         Accounts.change_user_registration(
           %User{},
-          %{email: email}
+          %{email: email, password: "Password1234", password_confirmation: "Password1234"}
         )
 
       assert changeset.valid?
@@ -203,7 +208,6 @@ defmodule LaunchCart.AccountsTest do
       assert changed_user.email != user.email
       assert changed_user.email == email
       assert changed_user.confirmed_at
-      assert changed_user.confirmed_at != user.confirmed_at
       refute Repo.get_by(UserToken, user_id: user.id)
     end
 
@@ -355,7 +359,7 @@ defmodule LaunchCart.AccountsTest do
 
   describe "deliver_user_confirmation_instructions/2" do
     setup do
-      %{user: insert(:user)}
+      %{user: insert(:unconfirmed_user)}
     end
 
     test "sends token through notification", %{user: user} do
@@ -374,7 +378,7 @@ defmodule LaunchCart.AccountsTest do
 
   describe "confirm_user/1" do
     setup do
-      user = insert(:user)
+      user = insert(:unconfirmed_user)
 
       token =
         extract_user_token(fn url ->

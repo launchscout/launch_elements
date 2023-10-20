@@ -32,6 +32,13 @@ defmodule LaunchCart.Factory do
     }
   end
 
+  def unconfirmed_user_factory() do
+    %User{
+      email: Internet.email(),
+      hashed_password: Bcrypt.hash_pwd_salt("password")
+    }
+  end
+
   def stripe_account_factory() do
     %StripeAccount{
       name: "My account",

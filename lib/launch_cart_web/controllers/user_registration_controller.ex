@@ -3,7 +3,6 @@ defmodule LaunchCartWeb.UserRegistrationController do
 
   alias LaunchCart.Accounts
   alias LaunchCart.Accounts.User
-  alias LaunchCartWeb.UserAuth
 
   def new(conn, _params) do
     changeset = Accounts.change_user_registration(%User{})
@@ -11,9 +10,14 @@ defmodule LaunchCartWeb.UserRegistrationController do
   end
 
   def create(conn, %{"user" => user_params}) do
-    case Accounts.register_user(user_params) do
-      {:ok, user} -> render(conn, "thanks.html", user: user)
-
+    with {:ok, user} <- Accounts.register_user(user_params),
+         {:ok, _} <-
+           Accounts.deliver_user_confirmation_instructions(
+             user,
+             &Routes.user_confirmation_url(conn, :edit, &1)
+           ) do
+      render(conn, "thanks.html", user: user)
+    else
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
     end

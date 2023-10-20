@@ -23,17 +23,15 @@ defmodule LaunchCart.Accounts.UserNotifier do
   def deliver_confirmation_instructions(user, url) do
     deliver(user.email, "Confirmation instructions", """
 
-    ==============================
-
     Hi #{user.email},
 
-    You can confirm your account by visiting the URL below:
+    Thanks for signing for Launch Elements! You can confirm your account by visiting the URL below:
 
     #{url}
 
     If you didn't create an account with us, please ignore this.
 
-    ==============================
+
     """)
   end
 
@@ -43,8 +41,6 @@ defmodule LaunchCart.Accounts.UserNotifier do
   def deliver_reset_password_instructions(user, url) do
     deliver(user.email, "Reset password instructions", """
 
-    ==============================
-
     Hi #{user.email},
 
     You can reset your password by visiting the URL below:
@@ -52,8 +48,6 @@ defmodule LaunchCart.Accounts.UserNotifier do
     #{url}
 
     If you didn't request this change, please ignore this.
-
-    ==============================
     """)
   end
 

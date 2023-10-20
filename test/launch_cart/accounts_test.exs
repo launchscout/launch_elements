@@ -35,10 +35,6 @@ defmodule LaunchCart.AccountsTest do
       assert %User{id: ^id} = Accounts.get_user_by_email_and_password(user.email, "password")
     end
 
-    test "does not return the user if they are not active" do
-      user = insert(:user, active?: false)
-      refute Accounts.get_user_by_email_and_password(user.email, "password")
-    end
   end
 
   describe "get_user!/1" do
@@ -55,11 +51,12 @@ defmodule LaunchCart.AccountsTest do
   end
 
   describe "register_user/1" do
-    test "requires email" do
+    test "requires email and password" do
       {:error, changeset} = Accounts.register_user(%{})
 
       assert %{
-               email: ["can't be blank"]
+               email: ["can't be blank"],
+               password: ["can't be blank"]
              } = errors_on(changeset)
     end
 
@@ -67,10 +64,16 @@ defmodule LaunchCart.AccountsTest do
       email = unique_user_email()
 
       {:ok, user} =
-        Accounts.register_user(%{email: email, notes: "I want to build something cool"})
+        Accounts.register_user(%{
+          email: email,
+          notes: "I want to build something cool",
+          password: "Password1234",
+          password_confirmation: "Password1234"
+        })
 
       assert user.notes =~ ~r/cool/
-      refute user.active?
+      refute user.confirmed_at
+      assert user.hashed_password
 
       assert_email_sent(fn %{to: [{_name, email_address}]} ->
         assert email_address =~ ~r/launchscout/
@@ -81,7 +84,9 @@ defmodule LaunchCart.AccountsTest do
   test "activate_user" do
     email = unique_user_email()
 
-    {:ok, %User{id: user_id} = user} = Accounts.register_user(%{email: email, notes: "I want to build something cool"})
+    {:ok, %User{id: user_id} = user} =
+      Accounts.register_user(%{email: email, notes: "I want to build something cool"})
+
     assert {:ok, %User{id: ^user_id, active?: true}} = Accounts.activate_user(user)
   end
 

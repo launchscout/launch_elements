@@ -545,6 +545,14 @@ defmodule LaunchCart.Test.FakeLaunch do
      }}
   end
 
+  def get_session("sess_expired", connect_account: _account) do
+    {:ok, %Stripe.Session{status: "expired"}}
+  end
+
+  def get_session("sess_nil_status", connect_account: _account) do
+    {:ok, %Stripe.Session{status: nil}}
+  end
+
   def get_session("sess_complete", connect_account: _account) do
     {:ok,
      %Stripe.Session{

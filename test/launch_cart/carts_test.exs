@@ -125,6 +125,26 @@ defmodule LaunchCart.CartTest do
       assert {:ok, %Cart{status: :checkout_complete}} = Carts.load_cart(cart.id)
     end
 
+    test "with expired status from stripe" do
+      cart =
+        insert(:cart,
+          status: :checkout_started,
+          checkout_session: %{id: "sess_expired", url: "http://foo.bar"}
+        )
+
+      assert {:ok, %Cart{status: :checkout_expired}} = Carts.load_cart(cart.id)
+    end
+
+    test "with nil status from stripe" do
+      cart =
+        insert(:cart,
+          status: :checkout_started,
+          checkout_session: %{id: "sess_nil_status", url: "http://foo.bar"}
+        )
+
+      assert {:ok, %Cart{status: :checkout_started}} = Carts.load_cart(cart.id)
+    end
+
     test "with an invalid id" do
       assert {:error, :cart_not_found} = Carts.load_cart("garbage")
     end

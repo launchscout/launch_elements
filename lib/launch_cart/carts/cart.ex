@@ -13,7 +13,7 @@ defmodule LaunchCart.Carts.Cart do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "carts" do
-    field :status, Ecto.Enum, values: [:open, :checkout_started, :checkout_complete], default: :open
+    field :status, Ecto.Enum, values: [:open, :checkout_started, :checkout_complete, :checkout_expired], default: :open
     field :checkout_session, :map
     has_many :items, CartItem
     belongs_to :store, Store
@@ -35,4 +35,7 @@ defmodule LaunchCart.Carts.Cart do
 
   defp status_for(%Stripe.Session{status: "open"}), do: :checkout_started
   defp status_for(%Stripe.Session{status: "complete"}), do: :checkout_complete
+  defp status_for(%Stripe.Session{status: "expired"}), do: :checkout_expired
+  defp status_for(%Stripe.Session{}), do: :checkout_started
+
 end

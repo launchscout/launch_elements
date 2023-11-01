@@ -19,6 +19,7 @@
       <%= link to: Routes.user_settings_path(@conn, :edit) do %>
         <i class="material-icons">settings</i> <span class="u-show--tablet">Settings</span>
       <% end %>
+      <%= link("Support", to: Routes.page_path(@conn, :support)) %>
       <%= link("Log out", to: Routes.user_session_path(@conn, :delete), method: :delete) %>
     </div>
   <% else %>
@@ -29,6 +30,7 @@
         "Log in",
         to: Routes.user_session_path(@conn, :new)
       ) %>
+      <%= link("Support", to: Routes.page_path(@conn, :support)) %>
     </div>
   <% end %>
 </nav>

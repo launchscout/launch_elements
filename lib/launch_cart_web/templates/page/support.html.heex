@@ -1,0 +1,18 @@
+<div class="card card--contained u-centered u-push__top--xl">
+  <h1>Support</h1>
+  <p>Have a question? Need some help? We try to respond to enquiries within 24 hours.</p>
+  <launch-form url={@url} form-id={@form_id}>
+    <form>
+      <div class="input-group">
+        <label>Name</label>
+        <input type="text" name="name" />
+      </div>
+      <div class="input-group">
+        <label>Question/Comment</label>
+        <textarea name="comment" />
+      </div>
+      <button type="submit">Send it!</button>
+    </form>
+    <div slot="success">Thanks for reaching out!</div>
+  </launch-form>
+</div>

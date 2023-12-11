@@ -62,6 +62,7 @@ defmodule LaunchCart.MixProject do
       {:telemetry_poller, "~> 1.0"},
       {:httpoison, ">= 0.0.0"},
       {:live_elements, ">= 0.0.0"},
+      # {:ssl_verify_fun, "~> 1.1", manager: :rebar3, override: true},
       {:wallaby, "~> 0.30.2",
        git: "https://github.com/launchscout/wallaby.git",
        branch: "shadow-dom",

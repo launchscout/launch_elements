@@ -1,0 +1,26 @@
+<.header>
+  Wasm handler <%= @wasm_handler.id %>
+  <:subtitle>This is a wasm_handler record from your database.</:subtitle>
+  <:actions>
+    <.link patch={~p"/wasm_handlers/#{@wasm_handler}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit wasm_handler</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Wasm"><%= @wasm_handler.wasm %></:item>
+</.list>
+
+<.back navigate={~p"/wasm_handlers"}>Back to wasm_handlers</.back>
+
+<.core_modal :if={@live_action == :edit} id="wasm_handler-modal" show on_cancel={JS.patch(~p"/wasm_handlers/#{@wasm_handler}")}>
+  <.live_component
+    module={LaunchCartWeb.WasmHandlerLive.FormComponent}
+    id={@wasm_handler.id}
+    title={@page_title}
+    action={@live_action}
+    wasm_handler={@wasm_handler}
+    patch={~p"/wasm_handlers/#{@wasm_handler}"}
+  />
+</.core_modal>

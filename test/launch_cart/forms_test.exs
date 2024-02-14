@@ -210,4 +210,58 @@ defmodule LaunchCart.FormsTest do
       assert %Ecto.Changeset{} = Forms.change_form_email(form_email)
     end
   end
+
+  describe "wasm_handlers" do
+    alias LaunchCart.Forms.WasmHandler
+
+    import LaunchCart.FormsFixtures
+
+    @invalid_attrs %{wasm: nil}
+
+    test "list_wasm_handlers/0 returns all wasm_handlers" do
+      wasm_handler = wasm_handler_fixture()
+      assert Forms.list_wasm_handlers() == [wasm_handler]
+    end
+
+    test "get_wasm_handler!/1 returns the wasm_handler with given id" do
+      wasm_handler = wasm_handler_fixture()
+      assert Forms.get_wasm_handler!(wasm_handler.id) == wasm_handler
+    end
+
+    test "create_wasm_handler/1 with valid data creates a wasm_handler" do
+      valid_attrs = %{wasm: "some wasm"}
+
+      assert {:ok, %WasmHandler{} = wasm_handler} = Forms.create_wasm_handler(valid_attrs)
+      assert wasm_handler.wasm == "some wasm"
+    end
+
+    test "create_wasm_handler/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Forms.create_wasm_handler(@invalid_attrs)
+    end
+
+    test "update_wasm_handler/2 with valid data updates the wasm_handler" do
+      wasm_handler = wasm_handler_fixture()
+      update_attrs = %{wasm: "some updated wasm"}
+
+      assert {:ok, %WasmHandler{} = wasm_handler} = Forms.update_wasm_handler(wasm_handler, update_attrs)
+      assert wasm_handler.wasm == "some updated wasm"
+    end
+
+    test "update_wasm_handler/2 with invalid data returns error changeset" do
+      wasm_handler = wasm_handler_fixture()
+      assert {:error, %Ecto.Changeset{}} = Forms.update_wasm_handler(wasm_handler, @invalid_attrs)
+      assert wasm_handler == Forms.get_wasm_handler!(wasm_handler.id)
+    end
+
+    test "delete_wasm_handler/1 deletes the wasm_handler" do
+      wasm_handler = wasm_handler_fixture()
+      assert {:ok, %WasmHandler{}} = Forms.delete_wasm_handler(wasm_handler)
+      assert_raise Ecto.NoResultsError, fn -> Forms.get_wasm_handler!(wasm_handler.id) end
+    end
+
+    test "change_wasm_handler/1 returns a wasm_handler changeset" do
+      wasm_handler = wasm_handler_fixture()
+      assert %Ecto.Changeset{} = Forms.change_wasm_handler(wasm_handler)
+    end
+  end
 end

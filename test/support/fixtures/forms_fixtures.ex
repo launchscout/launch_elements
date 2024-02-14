@@ -47,4 +47,18 @@ defmodule LaunchCart.FormsFixtures do
 
     form_email
   end
+
+  @doc """
+  Generate a wasm_handler.
+  """
+  def wasm_handler_fixture(attrs \\ %{}) do
+    {:ok, wasm_handler} =
+      attrs
+      |> Enum.into(%{
+        wasm: "some wasm"
+      })
+      |> LaunchCart.Forms.create_wasm_handler()
+
+    wasm_handler
+  end
 end

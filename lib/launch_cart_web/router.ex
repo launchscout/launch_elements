@@ -120,6 +120,13 @@ defmodule LaunchCartWeb.Router do
       live "/web_hooks/:id", WebHookLive.Show, :show
       live "/web_hooks/:id/show/edit", WebHookLive.Show, :edit
 
+      live "/forms/:form_id/wasm_handlers", WasmHandlerLive.Index, :index
+      live "/forms/:form_id/wasm_handlers/new", WasmHandlerLive.Index, :new
+      live "/forms/:form_id/wasm_handlers/:id/edit", WasmHandlerLive.Index, :edit
+
+      live "/wasm_handlers/:id", WasmHandlerLive.Show, :show
+      live "/wasm_handlers/:id/show/edit", WasmHandlerLive.Show, :edit
+
       live "/comment_sites", CommentSiteLive.Index, :index
       live "/comment_sites/new", CommentSiteLive.Index, :new
       live "/comment_sites/:id/edit", CommentSiteLive.Index, :edit

@@ -17,6 +17,10 @@ defmodule LaunchCartWeb do
   and import those modules here.
   """
 
+  def static_paths do
+    ~w(assets fonts images favicon.ico robots.txt)
+  end
+
   def controller do
     quote do
       use Phoenix.Controller, namespace: LaunchCartWeb
@@ -24,6 +28,8 @@ defmodule LaunchCartWeb do
       import Plug.Conn
       import LaunchCartWeb.Gettext
       alias LaunchCartWeb.Router.Helpers, as: Routes
+
+      unquote(verified_routes())
     end
   end
 
@@ -91,6 +97,8 @@ defmodule LaunchCartWeb do
       use Phoenix.HTML
       import Phoenix.Component
 
+      alias Phoenix.LiveView.JS
+
       # Import LiveView and .heex helpers (live_render, live_patch, <.form>, etc)
       import Phoenix.LiveView.Helpers
       import LaunchCartWeb.LiveHelpers
@@ -101,6 +109,17 @@ defmodule LaunchCartWeb do
       import LaunchCartWeb.ErrorHelpers
       import LaunchCartWeb.Gettext
       alias LaunchCartWeb.Router.Helpers, as: Routes
+
+      unquote(verified_routes())
+    end
+  end
+
+  def verified_routes do
+    quote do
+      use Phoenix.VerifiedRoutes,
+        endpoint: LaunchCartWeb.Endpoint,
+        router: LaunchCartWeb.Router,
+        statics: LaunchCartWeb.static_paths()
     end
   end
 

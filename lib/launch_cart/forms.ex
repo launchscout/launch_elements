@@ -331,4 +331,100 @@ defmodule LaunchCart.Forms do
   def change_form_email(%FormEmail{} = form_email, attrs \\ %{}) do
     FormEmail.changeset(form_email, attrs)
   end
+
+  alias LaunchCart.Forms.WasmHandler
+
+  @doc """
+  Returns the list of wasm_handlers.
+
+  ## Examples
+
+      iex> list_wasm_handlers()
+      [%WasmHandler{}, ...]
+
+  """
+  def list_wasm_handlers(form_id) do
+    Repo.all(from w in WasmHandler, where: w.form_id == ^form_id)
+  end
+
+  @doc """
+  Gets a single wasm_handler.
+
+  Raises `Ecto.NoResultsError` if the Wasm handler does not exist.
+
+  ## Examples
+
+      iex> get_wasm_handler!(123)
+      %WasmHandler{}
+
+      iex> get_wasm_handler!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_wasm_handler!(id), do: Repo.get!(WasmHandler, id)
+
+  @doc """
+  Creates a wasm_handler.
+
+  ## Examples
+
+      iex> create_wasm_handler(%{field: value})
+      {:ok, %WasmHandler{}}
+
+      iex> create_wasm_handler(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_wasm_handler(attrs \\ %{}) do
+    %WasmHandler{}
+    |> WasmHandler.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a wasm_handler.
+
+  ## Examples
+
+      iex> update_wasm_handler(wasm_handler, %{field: new_value})
+      {:ok, %WasmHandler{}}
+
+      iex> update_wasm_handler(wasm_handler, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_wasm_handler(%WasmHandler{} = wasm_handler, attrs) do
+    wasm_handler
+    |> WasmHandler.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a wasm_handler.
+
+  ## Examples
+
+      iex> delete_wasm_handler(wasm_handler)
+      {:ok, %WasmHandler{}}
+
+      iex> delete_wasm_handler(wasm_handler)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_wasm_handler(%WasmHandler{} = wasm_handler) do
+    Repo.delete(wasm_handler)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking wasm_handler changes.
+
+  ## Examples
+
+      iex> change_wasm_handler(wasm_handler)
+      %Ecto.Changeset{data: %WasmHandler{}}
+
+  """
+  def change_wasm_handler(%WasmHandler{} = wasm_handler, attrs \\ %{}) do
+    WasmHandler.changeset(wasm_handler, attrs)
+  end
 end

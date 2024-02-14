@@ -44,7 +44,7 @@ defmodule LaunchCartWeb.CoreComponents do
   slot :confirm
   slot :cancel
 
-  def modal(assigns) do
+  def core_modal(assigns) do
     ~H"""
     <div
       id={@id}

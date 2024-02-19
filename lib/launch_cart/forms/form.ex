@@ -3,7 +3,7 @@ defmodule LaunchCart.Forms.Form do
   import Ecto.Changeset
 
   alias LaunchCart.Accounts.User
-  alias LaunchCart.Forms.{FormResponse, FormEmail}
+  alias LaunchCart.Forms.{FormResponse, FormEmail, WasmHandler}
   alias LaunchCart.WebHooks.WebHook
 
   @primary_key {:id, :binary_id, autogenerate: true}
@@ -14,6 +14,7 @@ defmodule LaunchCart.Forms.Form do
     has_many :responses, FormResponse
     has_many :web_hooks, WebHook
     has_many :form_emails, FormEmail
+    has_many :wasm_handlers, WasmHandler
 
     timestamps()
   end

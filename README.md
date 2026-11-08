@@ -14,11 +14,26 @@ The easiest way to use Launch Elements is the hosted environment at https://elem
 
 ## On your own server (or locally)
 
-Launch Elements is a Phoenix app. To start your server:
+Launch Elements uses Elixir 1.20.5, Erlang/OTP 29.0.6, and Node.js 24.18.0, pinned in `.tool-versions`. Install them with `mise install` (or your preferred version manager). PostgreSQL must be running locally with the `postgres` user and `postgres` password.
+
+To start your server:
 
   * Install dependencies with `mix deps.get`
+  * Install and build browser assets with `npm ci --prefix assets`
+  * Generate the custom element manifest with `npm run analyze --prefix assets`
   * Create and migrate your database with `mix ecto.setup`
   * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
+
+## Running tests
+
+Install Google Chrome and a matching `chromedriver` on your `PATH`, then run:
+
+```sh
+mix test
+npm test --prefix assets
+```
+
+`mix test` creates and migrates `launch_cart_test` and runs the full suite, including browser features. If Chrome is installed outside the default location, set `CHROME_PATH` when running the JavaScript tests.

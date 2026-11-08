@@ -2,7 +2,7 @@
   <h1>Forgot your password?</h1>
   <p>Enter your email address below. If you have a Launch Elements account, we'll send instructions for resetting your password to your inbox.</p>
 
-  <.form let={f} for={:user} action={Routes.user_reset_password_path(@conn, :create)}>
+  <.form :let={f} for={:user} action={Routes.user_reset_password_path(@conn, :create)}>
     <div class="input-group">
       <%= label f, :email %>
       <%= email_input f, :email, required: true %>

@@ -4,22 +4,26 @@ runs:
   using: "composite"
   steps:
     - name: Checkout Project
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Set up Elixir
       uses: erlef/setup-beam@v1
       with:
-        otp-version: "25.1" # Define the OTP version [required]
-        elixir-version: "1.14.0" # Define the elixir version [required]
+        version-file: .tool-versions
+        version-type: strict
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: "24.18.0"
     - name: Store/Retrieve Mix Dependencies Cache
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       id: mix-cache # id to use in retrieve action
       with:
         path: |
           deps
           _build
-        key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+        key: ${{ runner.os }}-${{ runner.arch }}-mix-${{ hashFiles('.tool-versions', '**/mix.lock') }}
         restore-keys: |
-          ${{ runner.os }}-mix-
+          ${{ runner.os }}-${{ runner.arch }}-mix-
     - name: Store/Retrieve Javascript Dependencies Cache
       id: js-cache # id to use in retrieve action
       uses: c-hive/gha-npm-cache@v1

@@ -8,13 +8,13 @@
 # This file is based on these images:
 #
 #   - https://hub.docker.com/r/hexpm/elixir/tags - for the build image
-#   - https://hub.docker.com/_/debian?tab=tags&page=1&name=bullseye-20220801-slim - for the release image
+#   - https://hub.docker.com/_/debian?tab=tags&page=1&name=bookworm-20261104-slim - for the release image
 #   - https://pkgs.org/ - resource for finding needed packages
-#   - Ex: hexpm/elixir:1.14.0-erlang-25.1-debian-bullseye-20220801-slim
+#   - Ex: hexpm/elixir:1.20.5-erlang-29.0.6-debian-bookworm-20261104-slim
 #
-ARG ELIXIR_VERSION=1.14.0
-ARG OTP_VERSION=25.1
-ARG DEBIAN_VERSION=bullseye-20220801-slim
+ARG ELIXIR_VERSION=1.20.5
+ARG OTP_VERSION=29.0.6
+ARG DEBIAN_VERSION=bookworm-20261104-slim
 
 ARG BUILDER_IMAGE="hexpm/elixir:${ELIXIR_VERSION}-erlang-${OTP_VERSION}-debian-${DEBIAN_VERSION}"
 ARG RUNNER_IMAGE="debian:${DEBIAN_VERSION}"
@@ -25,7 +25,7 @@ FROM ${BUILDER_IMAGE} as builder
 RUN apt-get update -y && apt-get install -y curl build-essential git \
     && apt-get clean && rm -f /var/lib/apt/lists/*_*
 
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+RUN curl -fsSL https://deb.nodesource.com/setup_24.x | bash - && \
 apt-get install -y nodejs
 
 # prepare build dir
@@ -74,7 +74,7 @@ RUN mix release
 # the compiled release and other runtime necessities
 FROM ${RUNNER_IMAGE}
 
-RUN apt-get update -y && apt-get install -y libstdc++6 openssl libncurses5 locales \
+RUN apt-get update -y && apt-get install -y libstdc++6 openssl libncurses6 locales \
   && apt-get clean && rm -f /var/lib/apt/lists/*_*
 
 # Set the locale

@@ -2,7 +2,7 @@
   <h1>Confirm account</h1>
   <p>Confirm your account with the button below.</p>
   
-  <.form let={_f} for={:user} action={Routes.user_confirmation_path(@conn, :update, @token)}>
+  <.form :let={_f} for={:user} action={Routes.user_confirmation_path(@conn, :update, @token)}>
     <div class="form__actions">
       <%= submit "Confirm my account" %>
     </div>

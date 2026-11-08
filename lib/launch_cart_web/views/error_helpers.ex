@@ -9,11 +9,13 @@ defmodule LaunchCartWeb.ErrorHelpers do
   Generates tag for inlined form input errors.
   """
   def error_tag(form, field) do
-    Enum.map(Keyword.get_values(form.errors, field), fn error ->
-      content_tag(:span, translate_error(error),
-        class: "invalid-feedback",
-        phx_feedback_for: input_name(form, field)
-      )
+    errors =
+      if form.source.action in [:insert, :update] or Phoenix.Component.used_input?(form[field]),
+        do: Keyword.get_values(form.errors, field),
+        else: []
+
+    Enum.map(errors, fn error ->
+      content_tag(:span, translate_error(error), class: "invalid-feedback")
     end)
   end
 

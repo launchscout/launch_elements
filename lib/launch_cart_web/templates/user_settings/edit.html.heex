@@ -2,7 +2,7 @@
   <h1>Settings</h1>
 
   <h2 class="h4 u-push__top--md">Update Email</h2>
-  <.form let={f} for={@email_changeset} action={Routes.user_settings_path(@conn, :update)} id="update_email">
+  <.form :let={f} for={@email_changeset} action={Routes.user_settings_path(@conn, :update)} id="update_email">
     <%= if @email_changeset.action do %>
       <p class="alert alert--error">Oops, something went wrong! Please check the errors below.</p>
     <% end %>
@@ -28,7 +28,7 @@
   
   <h2 class="h4 u-push__top--lg">Change password</h2>
   
-  <.form let={f} for={@password_changeset} action={Routes.user_settings_path(@conn, :update)} id="update_password">
+  <.form :let={f} for={@password_changeset} action={Routes.user_settings_path(@conn, :update)} id="update_password">
     <%= if @password_changeset.action do %>
       <p class="alert alert--error">Oops, something went wrong! Please check the errors below.</p>
     <% end %>

@@ -45,7 +45,7 @@ defmodule LaunchCartWeb do
   def live_view do
     quote do
       use Phoenix.LiveView,
-        layout: {LaunchCartWeb.LayoutView, "live.html"}
+        layout: {LaunchCartWeb.LayoutView, :live}
 
       unquote(view_helpers())
     end

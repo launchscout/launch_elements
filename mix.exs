@@ -45,7 +45,6 @@ defmodule LaunchCart.MixProject do
       {:faker,
        git: "https://github.com/elixirs/faker.git",
        ref: "19a5a01435b1909dc5c0e48a3d87e3ef8b4bf3eb"},
-      {:floki, ">= 0.30.0", only: :test},
       {:lazy_html, "~> 0.1", only: :test},
       {:gettext, "~> 0.18"},
       {:jason, "~> 1.2"},

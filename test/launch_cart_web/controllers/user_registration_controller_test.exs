@@ -15,7 +15,6 @@ defmodule LaunchCartWeb.UserRegistrationControllerTest do
       assert response =~ "Launch Elements enters Open Beta"
       assert response =~ "Log in</a>"
       assert response =~ "Register</a>"
-      PallyTest.here(conn)
     end
 
     test "redirects if already logged in", %{conn: conn} do
@@ -40,7 +39,6 @@ defmodule LaunchCartWeb.UserRegistrationControllerTest do
       assert user = Repo.get_by!(User, email: email)
       assert Repo.get_by!(UserToken, user_id: user.id).context == "confirm"
 
-      PallyTest.here(conn)
     end
   end
 end

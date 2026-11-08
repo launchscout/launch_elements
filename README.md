@@ -36,4 +36,6 @@ mix test
 npm test --prefix assets
 ```
 
-`mix test` creates and migrates `launch_cart_test` and runs the full suite, including browser features. If Chrome is installed outside the default location, set `CHROME_PATH` when running the JavaScript tests.
+`mix test` creates and migrates `launch_cart_test` and runs the full suite, including browser features. If Chrome is installed outside the default location, set `CHROME_PATH` when running either test suite. You can also set `CHROMEDRIVER_PATH` for the Elixir browser tests.
+
+CI runs the Elixir and JavaScript test suites on pushes and pull requests. It provisions PostgreSQL and matching Chrome/ChromeDriver versions. Pushes to `main` deploy to Fly after both test suites pass.

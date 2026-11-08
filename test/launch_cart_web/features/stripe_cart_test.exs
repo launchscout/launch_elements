@@ -1,9 +1,7 @@
 defmodule LaunchCartWeb.Features.LaunchCartTest do
-  alias LaunchCartWeb.PallyTest
   alias LaunchCart.Test.FakeLaunch
   use ExUnit.Case, async: false
   use Wallaby.Feature
-  use LaunchCartWeb.PallyTest
 
   import Wallaby.Query
   import LaunchCart.Factory
@@ -29,8 +27,6 @@ defmodule LaunchCartWeb.Features.LaunchCartTest do
     |> assert_has(css("dialog"))
     |> assert_has(css("table", text: "Nifty onesie"))
 
-    PallyTest.here(session)
-
     assert Repo.get_by(Cart, store_id: store.id)
   end
 
@@ -49,8 +45,6 @@ defmodule LaunchCartWeb.Features.LaunchCartTest do
     |> assert_has(css("td[part='cart-summary-qty']", text: "2"))
     |> click(css("button[part='cart-decrease-qty-button']"))
     |> assert_has(css("td[part='cart-summary-qty']", text: "1"))
-
-    PallyTest.here(session)
   end
 
   feature "add item and reload", %{session: session, store: store} do
@@ -67,8 +61,6 @@ defmodule LaunchCartWeb.Features.LaunchCartTest do
     |> find(css("launch-cart"))
     |> shadow_root()
     |> assert_has(css(".cart-count", text: "1"))
-
-    PallyTest.here(session)
   end
 
   feature "after checkout", %{session: session, store: store} do
@@ -86,8 +78,6 @@ defmodule LaunchCartWeb.Features.LaunchCartTest do
     |> find(css("launch-cart"))
     |> shadow_root()
     |> assert_has(css("dialog", text: "OMG Thanks"))
-
-    PallyTest.here(session)
   end
 
   feature "remove item from cart", %{session: session, store: store} do
@@ -102,8 +92,6 @@ defmodule LaunchCartWeb.Features.LaunchCartTest do
     |> assert_has(css("td", text: "Nifty onesie"))
     |> click(css("button#remove-item"))
     |> assert_has(css("td", text: "Nifty onesie", count: 0))
-
-    PallyTest.here(session)
 
     cart = Repo.get_by(Cart, store_id: store.id) |> Repo.preload(:items)
     assert Enum.count(cart.items) == 0

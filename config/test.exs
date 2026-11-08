@@ -46,7 +46,7 @@ config :launch_cart, :sandbox, Ecto.Adapters.SQL.Sandbox
 
 config :wallaby,
   otp_app: :launch_cart,
-  base_url: "http://localhost:4002"
-  # chromedriver: [
-  #   headless: false
-  # ]
+  base_url: "http://localhost:4002",
+  chromedriver:
+    [binary: System.get_env("CHROME_PATH"), path: System.get_env("CHROMEDRIVER_PATH")]
+    |> Enum.reject(fn {_key, value} -> is_nil(value) end)

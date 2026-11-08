@@ -40,8 +40,3 @@ npm-debug.log
 /assets/node_modules/
 
 *.secret.exs
-
-# Axe test html fiels
-/test/axe_html/*.html
-/test/axe_html/assets/**/*.css*
-/test/axe_html/assets/**/*.js*

@@ -1,20 +1,20 @@
 name: CI
 
-on: push
+on: [push, pull_request]
 
-env:
-  FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+permissions:
+  contents: read
 
 jobs:
-  app-test:
-    name: Run Application Tests
+  test:
+    name: Run Tests
     runs-on: ubuntu-24.04
     env:
       MIX_ENV: test
 
     services:
       db:
-        image: postgres
+        image: postgres:18
         ports: ["5432:5432"]
         env:
           POSTGRES_USER: postgres
@@ -25,19 +25,68 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+
     steps:
       - name: Checkout Project
         uses: actions/checkout@v4
-      - name: Setup App
-        uses: ./.github/workflows/setup
-      - name: Run Application Tests
-        uses: ./.github/workflows/app_test
+
+      - name: Set up Elixir
+        uses: erlef/setup-beam@v1
+        with:
+          version-file: .tool-versions
+          version-type: strict
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24.18.0"
+          cache: npm
+          cache-dependency-path: assets/package-lock.json
+
+      - name: Set up Chrome and ChromeDriver
+        id: chrome
+        uses: browser-actions/setup-chrome@v2
+        with:
+          install-chromedriver: true
+
+      - name: Cache Mix Dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            deps
+            _build
+          key: ${{ runner.os }}-${{ runner.arch }}-mix-${{ hashFiles('.tool-versions', 'mix.lock') }}
+
+      - name: Install Elixir Dependencies
+        run: mix deps.get
+
+      - name: Install and Build JavaScript
+        run: npm ci
+        working-directory: assets
+
+      - name: Build Custom Element Manifest
+        run: npm run analyze
+        working-directory: assets
+
+      - name: Run JavaScript Tests
+        run: npm test
+        working-directory: assets
+        env:
+          CHROME_PATH: ${{ steps.chrome.outputs.chrome-path }}
+
+      - name: Run Elixir Tests
+        run: mix test
+        env:
+          CHROME_PATH: ${{ steps.chrome.outputs.chrome-path }}
+          CHROMEDRIVER_PATH: ${{ steps.chrome.outputs.chromedriver-path }}
 
   deploy:
-    needs: app-test
-    if: github.ref == 'refs/heads/main'
+    needs: test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     name: Deploy to Fly.IO
     runs-on: ubuntu-latest
+    env:
+      FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
     steps:
       - uses: actions/checkout@v4
       - uses: superfly/flyctl-actions/setup-flyctl@master

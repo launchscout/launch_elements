@@ -1,6 +1,7 @@
 # fly.toml file generated for launch-cart on 2023-01-21T21:28:59-05:00
 
 app = "launch-cart"
+primary_region = "ord"
 kill_signal = "SIGTERM"
 kill_timeout = 5
 processes = []
@@ -21,6 +22,10 @@ processes = []
   processes = ["app"]
   protocol = "tcp"
   script_checks = []
+  # Keep production always on: never stop idle machines.
+  auto_stop_machines = "off"
+  auto_start_machines = true
+  min_machines_running = 1
   [services.concurrency]
     hard_limit = 25
     soft_limit = 20

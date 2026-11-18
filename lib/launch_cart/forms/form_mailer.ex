@@ -8,6 +8,7 @@ defmodule LaunchCart.Forms.FormMailer do
     new()
     |> to({email, email})
     |> from({"Launch Form", "launchform@launchscout.com"})
+    |> put_reply_to(response["email"])
     |> subject(subject)
     |> text_body("""
     Your form has received a submission.
@@ -15,4 +16,16 @@ defmodule LaunchCart.Forms.FormMailer do
     """)
     |> Mailer.deliver()
   end
+
+  defp put_reply_to(email, address) when is_binary(address) do
+    address = String.trim(address)
+
+    if Regex.match?(~r/\A[^\s@,;<>]+@[^\s@,;<>]+\z/u, address) do
+      reply_to(email, address)
+    else
+      email
+    end
+  end
+
+  defp put_reply_to(email, _address), do: email
 end

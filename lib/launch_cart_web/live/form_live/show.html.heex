@@ -61,6 +61,9 @@
       names that will be easy for you to identify in your form responses. <code class="language-html">launch-form</code>
       will take care of sending all the form responses to the correct place.
     </p>
+    <p>To let notification recipients reply directly to the visitor, include an
+      <code class="language-html">&lt;input type="email" name="email"&gt;</code> field.
+      Its address will be used as the notification's Reply-To.</p>
     <pre><code class="language-html"><!--
       <launch-form url="<%= @url %>" form-id="<%= @form.id %>">
         <form>
